@@ -1,7 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Local Debug Gateway" type="CompoundRunConfigurationType">
-    <toRun name="Docker Infra Only (CLI)" type="ShConfigurationType" />
-    <toRun name="QuickCode.QuickCode.Gateway: http" type="LaunchSettings" />
-    <method v="2" />
-  </configuration>
-</component>

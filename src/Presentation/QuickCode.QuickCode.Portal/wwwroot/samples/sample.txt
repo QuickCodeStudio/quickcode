@@ -1,2 +1,0 @@
-QuickCode sample attachment file for BLOB_FILE seed data.
-This file is served from the Portal wwwroot/samples folder.
