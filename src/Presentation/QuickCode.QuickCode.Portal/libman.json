@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.6.1",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@6.2.1",
+      "destination": "wwwroot/font-awesome/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery-easing@1.4.1",
+      "destination": "wwwroot/jquery-easing/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "Chart.js@4.0.1" ,
+      "destination": "wwwroot/lib/Chart.js/"
+    },
+    {
+      "library": "lazyload@2.0.3",
+      "destination": "wwwroot/lib/lazyload"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+﻿IF OBJECT_ID(N'dbo.PROJECT_ANALYSIS_DOCUMENTS', N'U') IS NULL
+BEGIN
+    CREATE TABLE [dbo].[PROJECT_ANALYSIS_DOCUMENTS] (
+        [ID] uniqueidentifier NOT NULL,
+        [PROJECT_ANALYSIS_ID] uniqueidentifier NOT NULL,
+        [FILE_NAME] nvarchar(250) NOT NULL,
+        [CONTENT_TYPE] nvarchar(250) NOT NULL,
+        [STORAGE_KEY] nvarchar(250) NOT NULL,
+        [ROLE] nvarchar(50) NOT NULL,
+        [CREATED_DATE] datetime2(7) NOT NULL DEFAULT GETDATE(),
+        CONSTRAINT [PK_PROJECT_ANALYSIS_DOCUMENTS] PRIMARY KEY ([ID])
+    );
+END;

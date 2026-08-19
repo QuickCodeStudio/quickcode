@@ -1,0 +1,103 @@
+﻿@model QuickCode.QuickCode.Portal.Models.QuickCodeModule.ArchitecturalPatternGetByKeyData
+@{
+    int startIndex = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+    if (startIndex < 1) { startIndex = 1; }
+    int endIndex = ((Model.CurrentPage) * Model.PageSize);
+    if (endIndex > Model.NumberOfRecord) {
+        endIndex = Model.NumberOfRecord;
+    }
+
+    var pagerData = new PagerData()
+    {
+        CurrentPage = Model.CurrentPage,
+        NumberOfRecord = Model.NumberOfRecord,
+        PageSize = Model.PageSize,
+        TotalPage = Model.TotalPage,
+        StartIndex = startIndex,
+        EndIndex = endIndex,
+        HasMoreRecords = Model.HasMoreRecords,
+        RecordNounSingular = "row",
+        RecordNounPlural = "rows"
+    };
+    var resultCount = Model.List?.Count ?? 0;
+    var hasPager = false;
+}
+@* Always present so Endpoint modal can show Response fields before the report is run. *@
+<script type="application/json" id="portalQueryResponseSchema" data-response-type="GetByKeyResponseDto">[{"name":"key","type":"string","description":"Key \u2014 field on the response DTO."},{"name":"name","type":"string","description":"Name \u2014 field on the response DTO."},{"name":"description","type":"string","description":"Description \u2014 field on the response DTO."},{"name":"iconUrl","type":"string","description":"Icon URL \u2014 field on the response DTO."}]</script>
+@if (!Model.HasRun)
+{
+    <div class="portal-query-empty portal-query-empty--idle" role="status">
+        <span class="portal-query-empty__title">Ready to run</span>
+        <span class="portal-query-empty__text">Choose parameters, then hit <strong>Run Report</strong>.</span>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    var isNotFound = Model.QueryHttpStatus == 404;
+    var emptyClass = isNotFound ? "portal-query-empty--empty" : "portal-query-empty--error";
+    var title = isNotFound ? "No rows matched" : "Request failed";
+    <div class="portal-query-empty @emptyClass" role="@(isNotFound ? "status" : "alert")">
+        <div class="portal-query-empty__header">
+            <span class="portal-query-empty__title">@title</span>
+            @if (Model.QueryHttpStatus.HasValue)
+            {
+                <span class="portal-query-empty__status">HTTP @Model.QueryHttpStatus</span>
+            }
+        </div>
+        <span class="portal-query-empty__text">@Model.ErrorMessage</span>
+    </div>
+}
+else if (Model.List == null || Model.List.Count == 0)
+{
+    <div class="portal-query-empty portal-query-empty--empty" role="status">
+        <span class="portal-query-empty__title">No rows matched</span>
+        <span class="portal-query-empty__text">Nothing came back for the current parameters.</span>
+    </div>
+}
+else
+{
+
+@if (!hasPager)
+{
+    <div class="portal-list-pager">
+        <div class="portal-list-pager__cluster">
+            <div class="portal-list-pager__range" aria-live="polite">
+                <span class="portal-list-pager__range-strong">@resultCount.ToString("N0")</span>
+                <span class="portal-list-pager__range-muted">@(resultCount == 1 ? "row" : "rows")</span>
+            </div>
+        </div>
+    </div>
+}
+    <div class="table-responsive portal-table-scroll">
+        <table bc-border="Bordered" bc-striped="true" bc-hover="true" class="table" bc-theme="Light">
+            <thead bc-theme="Dark">
+                <tr>
+                    <th class="portal-col portal-query-rownum" data-col-type="int" data-col-key="__row">#</th>
+                                        <th class="portal-col" data-col-type="text" data-col-key="Key">Key</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="Name">Name</th>
+                    <th class="portal-col" data-col-type="large" data-col-key="Description">Description</th>
+                    <th class="portal-col" data-col-type="thumb" data-col-key="IconUrl">Icon URL</th>
+                </tr>
+            </thead>
+            <tbody>
+@{
+    var rowNo = startIndex;
+}
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td class="portal-col portal-query-rownum" data-col-type="int" data-col-key="__row">@rowNo</td>
+                                                <td class="portal-col" data-col-type="text" data-col-key="Key">@item.Key</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="Name">@item.Name</td>
+                        <td class="portal-col" data-col-type="large" data-col-key="Description">@item.Description</td>
+                        <td class="portal-col" data-col-type="thumb" data-col-key="IconUrl"><a href="@(item.IconUrl == null || item.IconUrl.Length == 0 ? "/images/no_image.png" : item.IconUrl)" data-toggle="lightbox" data-type="image" class="portal-list-thumb-link">
+   <img class="lazyload img-fluid" src="/images/loading.svg" data-src="@(item.IconUrl == null || item.IconUrl.Length == 0 ? "/images/no_image.png" : item.IconUrl)" style="height:auto;  width:auto; max-height: 110px; max-width: 110px;display: block;margin-left: auto;margin-right: auto;" bc-thumbnail="true" bc-round="true" />
+</a>
+</td>
+                    </tr>
+                    rowNo++;
+                }
+            </tbody>
+        </table>
+    </div>
+}

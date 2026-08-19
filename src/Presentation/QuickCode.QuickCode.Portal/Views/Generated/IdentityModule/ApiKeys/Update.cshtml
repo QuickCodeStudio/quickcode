@@ -1,0 +1,336 @@
+﻿@using QuickCode.QuickCode.Portal.Models.IdentityModule
+@model IdentityModule.ApiKeyData
+<div class="modal-content portal-entity-modal" data-operation="Update">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">API Key Update Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+     <div class="card" IsPageAvailable="true">
+        <div class="card-body">
+            <form bc-label-width-sm="4" bc-horizontal="true" id="formUpdate" action="Update" method="post" class="needs-validation portal-entity-form" bc-validation="true">
+                @Html.AntiForgeryToken()
+                <form-group>
+	<input asp-for="SelectedItem.Name" placeholder="Enter your Name" bc-label="Name" type="Text"  bc-required="true" bc-tooltip="Enter your Name" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.Description" placeholder="Enter your Description" bc-label="Description" type="Text"  bc-tooltip="Enter your Description" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.KeyPrefix" placeholder="Enter your KeyPrefix" bc-label="Key Prefix" type="Text"  bc-required="true" bc-tooltip="Enter your KeyPrefix" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.KeyHash" placeholder="Enter your KeyHash" bc-label="Key Hash" type="Text"  bc-required="true" bc-tooltip="Enter your KeyHash" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<select bc-label="Permission Group Name" class="form-select searchable-select" asp-for="SelectedItem.PermissionGroupName" asp-items="@Model.GetComboBoxList("PermissionGroups", Model.SelectedItem.PermissionGroupName)"  data-placeholder="Search for PermissionGroupName..."></select>
+</form-group>
+
+<form-group>
+	<select bc-label="Created By User ID" class="form-select searchable-select" asp-for="SelectedItem.CreatedByUserId" asp-items="@Model.GetComboBoxList("AspNetUsers", Model.SelectedItem.CreatedByUserId)"  data-placeholder="Search for CreatedByUserId..."></select>
+</form-group>
+
+<form-group>
+	<select bc-label="Status" class="form-select searchable-select" asp-for="SelectedItem.Status" asp-items="Html.GetEnumSelectList<IdentityModuleApi.ApiKeyStatus>()" data-placeholder="Search for Status..."></select>
+</form-group>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="SelectedItem.IsActive">Is Active</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.HiddenFor(m => m.SelectedItem.IsActive)
+                @if (Model.SelectedItem.IsActive == true)
+                {
+                    <div class="ios-switch-wrapper checked">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_IsActive" checked />
+                    </div>
+                }
+                else
+                {
+                    <div class="ios-switch-wrapper">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_IsActive" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-4" for="SelectedItem_ExpiresAt">Expires At</label>
+    <div class="col-sm-8">
+        <div class="input-group flatpickr flatpickr-datetime" id="fp_SelectedItem_ExpiresAt">
+            <!input id="SelectedItem_ExpiresAt" name="SelectedItem.ExpiresAt" class="form-control portal-datetime-input" type="text" data-input autocomplete="off" placeholder="yyyy-MM-dd HH:mm"
+                value="@(Model.SelectedItem.ExpiresAt == null ? string.Empty : (Convert.ToDateTime(Model.SelectedItem.ExpiresAt).Year > 1 ? Convert.ToDateTime(Model.SelectedItem.ExpiresAt).ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) : string.Empty))" />
+            <!button class="input-group-text portal-datetime-toggle" type="button" data-toggle title="Select date" tabindex="-1" aria-label="Select date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </!button>
+        </div>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-4" for="SelectedItem_LastUsedAt">Last Used At</label>
+    <div class="col-sm-8">
+        <div class="input-group flatpickr flatpickr-datetime" id="fp_SelectedItem_LastUsedAt">
+            <!input id="SelectedItem_LastUsedAt" name="SelectedItem.LastUsedAt" class="form-control portal-datetime-input" type="text" data-input autocomplete="off" placeholder="yyyy-MM-dd HH:mm"
+                value="@(Model.SelectedItem.LastUsedAt == null ? string.Empty : (Convert.ToDateTime(Model.SelectedItem.LastUsedAt).Year > 1 ? Convert.ToDateTime(Model.SelectedItem.LastUsedAt).ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) : string.Empty))" />
+            <!button class="input-group-text portal-datetime-toggle" type="button" data-toggle title="Select date" tabindex="-1" aria-label="Select date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </!button>
+        </div>
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label" for="SelectedItem_CreatedDate">Created Date</label>
+    <div class="col-sm-8">
+        <input type="text" class="form-control portal-datetime-readonly" id="SelectedItem_CreatedDate" readonly
+            value="@(Model.SelectedItem.CreatedDate is DateTime SelectedItem_CreatedDate_dt && SelectedItem_CreatedDate_dt.Year > 1 ? SelectedItem_CreatedDate_dt.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) : string.Empty)" />
+    </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-4" for="SelectedItem_RevokedDate">Revoked Date</label>
+    <div class="col-sm-8">
+        <div class="input-group flatpickr flatpickr-datetime" id="fp_SelectedItem_RevokedDate">
+            <!input id="SelectedItem_RevokedDate" name="SelectedItem.RevokedDate" class="form-control portal-datetime-input" type="text" data-input autocomplete="off" placeholder="yyyy-MM-dd HH:mm"
+                value="@(Model.SelectedItem.RevokedDate == null ? string.Empty : (Convert.ToDateTime(Model.SelectedItem.RevokedDate).Year > 1 ? Convert.ToDateTime(Model.SelectedItem.RevokedDate).ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) : string.Empty))" />
+            <!button class="input-group-text portal-datetime-toggle" type="button" data-toggle title="Select date" tabindex="-1" aria-label="Select date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </!button>
+        </div>
+    </div>
+</div>
+
+
+                <div id="actionResultDiv">
+                    <h5 id="actionResultMessage">
+                        Text Result
+                    </h5>
+                </div>
+                <div class="portal-entity-footer">
+                    <div class="portal-entity-actions">
+                 <button type="button" data-bs-dismiss="modal" class="btn btn-portal-secondary" bc-color="Secondary">Cancel</button>
+<button type="reset" class="btn btn-portal-ghost" bc-outline="true" bc-color="Info">Clear</button>
+<button type="submit" formmethod="post" formaction="/IdentityModuleApiKeys/Update" class="btn btn-portal-primary" bc-color="Primary">Update</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card" IsPageAvailable="false">
+        @await Html.PartialAsync("_NotAuthorized")
+    </div>
+</div>
+</div>
+<script src="/js/bootstrap-toggle.js"></script>
+<script>
+        var fileData = {};
+        $('.textarea-editor').summernote(
+        {
+            height: 200
+        });
+       
+        window.addEventListener('load', (event) => {
+            init();
+        });
+
+        $("img.lazyload").lazyload();
+
+        function checkBoxChanged(cbox) {
+            console.log('Changed ' + cbox.id);
+            console.log('Changed ' + cbox.checked);
+            var itemId = cbox.id.replace("cbox_", "").replace(".", "_");
+            $("#" + itemId).val(cbox.checked);
+        }
+
+        $('.opButtonImageUpload').change(function (e) {
+            var formData = new FormData($("#formUpdate")[0]);
+            var reader = new FileReader();
+            var imageId = '#' + this.id + 'Img';
+            var realImageId = '' + this.id;
+            imageId = imageId.replace('.', '_');
+            
+            reader.onload = function (event) {
+              var image = new Image();
+          
+              image.onload=function(){
+                  var imageMaxSize=1200;
+                  var fileType = this.src.split(';')[0].split(':')[1];
+                  
+                  if(fileType.split('/').length>1 && fileType.split('/')[1] != 'gif'){
+                      var canvas = document.createElement('canvas'),
+                          max_size = imageMaxSize,// TODO : pull max size from a site config
+                          width = image.width,
+                          height = image.height;
+                      if (width > height) {
+                          if (width > max_size) {
+                              height *= max_size / width;
+                              width = max_size;
+                          }
+                      } else {
+                          if (height > max_size) {
+                              width *= max_size / height;
+                              height = max_size;
+                          }
+                      }
+                      canvas.width = width;
+                      canvas.height = height;
+    
+                      canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                      $(imageId).attr("src", canvas.toDataURL());
+                      var resizedImage = createBlob(canvas.toDataURL());
+                      var fileType = this.src.split(';')[0].split(':')[1];
+                      var options = {
+                            maxSizeMB: 1,
+                            maxWidthOrHeight: imageMaxSize,
+                            useWebWorker: true,
+                            fileType: fileType,
+                            initialQuality: 0.5
+                      }
+                  
+                      imageCompression(resizedImage, options)
+                            .then(function (compressedFile) {
+                              fileData[realImageId] =  compressedFile;
+                            })
+                            .catch(function (error) {
+                              console.log(error.message);
+                            });
+                    }
+                  
+              } 
+
+              image.src=event.target.result;
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        function createBlob(dataURL) {
+          var BASE64_MARKER = ';base64,';
+          if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = decodeURIComponent(parts[1]);
+            return new Blob([raw], { type: contentType });
+          }
+          
+          var parts = dataURL.split(BASE64_MARKER);
+          var contentType = parts[0].split(':')[1];
+          var raw = window.atob(parts[1]);
+          var rawLength = raw.length;
+
+          var uInt8Array = new Uint8Array(rawLength);
+
+          for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+          }
+
+          return new Blob([uInt8Array], { type: contentType });
+        }
+
+        var forms = document.getElementsByClassName('needs-validation');
+        $("#formUpdate").on('submit', function (e) {
+            $("#actionResultDiv").hide();
+            if ($("#formUpdate").valid()) {
+                var formData = new FormData(this);
+                e.preventDefault(); // prevent the form's normal submission
+                $("#actionResultDiv").show();
+                $("#actionResultMessage").css('color', 'black');
+                $("#actionResultMessage").text("Please wait...");
+                Object.keys(fileData).forEach(function(fileKey) {
+                    formData.set(fileKey, fileData[fileKey]);
+                });
+                
+                addYamlEditorsToFormData(formData);
+    
+                let button = document.querySelector('button[type="submit"]');
+                let formActionUrl = button.getAttribute('formaction');   
+                
+                $.ajax({
+                    url: formActionUrl,
+                    type: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response, status)
+                    {
+                        $("#actionResultDiv").show();
+                        $("#actionResultMessage").css('color', 'green');
+                        $("#actionResultMessage").text('Successfully Completed');
+
+                        var operation = ($('#formUpdate').closest('.portal-entity-modal').attr('data-operation')
+                            || 'Update'
+                            || '').toString();
+                        var successMessage = (typeof getPortalCrudSuccessMessage === 'function')
+                            ? getPortalCrudSuccessMessage(operation)
+                            : 'Operation completed successfully.';
+
+                        if (typeof finishPortalCrudSuccess === 'function') {
+                            finishPortalCrudSuccess(successMessage, operation);
+                        } else {
+                            if (typeof showPortalToast === 'function') {
+                                showPortalToast(successMessage, 'success');
+                            }
+                            document.location.reload(true);
+                        }
+                    },
+                    error: function (xhr, desc, error)
+                    {
+                        $("#actionResultMessage").css('color', 'red');
+                        var fallbackMessage = error || desc || 'Request failed';
+                        if (typeof handlePortalAjaxError === 'function') {
+                            handlePortalAjaxError(xhr, {
+                                reload: false,
+                                fallbackMessage: fallbackMessage
+                            });
+                            var payload = (typeof getPortalAjaxErrorPayload === 'function')
+                                ? getPortalAjaxErrorPayload(xhr)
+                                : (xhr.responseJSON || null);
+                            var msg = (payload && payload.message) ? payload.message : fallbackMessage;
+                            $("#actionResultMessage").text(msg);
+                            return;
+                        }
+                        if (xhr.responseJSON && xhr.responseJSON.redirectUrl) {
+                            window.location = xhr.responseJSON.redirectUrl;
+                            return;
+                        }
+                        var msg = (xhr.responseJSON && xhr.responseJSON.message)
+                            ? xhr.responseJSON.message
+                            : fallbackMessage;
+                        $("#actionResultMessage").text(msg);
+                        if (typeof showPortalToast === 'function') {
+                            showPortalToast(msg, 'error');
+                        }
+                    }
+                });  
+            }
+        })
+
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        setTimeout(function () {
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                $("#actionResultDiv").hide();
+                form.classList.add('was-validated');
+            });
+        }, 50);
+        
+        initSearchableSelects(document.getElementById('itemDetailsContainer') || document);
+</script>

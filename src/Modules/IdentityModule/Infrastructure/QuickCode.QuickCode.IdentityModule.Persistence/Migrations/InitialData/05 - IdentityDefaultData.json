@@ -1,0 +1,1527 @@
+﻿{
+  "PortalMenus": [
+    {
+      "Key": "QuickCodeModule_QuickCodeModule",
+      "Name": "QuickCodeModule",
+      "Text": "QuickCodeModule",
+      "Tooltip": "QuickCodeModule",
+      "ActionName": "",
+      "OrderNo": 100,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "QuickCodeModule_ArchitecturalPatterns",
+      "Name": "ArchitecturalPatterns",
+      "Text": "ArchitecturalPatterns",
+      "Tooltip": "ArchitecturalPatterns",
+      "ActionName": "/QuickCodeModuleArchitecturalPatterns/List",
+      "OrderNo": 100,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ArchitecturalPatterns_GetByKey",
+      "Name": "ArchitecturalPatternsGetByKey",
+      "Text": "ArchitecturalPatternsGetByKey",
+      "Tooltip": "ArchitecturalPatterns GetByKey",
+      "ActionName": "/QuickCodeModuleArchitecturalPatterns/Queries/GetByKey",
+      "OrderNo": 101,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ArchitecturalPatterns_GetByName",
+      "Name": "ArchitecturalPatternsGetByName",
+      "Text": "ArchitecturalPatternsGetByName",
+      "Tooltip": "ArchitecturalPatterns GetByName",
+      "ActionName": "/QuickCodeModuleArchitecturalPatterns/Queries/GetByName",
+      "OrderNo": 102,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_AuditLogs",
+      "Name": "AuditLogs",
+      "Text": "AuditLogs",
+      "Tooltip": "AuditLogs",
+      "ActionName": "/QuickCodeModuleAuditLogs/List",
+      "OrderNo": 103,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "QuickCodeModule_DbTypes",
+      "Name": "DbTypes",
+      "Text": "DbTypes",
+      "Tooltip": "DbTypes",
+      "ActionName": "/QuickCodeModuleDbTypes/List",
+      "OrderNo": 104,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_DbTypes_GetByKey",
+      "Name": "DbTypesGetByKey",
+      "Text": "DbTypesGetByKey",
+      "Tooltip": "DbTypes GetByKey",
+      "ActionName": "/QuickCodeModuleDbTypes/Queries/GetByKey",
+      "OrderNo": 105,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_DbTypes_GetByName",
+      "Name": "DbTypesGetByName",
+      "Text": "DbTypesGetByName",
+      "Tooltip": "DbTypes GetByName",
+      "ActionName": "/QuickCodeModuleDbTypes/Queries/GetByName",
+      "OrderNo": 106,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationActions",
+      "Name": "GenerationActions",
+      "Text": "GenerationActions",
+      "Tooltip": "GenerationActions",
+      "ActionName": "/QuickCodeModuleGenerationActions/List",
+      "OrderNo": 107,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationActions_GetByActionId",
+      "Name": "GenerationActionsGetByActionId",
+      "Text": "GenerationActionsGetByActionId",
+      "Tooltip": "GenerationActions GetByActionId",
+      "ActionName": "/QuickCodeModuleGenerationActions/Queries/GetByActionId",
+      "OrderNo": 108,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationActions_GetByProjectKey",
+      "Name": "GenerationActionsGetByProjectKey",
+      "Text": "GenerationActionsGetByProjectKey",
+      "Tooltip": "GenerationActions GetByProjectKey",
+      "ActionName": "/QuickCodeModuleGenerationActions/Queries/GetByProjectKey",
+      "OrderNo": 109,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationActions_GetByRunId",
+      "Name": "GenerationActionsGetByRunId",
+      "Text": "GenerationActionsGetByRunId",
+      "Tooltip": "GenerationActions GetByRunId",
+      "ActionName": "/QuickCodeModuleGenerationActions/Queries/GetByRunId",
+      "OrderNo": 110,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationActions_GetIdBetween",
+      "Name": "GenerationActionsGetIdBetween",
+      "Text": "GenerationActionsGetIdBetween",
+      "Tooltip": "GenerationActions GetIdBetween",
+      "ActionName": "/QuickCodeModuleGenerationActions/Queries/GetIdBetween",
+      "OrderNo": 111,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationLogs",
+      "Name": "GenerationLogs",
+      "Text": "GenerationLogs",
+      "Tooltip": "GenerationLogs",
+      "ActionName": "/QuickCodeModuleGenerationLogs/List",
+      "OrderNo": 112,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationLogs_GetLogsByProject",
+      "Name": "GenerationLogsGetLogsByProject",
+      "Text": "GenerationLogsGetLogsByProject",
+      "Tooltip": "GenerationLogs GetLogsByProject",
+      "ActionName": "/QuickCodeModuleGenerationLogs/Queries/GetLogsByProject",
+      "OrderNo": 113,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationLogs_GetLogsByProjectAndStatus",
+      "Name": "GenerationLogsGetLogsByProjectAndStatus",
+      "Text": "GenerationLogsGetLogsByProjectAndStatus",
+      "Tooltip": "GenerationLogs GetLogsByProjectAndStatus",
+      "ActionName": "/QuickCodeModuleGenerationLogs/Queries/GetLogsByProjectAndStatus",
+      "OrderNo": 114,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationLogs_GetRecentLogsByProject",
+      "Name": "GenerationLogsGetRecentLogsByProject",
+      "Text": "GenerationLogsGetRecentLogsByProject",
+      "Tooltip": "GenerationLogs GetRecentLogsByProject",
+      "ActionName": "/QuickCodeModuleGenerationLogs/Queries/GetRecentLogsByProject",
+      "OrderNo": 115,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationRuns",
+      "Name": "GenerationRuns",
+      "Text": "GenerationRuns",
+      "Tooltip": "GenerationRuns",
+      "ActionName": "/QuickCodeModuleGenerationRuns/List",
+      "OrderNo": 116,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationRuns_GetGenerationRunsByProjectId",
+      "Name": "GenerationRunsGetGenerationRunsByProjectId",
+      "Text": "GenerationRunsGetGenerationRunsByProjectId",
+      "Tooltip": "GenerationRuns GetGenerationRunsByProjectId",
+      "ActionName": "/QuickCodeModuleGenerationRuns/Queries/GetGenerationRunsByProjectId",
+      "OrderNo": 117,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationRuns_GetGenerationRunsFirst",
+      "Name": "GenerationRunsGetGenerationRunsFirst",
+      "Text": "GenerationRunsGetGenerationRunsFirst",
+      "Tooltip": "GenerationRuns GetGenerationRunsFirst",
+      "ActionName": "/QuickCodeModuleGenerationRuns/Queries/GetGenerationRunsFirst",
+      "OrderNo": 118,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationRuns_GetGenerationRunsWithProjectName",
+      "Name": "GenerationRunsGetGenerationRunsWithProjectName",
+      "Text": "GenerationRunsGetGenerationRunsWithProjectName",
+      "Tooltip": "GenerationRuns GetGenerationRunsWithProjectName",
+      "ActionName": "/QuickCodeModuleGenerationRuns/Queries/GetGenerationRunsWithProjectName",
+      "OrderNo": 119,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationRuns_GetGenerationRunsWithSessionId",
+      "Name": "GenerationRunsGetGenerationRunsWithSessionId",
+      "Text": "GenerationRunsGetGenerationRunsWithSessionId",
+      "Tooltip": "GenerationRuns GetGenerationRunsWithSessionId",
+      "ActionName": "/QuickCodeModuleGenerationRuns/Queries/GetGenerationRunsWithSessionId",
+      "OrderNo": 120,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationRunTypes",
+      "Name": "GenerationRunTypes",
+      "Text": "GenerationRunTypes",
+      "Tooltip": "GenerationRunTypes",
+      "ActionName": "/QuickCodeModuleGenerationRunTypes/List",
+      "OrderNo": 121,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationRunTypes_GetByName",
+      "Name": "GenerationRunTypesGetByName",
+      "Text": "GenerationRunTypesGetByName",
+      "Tooltip": "GenerationRunTypes GetByName",
+      "ActionName": "/QuickCodeModuleGenerationRunTypes/Queries/GetByName",
+      "OrderNo": 122,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationStatuses",
+      "Name": "GenerationStatuses",
+      "Text": "GenerationStatuses",
+      "Tooltip": "GenerationStatuses",
+      "ActionName": "/QuickCodeModuleGenerationStatuses/List",
+      "OrderNo": 123,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationStatuses_GetByName",
+      "Name": "GenerationStatusesGetByName",
+      "Text": "GenerationStatusesGetByName",
+      "Tooltip": "GenerationStatuses GetByName",
+      "ActionName": "/QuickCodeModuleGenerationStatuses/Queries/GetByName",
+      "OrderNo": 124,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_GenerationSteps",
+      "Name": "GenerationSteps",
+      "Text": "GenerationSteps",
+      "Tooltip": "GenerationSteps",
+      "ActionName": "/QuickCodeModuleGenerationSteps/List",
+      "OrderNo": 125,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationSteps_GetByName",
+      "Name": "GenerationStepsGetByName",
+      "Text": "GenerationStepsGetByName",
+      "Tooltip": "GenerationSteps GetByName",
+      "ActionName": "/QuickCodeModuleGenerationSteps/Queries/GetByName",
+      "OrderNo": 126,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_GenerationSteps_GetByNeeds",
+      "Name": "GenerationStepsGetByNeeds",
+      "Text": "GenerationStepsGetByNeeds",
+      "Tooltip": "GenerationSteps GetByNeeds",
+      "ActionName": "/QuickCodeModuleGenerationSteps/Queries/GetByNeeds",
+      "OrderNo": 127,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ModuleTemplates",
+      "Name": "ModuleTemplates",
+      "Text": "ModuleTemplates",
+      "Tooltip": "ModuleTemplates",
+      "ActionName": "/QuickCodeModuleModuleTemplates/List",
+      "OrderNo": 128,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ModuleTemplates_GetByIsWebProject",
+      "Name": "ModuleTemplatesGetByIsWebProject",
+      "Text": "ModuleTemplatesGetByIsWebProject",
+      "Tooltip": "ModuleTemplates GetByIsWebProject",
+      "ActionName": "/QuickCodeModuleModuleTemplates/Queries/GetByIsWebProject",
+      "OrderNo": 129,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ModuleTemplates_GetByName",
+      "Name": "ModuleTemplatesGetByName",
+      "Text": "ModuleTemplatesGetByName",
+      "Tooltip": "ModuleTemplates GetByName",
+      "ActionName": "/QuickCodeModuleModuleTemplates/Queries/GetByName",
+      "OrderNo": 130,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_PageConfigs",
+      "Name": "PageConfigs",
+      "Text": "PageConfigs",
+      "Tooltip": "PageConfigs",
+      "ActionName": "/QuickCodeModulePageConfigs/List",
+      "OrderNo": 131,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_PageConfigs_GetByName",
+      "Name": "PageConfigsGetByName",
+      "Text": "PageConfigsGetByName",
+      "Tooltip": "PageConfigs GetByName",
+      "ActionName": "/QuickCodeModulePageConfigs/Queries/GetByName",
+      "OrderNo": 132,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_PageConfigs_GetByNameAlias",
+      "Name": "PageConfigsGetByNameAlias",
+      "Text": "PageConfigsGetByNameAlias",
+      "Tooltip": "PageConfigs GetByNameAlias",
+      "ActionName": "/QuickCodeModulePageConfigs/Queries/GetByNameAlias",
+      "OrderNo": 133,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_PageConfigs_GetByNameContains",
+      "Name": "PageConfigsGetByNameContains",
+      "Text": "PageConfigsGetByNameContains",
+      "Tooltip": "PageConfigs GetByNameContains",
+      "ActionName": "/QuickCodeModulePageConfigs/Queries/GetByNameContains",
+      "OrderNo": 134,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_Projects",
+      "Name": "Projects",
+      "Text": "Projects",
+      "Tooltip": "Projects",
+      "ActionName": "/QuickCodeModuleProjects/List",
+      "OrderNo": 135,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_CheckProjectName",
+      "Name": "ProjectsCheckProjectName",
+      "Text": "ProjectsCheckProjectName",
+      "Tooltip": "Projects CheckProjectName",
+      "ActionName": "/QuickCodeModuleProjects/Queries/CheckProjectName",
+      "OrderNo": 136,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_CheckSecretCode",
+      "Name": "ProjectsCheckSecretCode",
+      "Text": "ProjectsCheckSecretCode",
+      "Tooltip": "Projects CheckSecretCode",
+      "ActionName": "/QuickCodeModuleProjects/Queries/CheckSecretCode",
+      "OrderNo": 137,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_CountSecretCode",
+      "Name": "ProjectsCountSecretCode",
+      "Text": "ProjectsCountSecretCode",
+      "Tooltip": "Projects CountSecretCode",
+      "ActionName": "/QuickCodeModuleProjects/Queries/CountSecretCode",
+      "OrderNo": 138,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_GetProject",
+      "Name": "ProjectsGetProject",
+      "Text": "ProjectsGetProject",
+      "Tooltip": "Projects GetProject",
+      "ActionName": "/QuickCodeModuleProjects/Queries/GetProject",
+      "OrderNo": 139,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_GetProjectByKey",
+      "Name": "ProjectsGetProjectByKey",
+      "Text": "ProjectsGetProjectByKey",
+      "Tooltip": "Projects GetProjectByKey",
+      "ActionName": "/QuickCodeModuleProjects/Queries/GetProjectByKey",
+      "OrderNo": 140,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_GetProjectByRequest",
+      "Name": "ProjectsGetProjectByRequest",
+      "Text": "ProjectsGetProjectByRequest",
+      "Tooltip": "Projects GetProjectByRequest",
+      "ActionName": "/QuickCodeModuleProjects/Queries/GetProjectByRequest",
+      "OrderNo": 141,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_Projects_GetProjectIncludeInactive",
+      "Name": "ProjectsGetProjectIncludeInactive",
+      "Text": "ProjectsGetProjectIncludeInactive",
+      "Tooltip": "Projects GetProjectIncludeInactive",
+      "ActionName": "/QuickCodeModuleProjects/Queries/GetProjectIncludeInactive",
+      "OrderNo": 142,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectAnalyses",
+      "Name": "ProjectAnalyses",
+      "Text": "ProjectAnalyses",
+      "Tooltip": "ProjectAnalyses",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/List",
+      "OrderNo": 143,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalyses_GetAnalysis",
+      "Name": "ProjectAnalysesGetAnalysis",
+      "Text": "ProjectAnalysesGetAnalysis",
+      "Tooltip": "ProjectAnalyses GetAnalysis",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/Queries/GetAnalysis",
+      "OrderNo": 144,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalyses_GetByAnalysisId",
+      "Name": "ProjectAnalysesGetByAnalysisId",
+      "Text": "ProjectAnalysesGetByAnalysisId",
+      "Tooltip": "ProjectAnalyses GetByAnalysisId",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/Queries/GetByAnalysisId",
+      "OrderNo": 145,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalyses_GetByProject",
+      "Name": "ProjectAnalysesGetByProject",
+      "Text": "ProjectAnalysesGetByProject",
+      "Tooltip": "ProjectAnalyses GetByProject",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/Queries/GetByProject",
+      "OrderNo": 146,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalyses_GetByStatus",
+      "Name": "ProjectAnalysesGetByStatus",
+      "Text": "ProjectAnalysesGetByStatus",
+      "Tooltip": "ProjectAnalyses GetByStatus",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/Queries/GetByStatus",
+      "OrderNo": 147,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalyses_GetCurrent",
+      "Name": "ProjectAnalysesGetCurrent",
+      "Text": "ProjectAnalysesGetCurrent",
+      "Tooltip": "ProjectAnalyses GetCurrent",
+      "ActionName": "/QuickCodeModuleProjectAnalyses/Queries/GetCurrent",
+      "OrderNo": 148,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectAnalysisDocuments",
+      "Name": "ProjectAnalysisDocuments",
+      "Text": "ProjectAnalysisDocuments",
+      "Tooltip": "ProjectAnalysisDocuments",
+      "ActionName": "/QuickCodeModuleProjectAnalysisDocuments/List",
+      "OrderNo": 149,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalysisDocuments_GetByAnalysis",
+      "Name": "ProjectAnalysisDocumentsGetByAnalysis",
+      "Text": "ProjectAnalysisDocumentsGetByAnalysis",
+      "Tooltip": "ProjectAnalysisDocuments GetByAnalysis",
+      "ActionName": "/QuickCodeModuleProjectAnalysisDocuments/Queries/GetByAnalysis",
+      "OrderNo": 150,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalysisDocuments_GetByProject",
+      "Name": "ProjectAnalysisDocumentsGetByProject",
+      "Text": "ProjectAnalysisDocumentsGetByProject",
+      "Tooltip": "ProjectAnalysisDocuments GetByProject",
+      "ActionName": "/QuickCodeModuleProjectAnalysisDocuments/Queries/GetByProject",
+      "OrderNo": 151,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectAnalysisDocuments_GetDocument",
+      "Name": "ProjectAnalysisDocumentsGetDocument",
+      "Text": "ProjectAnalysisDocumentsGetDocument",
+      "Tooltip": "ProjectAnalysisDocuments GetDocument",
+      "ActionName": "/QuickCodeModuleProjectAnalysisDocuments/Queries/GetDocument",
+      "OrderNo": 152,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectModules",
+      "Name": "ProjectModules",
+      "Text": "ProjectModules",
+      "Tooltip": "ProjectModules",
+      "ActionName": "/QuickCodeModuleProjectModules/List",
+      "OrderNo": 153,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModules_GetProjectModule",
+      "Name": "ProjectModulesGetProjectModule",
+      "Text": "ProjectModulesGetProjectModule",
+      "Tooltip": "ProjectModules GetProjectModule",
+      "ActionName": "/QuickCodeModuleProjectModules/Queries/GetProjectModule",
+      "OrderNo": 154,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModules_GetProjectModuleEmails",
+      "Name": "ProjectModulesGetProjectModuleEmails",
+      "Text": "ProjectModulesGetProjectModuleEmails",
+      "Tooltip": "ProjectModules GetProjectModuleEmails",
+      "ActionName": "/QuickCodeModuleProjectModules/Queries/GetProjectModuleEmails",
+      "OrderNo": 155,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModules_GetProjectModules",
+      "Name": "ProjectModulesGetProjectModules",
+      "Text": "ProjectModulesGetProjectModules",
+      "Tooltip": "ProjectModules GetProjectModules",
+      "ActionName": "/QuickCodeModuleProjectModules/Queries/GetProjectModules",
+      "OrderNo": 156,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModules_GetProjectModuleWithKeys",
+      "Name": "ProjectModulesGetProjectModuleWithKeys",
+      "Text": "ProjectModulesGetProjectModuleWithKeys",
+      "Tooltip": "ProjectModules GetProjectModuleWithKeys",
+      "ActionName": "/QuickCodeModuleProjectModules/Queries/GetProjectModuleWithKeys",
+      "OrderNo": 157,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectModulePrompts",
+      "Name": "ProjectModulePrompts",
+      "Text": "ProjectModulePrompts",
+      "Tooltip": "ProjectModulePrompts",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/List",
+      "OrderNo": 158,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_CountDaily",
+      "Name": "ProjectModulePromptsCountDaily",
+      "Text": "ProjectModulePromptsCountDaily",
+      "Tooltip": "ProjectModulePrompts CountDaily",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/CountDaily",
+      "OrderNo": 159,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_CountMonthly",
+      "Name": "ProjectModulePromptsCountMonthly",
+      "Text": "ProjectModulePromptsCountMonthly",
+      "Tooltip": "ProjectModulePrompts CountMonthly",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/CountMonthly",
+      "OrderNo": 160,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_CountWeekly",
+      "Name": "ProjectModulePromptsCountWeekly",
+      "Text": "ProjectModulePromptsCountWeekly",
+      "Tooltip": "ProjectModulePrompts CountWeekly",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/CountWeekly",
+      "OrderNo": 161,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_CountYearly",
+      "Name": "ProjectModulePromptsCountYearly",
+      "Text": "ProjectModulePromptsCountYearly",
+      "Tooltip": "ProjectModulePrompts CountYearly",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/CountYearly",
+      "OrderNo": 162,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_GetProjectModulePrompts",
+      "Name": "ProjectModulePromptsGetProjectModulePrompts",
+      "Text": "ProjectModulePromptsGetProjectModulePrompts",
+      "Tooltip": "ProjectModulePrompts GetProjectModulePrompts",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/GetProjectModulePrompts",
+      "OrderNo": 163,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModulePrompts_GetProjectModulePromptsByProjectName",
+      "Name": "ProjectModulePromptsGetProjectModulePromptsByProjectName",
+      "Text": "ProjectModulePromptsGetProjectModulePromptsByProjectName",
+      "Tooltip": "ProjectModulePrompts GetProjectModulePromptsByProjectName",
+      "ActionName": "/QuickCodeModuleProjectModulePrompts/Queries/GetProjectModulePromptsByProjectName",
+      "OrderNo": 164,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectModuleRevisions",
+      "Name": "ProjectModuleRevisions",
+      "Text": "ProjectModuleRevisions",
+      "Tooltip": "ProjectModuleRevisions",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/List",
+      "OrderNo": 165,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModuleRevisions_GetByAnalysis",
+      "Name": "ProjectModuleRevisionsGetByAnalysis",
+      "Text": "ProjectModuleRevisionsGetByAnalysis",
+      "Tooltip": "ProjectModuleRevisions GetByAnalysis",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/Queries/GetByAnalysis",
+      "OrderNo": 166,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModuleRevisions_GetByModule",
+      "Name": "ProjectModuleRevisionsGetByModule",
+      "Text": "ProjectModuleRevisionsGetByModule",
+      "Tooltip": "ProjectModuleRevisions GetByModule",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/Queries/GetByModule",
+      "OrderNo": 167,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModuleRevisions_GetByProject",
+      "Name": "ProjectModuleRevisionsGetByProject",
+      "Text": "ProjectModuleRevisionsGetByProject",
+      "Tooltip": "ProjectModuleRevisions GetByProject",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/Queries/GetByProject",
+      "OrderNo": 168,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModuleRevisions_GetRevision",
+      "Name": "ProjectModuleRevisionsGetRevision",
+      "Text": "ProjectModuleRevisionsGetRevision",
+      "Tooltip": "ProjectModuleRevisions GetRevision",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/Queries/GetRevision",
+      "OrderNo": 169,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectModuleRevisions_GetRevisionDbml",
+      "Name": "ProjectModuleRevisionsGetRevisionDbml",
+      "Text": "ProjectModuleRevisionsGetRevisionDbml",
+      "Tooltip": "ProjectModuleRevisions GetRevisionDbml",
+      "ActionName": "/QuickCodeModuleProjectModuleRevisions/Queries/GetRevisionDbml",
+      "OrderNo": 170,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectPrompts",
+      "Name": "ProjectPrompts",
+      "Text": "ProjectPrompts",
+      "Tooltip": "ProjectPrompts",
+      "ActionName": "/QuickCodeModuleProjectPrompts/List",
+      "OrderNo": 171,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_CountDaily",
+      "Name": "ProjectPromptsCountDaily",
+      "Text": "ProjectPromptsCountDaily",
+      "Tooltip": "ProjectPrompts CountDaily",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/CountDaily",
+      "OrderNo": 172,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_CountMonthly",
+      "Name": "ProjectPromptsCountMonthly",
+      "Text": "ProjectPromptsCountMonthly",
+      "Tooltip": "ProjectPrompts CountMonthly",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/CountMonthly",
+      "OrderNo": 173,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_CountWeekly",
+      "Name": "ProjectPromptsCountWeekly",
+      "Text": "ProjectPromptsCountWeekly",
+      "Tooltip": "ProjectPrompts CountWeekly",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/CountWeekly",
+      "OrderNo": 174,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_CountYearly",
+      "Name": "ProjectPromptsCountYearly",
+      "Text": "ProjectPromptsCountYearly",
+      "Tooltip": "ProjectPrompts CountYearly",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/CountYearly",
+      "OrderNo": 175,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_GetProjectPrompts",
+      "Name": "ProjectPromptsGetProjectPrompts",
+      "Text": "ProjectPromptsGetProjectPrompts",
+      "Tooltip": "ProjectPrompts GetProjectPrompts",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/GetProjectPrompts",
+      "OrderNo": 176,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectPrompts_GetProjectPromptsByProjectName",
+      "Name": "ProjectPromptsGetProjectPromptsByProjectName",
+      "Text": "ProjectPromptsGetProjectPromptsByProjectName",
+      "Tooltip": "ProjectPrompts GetProjectPromptsByProjectName",
+      "ActionName": "/QuickCodeModuleProjectPrompts/Queries/GetProjectPromptsByProjectName",
+      "OrderNo": 177,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectRequests",
+      "Name": "ProjectRequests",
+      "Text": "ProjectRequests",
+      "Tooltip": "ProjectRequests",
+      "ActionName": "/QuickCodeModuleProjectRequests/List",
+      "OrderNo": 178,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_CheckProjectName",
+      "Name": "ProjectRequestsCheckProjectName",
+      "Text": "ProjectRequestsCheckProjectName",
+      "Tooltip": "ProjectRequests CheckProjectName",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/CheckProjectName",
+      "OrderNo": 179,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetByTokenHash",
+      "Name": "ProjectRequestsGetByTokenHash",
+      "Text": "ProjectRequestsGetByTokenHash",
+      "Tooltip": "ProjectRequests GetByTokenHash",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetByTokenHash",
+      "OrderNo": 180,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetConfirmedByProject",
+      "Name": "ProjectRequestsGetConfirmedByProject",
+      "Text": "ProjectRequestsGetConfirmedByProject",
+      "Tooltip": "ProjectRequests GetConfirmedByProject",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetConfirmedByProject",
+      "OrderNo": 181,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetPendingByEmail",
+      "Name": "ProjectRequestsGetPendingByEmail",
+      "Text": "ProjectRequestsGetPendingByEmail",
+      "Tooltip": "ProjectRequests GetPendingByEmail",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetPendingByEmail",
+      "OrderNo": 182,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetPendingByProjectName",
+      "Name": "ProjectRequestsGetPendingByProjectName",
+      "Text": "ProjectRequestsGetPendingByProjectName",
+      "Tooltip": "ProjectRequests GetPendingByProjectName",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetPendingByProjectName",
+      "OrderNo": 183,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetPendingByProjectNameAndEmail",
+      "Name": "ProjectRequestsGetPendingByProjectNameAndEmail",
+      "Text": "ProjectRequestsGetPendingByProjectNameAndEmail",
+      "Tooltip": "ProjectRequests GetPendingByProjectNameAndEmail",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetPendingByProjectNameAndEmail",
+      "OrderNo": 184,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectRequests_GetRequestWithProject",
+      "Name": "ProjectRequestsGetRequestWithProject",
+      "Text": "ProjectRequestsGetRequestWithProject",
+      "Tooltip": "ProjectRequests GetRequestWithProject",
+      "ActionName": "/QuickCodeModuleProjectRequests/Queries/GetRequestWithProject",
+      "OrderNo": 185,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "QuickCodeModule_ProjectSchemaSnapshots",
+      "Name": "ProjectSchemaSnapshots",
+      "Text": "ProjectSchemaSnapshots",
+      "Tooltip": "ProjectSchemaSnapshots",
+      "ActionName": "/QuickCodeModuleProjectSchemaSnapshots/List",
+      "OrderNo": 186,
+      "ParentName": "QuickCodeModule"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectSchemaSnapshots_GetByProject",
+      "Name": "ProjectSchemaSnapshotsGetByProject",
+      "Text": "ProjectSchemaSnapshotsGetByProject",
+      "Tooltip": "ProjectSchemaSnapshots GetByProject",
+      "ActionName": "/QuickCodeModuleProjectSchemaSnapshots/Queries/GetByProject",
+      "OrderNo": 187,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectSchemaSnapshots_GetByTrigger",
+      "Name": "ProjectSchemaSnapshotsGetByTrigger",
+      "Text": "ProjectSchemaSnapshotsGetByTrigger",
+      "Tooltip": "ProjectSchemaSnapshots GetByTrigger",
+      "ActionName": "/QuickCodeModuleProjectSchemaSnapshots/Queries/GetByTrigger",
+      "OrderNo": 188,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectSchemaSnapshots_GetSnapshot",
+      "Name": "ProjectSchemaSnapshotsGetSnapshot",
+      "Text": "ProjectSchemaSnapshotsGetSnapshot",
+      "Tooltip": "ProjectSchemaSnapshots GetSnapshot",
+      "ActionName": "/QuickCodeModuleProjectSchemaSnapshots/Queries/GetSnapshot",
+      "OrderNo": 189,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "Queries_QuickCodeModule_ProjectSchemaSnapshots_GetSnapshotModules",
+      "Name": "ProjectSchemaSnapshotsGetSnapshotModules",
+      "Text": "ProjectSchemaSnapshotsGetSnapshotModules",
+      "Tooltip": "ProjectSchemaSnapshots GetSnapshotModules",
+      "ActionName": "/QuickCodeModuleProjectSchemaSnapshots/Queries/GetSnapshotModules",
+      "OrderNo": 190,
+      "ParentName": "QuickCodeModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_IdentityModule",
+      "Name": "IdentityModule",
+      "Text": "IdentityModule",
+      "Tooltip": "IdentityModule",
+      "ActionName": "",
+      "OrderNo": 191,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_ApiKeys",
+      "Name": "ApiKeys",
+      "Text": "ApiKeys",
+      "Tooltip": "ApiKeys",
+      "ActionName": "/IdentityModuleApiKeys/List",
+      "OrderNo": 191,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_ApiKeyNameIsExists",
+      "Name": "ApiKeysApiKeyNameIsExists",
+      "Text": "ApiKeysApiKeyNameIsExists",
+      "Tooltip": "ApiKeys ApiKeyNameIsExists",
+      "ActionName": "/IdentityModuleApiKeys/Queries/ApiKeyNameIsExists",
+      "OrderNo": 192,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetActive",
+      "Name": "ApiKeysGetActive",
+      "Text": "ApiKeysGetActive",
+      "Tooltip": "ApiKeys GetActive",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetActive",
+      "OrderNo": 193,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetApiKeyByPrefix",
+      "Name": "ApiKeysGetApiKeyByPrefix",
+      "Text": "ApiKeysGetApiKeyByPrefix",
+      "Tooltip": "ApiKeys GetApiKeyByPrefix",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetApiKeyByPrefix",
+      "OrderNo": 194,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetByName",
+      "Name": "ApiKeysGetByName",
+      "Text": "ApiKeysGetByName",
+      "Tooltip": "ApiKeys GetByName",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetByName",
+      "OrderNo": 195,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetByPermissionGroup",
+      "Name": "ApiKeysGetByPermissionGroup",
+      "Text": "ApiKeysGetByPermissionGroup",
+      "Tooltip": "ApiKeys GetByPermissionGroup",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetByPermissionGroup",
+      "OrderNo": 196,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetByPrefix",
+      "Name": "ApiKeysGetByPrefix",
+      "Text": "ApiKeysGetByPrefix",
+      "Tooltip": "ApiKeys GetByPrefix",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetByPrefix",
+      "OrderNo": 197,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeys_GetByStatus",
+      "Name": "ApiKeysGetByStatus",
+      "Text": "ApiKeysGetByStatus",
+      "Tooltip": "ApiKeys GetByStatus",
+      "ActionName": "/IdentityModuleApiKeys/Queries/GetByStatus",
+      "OrderNo": 198,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_ApiKeyUsageLogs",
+      "Name": "ApiKeyUsageLogs",
+      "Text": "ApiKeyUsageLogs",
+      "Tooltip": "ApiKeyUsageLogs",
+      "ActionName": "/IdentityModuleApiKeyUsageLogs/List",
+      "OrderNo": 199,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeyUsageLogs_GetByApiKey",
+      "Name": "ApiKeyUsageLogsGetByApiKey",
+      "Text": "ApiKeyUsageLogsGetByApiKey",
+      "Tooltip": "ApiKeyUsageLogs GetByApiKey",
+      "ActionName": "/IdentityModuleApiKeyUsageLogs/Queries/GetByApiKey",
+      "OrderNo": 200,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiKeyUsageLogs_GetByStatusCode",
+      "Name": "ApiKeyUsageLogsGetByStatusCode",
+      "Text": "ApiKeyUsageLogsGetByStatusCode",
+      "Tooltip": "ApiKeyUsageLogs GetByStatusCode",
+      "ActionName": "/IdentityModuleApiKeyUsageLogs/Queries/GetByStatusCode",
+      "OrderNo": 201,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_ApiMethodAccessGrants",
+      "Name": "ApiMethodAccessGrants",
+      "Text": "ApiMethodAccessGrants",
+      "Tooltip": "ApiMethodAccessGrants",
+      "ActionName": "/IdentityModuleApiMethodAccessGrants/List",
+      "OrderNo": 202,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodAccessGrants_GetActiveApiMethodAccessGrants",
+      "Name": "ApiMethodAccessGrantsGetActiveApiMethodAccessGrants",
+      "Text": "ApiMethodAccessGrantsGetActiveApiMethodAccessGrants",
+      "Tooltip": "ApiMethodAccessGrants GetActiveApiMethodAccessGrants",
+      "ActionName": "/IdentityModuleApiMethodAccessGrants/Queries/GetActiveApiMethodAccessGrants",
+      "OrderNo": 203,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodAccessGrants_GetApiMethodAccessGrantNames",
+      "Name": "ApiMethodAccessGrantsGetApiMethodAccessGrantNames",
+      "Text": "ApiMethodAccessGrantsGetApiMethodAccessGrantNames",
+      "Tooltip": "ApiMethodAccessGrants GetApiMethodAccessGrantNames",
+      "ActionName": "/IdentityModuleApiMethodAccessGrants/Queries/GetApiMethodAccessGrantNames",
+      "OrderNo": 204,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_ApiMethodDefinitions",
+      "Name": "ApiMethodDefinitions",
+      "Text": "ApiMethodDefinitions",
+      "Tooltip": "ApiMethodDefinitions",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/List",
+      "OrderNo": 205,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_ExistsApiMethodDefinitionsWithModelName",
+      "Name": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModelName",
+      "Text": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModelName",
+      "Tooltip": "ApiMethodDefinitions ExistsApiMethodDefinitionsWithModelName",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/ExistsApiMethodDefinitionsWithModelName",
+      "OrderNo": 206,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_ExistsApiMethodDefinitionsWithModuleName",
+      "Name": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModuleName",
+      "Text": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModuleName",
+      "Tooltip": "ApiMethodDefinitions ExistsApiMethodDefinitionsWithModuleName",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/ExistsApiMethodDefinitionsWithModuleName",
+      "OrderNo": 207,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_GetApiMethodDefinitionsByUrl",
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsByUrl",
+      "Text": "ApiMethodDefinitionsGetApiMethodDefinitionsByUrl",
+      "Tooltip": "ApiMethodDefinitions GetApiMethodDefinitionsByUrl",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/GetApiMethodDefinitionsByUrl",
+      "OrderNo": 208,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_GetApiMethodDefinitionsWithModelName",
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModelName",
+      "Text": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModelName",
+      "Tooltip": "ApiMethodDefinitions GetApiMethodDefinitionsWithModelName",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/GetApiMethodDefinitionsWithModelName",
+      "OrderNo": 209,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_GetApiMethodDefinitionsWithModuleName",
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModuleName",
+      "Text": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModuleName",
+      "Tooltip": "ApiMethodDefinitions GetApiMethodDefinitionsWithModuleName",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/GetApiMethodDefinitionsWithModuleName",
+      "OrderNo": 210,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_ApiMethodDefinitions_GetKafkaEventsApiMethodDefinitions",
+      "Name": "ApiMethodDefinitionsGetKafkaEventsApiMethodDefinitions",
+      "Text": "ApiMethodDefinitionsGetKafkaEventsApiMethodDefinitions",
+      "Tooltip": "ApiMethodDefinitions GetKafkaEventsApiMethodDefinitions",
+      "ActionName": "/IdentityModuleApiMethodDefinitions/Queries/GetKafkaEventsApiMethodDefinitions",
+      "OrderNo": 211,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_AspNetRoles",
+      "Name": "AspNetRoles",
+      "Text": "AspNetRoles",
+      "Tooltip": "AspNetRoles",
+      "ActionName": "/IdentityModuleAspNetRoles/List",
+      "OrderNo": 212,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AspNetRoleClaims",
+      "Name": "AspNetRoleClaims",
+      "Text": "AspNetRoleClaims",
+      "Tooltip": "AspNetRoleClaims",
+      "ActionName": "/IdentityModuleAspNetRoleClaims/List",
+      "OrderNo": 213,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AspNetUsers",
+      "Name": "AspNetUsers",
+      "Text": "AspNetUsers",
+      "Tooltip": "AspNetUsers",
+      "ActionName": "/IdentityModuleAspNetUsers/List",
+      "OrderNo": 214,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_AspNetUsers_GetPhoto",
+      "Name": "AspNetUsersGetPhoto",
+      "Text": "AspNetUsersGetPhoto",
+      "Tooltip": "AspNetUsers GetPhoto",
+      "ActionName": "/IdentityModuleAspNetUsers/Queries/GetPhoto",
+      "OrderNo": 215,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_AspNetUsers_GetUser",
+      "Name": "AspNetUsersGetUser",
+      "Text": "AspNetUsersGetUser",
+      "Tooltip": "AspNetUsers GetUser",
+      "ActionName": "/IdentityModuleAspNetUsers/Queries/GetUser",
+      "OrderNo": 216,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_AspNetUsers_IdentityUserById",
+      "Name": "AspNetUsersIdentityUserById",
+      "Text": "AspNetUsersIdentityUserById",
+      "Tooltip": "AspNetUsers IdentityUserById",
+      "ActionName": "/IdentityModuleAspNetUsers/Queries/IdentityUserById",
+      "OrderNo": 217,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_AspNetUsers_IdentityUserByNormalizedEmail",
+      "Name": "AspNetUsersIdentityUserByNormalizedEmail",
+      "Text": "AspNetUsersIdentityUserByNormalizedEmail",
+      "Tooltip": "AspNetUsers IdentityUserByNormalizedEmail",
+      "ActionName": "/IdentityModuleAspNetUsers/Queries/IdentityUserByNormalizedEmail",
+      "OrderNo": 218,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_AspNetUsers_IdentityUserByNormalizedUsername",
+      "Name": "AspNetUsersIdentityUserByNormalizedUsername",
+      "Text": "AspNetUsersIdentityUserByNormalizedUsername",
+      "Tooltip": "AspNetUsers IdentityUserByNormalizedUsername",
+      "ActionName": "/IdentityModuleAspNetUsers/Queries/IdentityUserByNormalizedUsername",
+      "OrderNo": 219,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_AspNetUserClaims",
+      "Name": "AspNetUserClaims",
+      "Text": "AspNetUserClaims",
+      "Tooltip": "AspNetUserClaims",
+      "ActionName": "/IdentityModuleAspNetUserClaims/List",
+      "OrderNo": 220,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AspNetUserLogins",
+      "Name": "AspNetUserLogins",
+      "Text": "AspNetUserLogins",
+      "Tooltip": "AspNetUserLogins",
+      "ActionName": "/IdentityModuleAspNetUserLogins/List",
+      "OrderNo": 221,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AspNetUserRoles",
+      "Name": "AspNetUserRoles",
+      "Text": "AspNetUserRoles",
+      "Tooltip": "AspNetUserRoles",
+      "ActionName": "/IdentityModuleAspNetUserRoles/List",
+      "OrderNo": 222,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AspNetUserTokens",
+      "Name": "AspNetUserTokens",
+      "Text": "AspNetUserTokens",
+      "Tooltip": "AspNetUserTokens",
+      "ActionName": "/IdentityModuleAspNetUserTokens/List",
+      "OrderNo": 223,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_AuditLogs",
+      "Name": "AuditLogs",
+      "Text": "AuditLogs",
+      "Tooltip": "AuditLogs",
+      "ActionName": "/IdentityModuleAuditLogs/List",
+      "OrderNo": 224,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_ColumnTypes",
+      "Name": "ColumnTypes",
+      "Text": "ColumnTypes",
+      "Tooltip": "ColumnTypes",
+      "ActionName": "/IdentityModuleColumnTypes/List",
+      "OrderNo": 225,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_KafkaEvents",
+      "Name": "KafkaEvents",
+      "Text": "KafkaEvents",
+      "Tooltip": "KafkaEvents",
+      "ActionName": "/IdentityModuleKafkaEvents/List",
+      "OrderNo": 226,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_KafkaEvents_GetActiveKafkaEvents",
+      "Name": "KafkaEventsGetActiveKafkaEvents",
+      "Text": "KafkaEventsGetActiveKafkaEvents",
+      "Tooltip": "KafkaEvents GetActiveKafkaEvents",
+      "ActionName": "/IdentityModuleKafkaEvents/Queries/GetActiveKafkaEvents",
+      "OrderNo": 227,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_KafkaEvents_GetKafkaEvents",
+      "Name": "KafkaEventsGetKafkaEvents",
+      "Text": "KafkaEventsGetKafkaEvents",
+      "Tooltip": "KafkaEvents GetKafkaEvents",
+      "ActionName": "/IdentityModuleKafkaEvents/Queries/GetKafkaEvents",
+      "OrderNo": 228,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_KafkaEvents_GetTopicWorkflows",
+      "Name": "KafkaEventsGetTopicWorkflows",
+      "Text": "KafkaEventsGetTopicWorkflows",
+      "Tooltip": "KafkaEvents GetTopicWorkflows",
+      "ActionName": "/IdentityModuleKafkaEvents/Queries/GetTopicWorkflows",
+      "OrderNo": 229,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_KafkaEvents_GetTopicWorkflowsKafkaEvents",
+      "Name": "KafkaEventsGetTopicWorkflowsKafkaEvents",
+      "Text": "KafkaEventsGetTopicWorkflowsKafkaEvents",
+      "Tooltip": "KafkaEvents GetTopicWorkflowsKafkaEvents",
+      "ActionName": "/IdentityModuleKafkaEvents/Queries/GetTopicWorkflowsKafkaEvents",
+      "OrderNo": 230,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_Models",
+      "Name": "Models",
+      "Text": "Models",
+      "Tooltip": "Models",
+      "ActionName": "/IdentityModuleModels/List",
+      "OrderNo": 231,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_Models_ModuleNameIsExists",
+      "Name": "ModelsModuleNameIsExists",
+      "Text": "ModelsModuleNameIsExists",
+      "Tooltip": "Models ModuleNameIsExists",
+      "ActionName": "/IdentityModuleModels/Queries/ModuleNameIsExists",
+      "OrderNo": 232,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_Modules",
+      "Name": "Modules",
+      "Text": "Modules",
+      "Tooltip": "Modules",
+      "ActionName": "/IdentityModuleModules/List",
+      "OrderNo": 233,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_Modules_ModuleNameIsExists",
+      "Name": "ModulesModuleNameIsExists",
+      "Text": "ModulesModuleNameIsExists",
+      "Tooltip": "Modules ModuleNameIsExists",
+      "ActionName": "/IdentityModuleModules/Queries/ModuleNameIsExists",
+      "OrderNo": 234,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_PermissionGroups",
+      "Name": "PermissionGroups",
+      "Text": "PermissionGroups",
+      "Tooltip": "PermissionGroups",
+      "ActionName": "/IdentityModulePermissionGroups/List",
+      "OrderNo": 235,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_PortalMenus",
+      "Name": "PortalMenus",
+      "Text": "PortalMenus",
+      "Tooltip": "PortalMenus",
+      "ActionName": "/IdentityModulePortalMenus/List",
+      "OrderNo": 236,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalMenus_GetPortalMenus",
+      "Name": "PortalMenusGetPortalMenus",
+      "Text": "PortalMenusGetPortalMenus",
+      "Tooltip": "PortalMenus GetPortalMenus",
+      "ActionName": "/IdentityModulePortalMenus/Queries/GetPortalMenus",
+      "OrderNo": 237,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_PortalPageAccessGrants",
+      "Name": "PortalPageAccessGrants",
+      "Text": "PortalPageAccessGrants",
+      "Tooltip": "PortalPageAccessGrants",
+      "ActionName": "/IdentityModulePortalPageAccessGrants/List",
+      "OrderNo": 238,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageAccessGrants_GetPortalPageAccessGrant",
+      "Name": "PortalPageAccessGrantsGetPortalPageAccessGrant",
+      "Text": "PortalPageAccessGrantsGetPortalPageAccessGrant",
+      "Tooltip": "PortalPageAccessGrants GetPortalPageAccessGrant",
+      "ActionName": "/IdentityModulePortalPageAccessGrants/Queries/GetPortalPageAccessGrant",
+      "OrderNo": 239,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageAccessGrants_GetPortalPageAccessGrants",
+      "Name": "PortalPageAccessGrantsGetPortalPageAccessGrants",
+      "Text": "PortalPageAccessGrantsGetPortalPageAccessGrants",
+      "Tooltip": "PortalPageAccessGrants GetPortalPageAccessGrants",
+      "ActionName": "/IdentityModulePortalPageAccessGrants/Queries/GetPortalPageAccessGrants",
+      "OrderNo": 240,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_PortalPageDefinitions",
+      "Name": "PortalPageDefinitions",
+      "Text": "PortalPageDefinitions",
+      "Tooltip": "PortalPageDefinitions",
+      "ActionName": "/IdentityModulePortalPageDefinitions/List",
+      "OrderNo": 241,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_ExistsPortalPageDefinitionsWithModelName",
+      "Name": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModelName",
+      "Text": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModelName",
+      "Tooltip": "PortalPageDefinitions ExistsPortalPageDefinitionsWithModelName",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/ExistsPortalPageDefinitionsWithModelName",
+      "OrderNo": 242,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_ExistsPortalPageDefinitionsWithModuleName",
+      "Name": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModuleName",
+      "Text": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModuleName",
+      "Tooltip": "PortalPageDefinitions ExistsPortalPageDefinitionsWithModuleName",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/ExistsPortalPageDefinitionsWithModuleName",
+      "OrderNo": 243,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_GetListPortalPageDefinitions",
+      "Name": "PortalPageDefinitionsGetListPortalPageDefinitions",
+      "Text": "PortalPageDefinitionsGetListPortalPageDefinitions",
+      "Tooltip": "PortalPageDefinitions GetListPortalPageDefinitions",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/GetListPortalPageDefinitions",
+      "OrderNo": 244,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_GetPortalPageDefinitionsByKey",
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsByKey",
+      "Text": "PortalPageDefinitionsGetPortalPageDefinitionsByKey",
+      "Tooltip": "PortalPageDefinitions GetPortalPageDefinitionsByKey",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/GetPortalPageDefinitionsByKey",
+      "OrderNo": 245,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_GetPortalPageDefinitionsWithModelName",
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsWithModelName",
+      "Text": "PortalPageDefinitionsGetPortalPageDefinitionsWithModelName",
+      "Tooltip": "PortalPageDefinitions GetPortalPageDefinitionsWithModelName",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/GetPortalPageDefinitionsWithModelName",
+      "OrderNo": 246,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_PortalPageDefinitions_GetPortalPageDefinitionsWithModuleName",
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsWithModuleName",
+      "Text": "PortalPageDefinitionsGetPortalPageDefinitionsWithModuleName",
+      "Tooltip": "PortalPageDefinitions GetPortalPageDefinitionsWithModuleName",
+      "ActionName": "/IdentityModulePortalPageDefinitions/Queries/GetPortalPageDefinitionsWithModuleName",
+      "OrderNo": 247,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_RefreshTokens",
+      "Name": "RefreshTokens",
+      "Text": "RefreshTokens",
+      "Tooltip": "RefreshTokens",
+      "ActionName": "/IdentityModuleRefreshTokens/List",
+      "OrderNo": 248,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_RefreshTokens_GetRefreshToken",
+      "Name": "RefreshTokensGetRefreshToken",
+      "Text": "RefreshTokensGetRefreshToken",
+      "Tooltip": "RefreshTokens GetRefreshToken",
+      "ActionName": "/IdentityModuleRefreshTokens/Queries/GetRefreshToken",
+      "OrderNo": 249,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "IdentityModule_TableComboboxSettings",
+      "Name": "TableComboboxSettings",
+      "Text": "TableComboboxSettings",
+      "Tooltip": "TableComboboxSettings",
+      "ActionName": "/IdentityModuleTableComboboxSettings/List",
+      "OrderNo": 250,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "IdentityModule_TopicWorkflows",
+      "Name": "TopicWorkflows",
+      "Text": "TopicWorkflows",
+      "Tooltip": "TopicWorkflows",
+      "ActionName": "/IdentityModuleTopicWorkflows/List",
+      "OrderNo": 251,
+      "ParentName": "IdentityModule"
+    },
+    {
+      "Key": "Queries_IdentityModule_TopicWorkflows_GetTopicWorkflows",
+      "Name": "TopicWorkflowsGetTopicWorkflows",
+      "Text": "TopicWorkflowsGetTopicWorkflows",
+      "Tooltip": "TopicWorkflows GetTopicWorkflows",
+      "ActionName": "/IdentityModuleTopicWorkflows/Queries/GetTopicWorkflows",
+      "OrderNo": 252,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_TopicWorkflows_GetWorkflows",
+      "Name": "TopicWorkflowsGetWorkflows",
+      "Text": "TopicWorkflowsGetWorkflows",
+      "Tooltip": "TopicWorkflows GetWorkflows",
+      "ActionName": "/IdentityModuleTopicWorkflows/Queries/GetWorkflows",
+      "OrderNo": 253,
+      "ParentName": "IdentityModuleQueries"
+    },
+    {
+      "Key": "Queries_IdentityModule_TopicWorkflows_GetWorkflows2",
+      "Name": "TopicWorkflowsGetWorkflows2",
+      "Text": "TopicWorkflowsGetWorkflows2",
+      "Tooltip": "TopicWorkflows GetWorkflows2",
+      "ActionName": "/IdentityModuleTopicWorkflows/Queries/GetWorkflows2",
+      "OrderNo": 254,
+      "ParentName": "IdentityModuleQueries"
+    }
+  ],
+  "TableComboboxSettings": [
+    {
+      "TableName": "ArchitecturalPattern",
+      "IdColumn": "Key",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "DbType",
+      "IdColumn": "Key",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "Project",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "GenerationStep",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "GenerationRun",
+      "IdColumn": "Id",
+      "TextColumns": "SessionId",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "GenerationStatus",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "GenerationRunType",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "ModuleTemplate",
+      "IdColumn": "Key",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "ProjectAnalyses",
+      "IdColumn": "Id",
+      "TextColumns": "AnalysisId",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "AspNetUser",
+      "IdColumn": "Id",
+      "TextColumns": "Id, FirstName, LastName",
+      "StringFormat": "{0} - {1} {2}"
+    },
+    {
+      "TableName": "ApiKey",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "ApiMethodDefinition",
+      "IdColumn": "Key",
+      "TextColumns": "HttpMethod, UrlPath",
+      "StringFormat": "{0} - {1}"
+    },
+    {
+      "TableName": "AspNetRole",
+      "IdColumn": "Id",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "KafkaEvent",
+      "IdColumn": "TopicName",
+      "TextColumns": "TopicName",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "Module",
+      "IdColumn": "Name",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "Model",
+      "IdColumn": "Name",
+      "TextColumns": "Name, ModuleName",
+      "StringFormat": "{0} - {1}"
+    },
+    {
+      "TableName": "PermissionGroup",
+      "IdColumn": "Name",
+      "TextColumns": "Name",
+      "StringFormat": "{0}"
+    },
+    {
+      "TableName": "PortalPageDefinition",
+      "IdColumn": "Key",
+      "TextColumns": "Key",
+      "StringFormat": "{0}"
+    }
+  ]
+}

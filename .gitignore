@@ -1,0 +1,16 @@
+.vs
+bin
+obj
+QuickCode.Demo.Api/bin
+QuickCode.Demo.Api/obj
+QuickCode.Demo.Portal/bin
+QuickCode.Demo.Portal/obj
+QuickCode.Demo.Web/bin
+QuickCode.Demo.Web/obj
+QuickCode.Demo.DataLayer/bin
+QuickCode.Demo.DataLayer/obj
+.DS_Store
+/src/.idea
+/src/.run
+.env
+**/.env

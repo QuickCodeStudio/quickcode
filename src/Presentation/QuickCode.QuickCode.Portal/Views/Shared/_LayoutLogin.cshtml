@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Sign in to Quick Code Portal">
+    <meta name="theme-color" content="#3b488e">
+    <link rel="icon" href="https://www.quickcode.net/favicon.ico" />
+    <!--[if IE]>
+    <link rel="shortcut icon" href="https://www.quickcode.net/favicon.ico" type="image/vnd.microsoft.icon" />
+    <![endif]-->
+    <title>@ViewData["Title"] - Quick Code Portal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="/font-awesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/auth.css" asp-append-version="true" />
+</head>
+<body class="auth-body">
+    <main class="auth-shell">
+        <div class="auth-stage">
+            <partial name="_AuthVisual" />
+            @RenderBody()
+        </div>
+    </main>
+
+    @if (ViewData["AuthToast"] is string authToast && !string.IsNullOrWhiteSpace(authToast))
+    {
+        var toastType = ViewData["AuthToastType"] as string ?? "success";
+        <div id="authToast"
+             class="auth-toast auth-toast--@toastType is-visible"
+             role="status"
+             aria-live="polite">
+            <i id="authToastIcon" class="fas @(string.Equals(toastType, "error", System.StringComparison.OrdinalIgnoreCase) ? "fa-exclamation-circle" : "fa-check-circle")" aria-hidden="true"></i>
+            <span id="authToastBody" class="auth-toast__body">@authToast</span>
+            <button type="button" class="auth-toast__close" data-auth-toast-close aria-label="Close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div id="authToast" class="auth-toast" hidden role="status" aria-live="polite">
+            <i id="authToastIcon" class="fas fa-check-circle" aria-hidden="true"></i>
+            <span id="authToastBody" class="auth-toast__body"></span>
+            <button type="button" class="auth-toast__close" data-auth-toast-close aria-label="Close">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+        </div>
+    }
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="/js/auth.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,761 @@
+@model GetApiMethodAccessGrantData
+@{
+var title = "Api Method Access Grant Manager";
+var moduleNames = new List<string>();
+var accordionId = "";
+var counter = 0;
+var allowMultipleOpens = true; // Set to true to allow multiple sections open, false to allow only one
+TempData["Title"] = title;
+}
+<style>
+    .api-grant-status-filter {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        padding: 0.28rem;
+        background: #f1f4f8;
+        border: 1px solid #e8edf3;
+        border-radius: 999px;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    .api-grant-status-filter button {
+        -webkit-appearance: none;
+        appearance: none;
+        border: none;
+        background: transparent;
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.5rem 0.95rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .api-grant-status-filter button:hover {
+        color: #0f172a;
+        background: rgba(15, 23, 42, 0.05);
+    }
+    .api-grant-status-filter button.is-active {
+        background: #fff;
+        color: #2f3d78;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.03);
+    }
+    .api-grant-status-filter .count {
+        font-size: 0.75rem;
+        font-weight: 700;
+        min-width: 1.35rem;
+        height: 1.35rem;
+        padding: 0 0.35rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 23, 42, 0.06);
+        color: inherit;
+    }
+    .api-grant-status-filter button.is-active .count {
+        background: rgba(47, 61, 120, 0.12);
+    }
+    .grant-status-label {
+        margin-right: 8px;
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        min-width: 4.5rem;
+    }
+    .grant-status-label.is-granted {
+        color: #15803d;
+    }
+    .grant-status-label.is-revoked {
+        color: #b91c1c;
+    }
+</style>
+<div class="container-fluid" IsPageAvailable="true">
+    <form method="post" id="formList" data-page-partial-url="/IdentityModuleApiMethodAccessGrants/GetModulePermissions">
+        @Html.AntiForgeryToken()
+        <div class="card text shadow mb-4">
+
+            <div class="card-body">
+                <h2 class="card-title">@title</h2>
+                <p class="card-text">You can manage your Api Permissions.</p>
+
+                <hr class="col-xs-12">
+                @if (Model.Items.ApiModulePermissionList.Count == 0)
+                {
+                <div class="alert alert-danger" role="alert">
+                    No Data available in Api Permissions table.
+
+                </div>
+                }
+                else
+                {
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="permissionGroupSelect" class="form-label font-weight-bold">Permission Group Name</label>
+                        <select id="permissionGroupSelect" class="form-select searchable-select" asp-for="SelectedGroupName" asp-items="@Model.ComboList["PermissionGroups"].SetListWithSelected(Model.SelectedGroupName)" data-placeholder="Search for Group Name..." onchange="submitform();"></select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="searchInput" class="form-label font-weight-bold">Search</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                    <span class="input-group-text" style="background: #f8f9fa; border-right: none;">
+                                        <i class="fas fa-search" style="color: #6c757d;"></i>
+                                    </span>
+                            </div>
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search by method, path, controller, module..." style="border-left: none;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <label class="form-label font-weight-bold">Status</label>
+                        <div class="api-grant-status-filter" role="tablist" aria-label="Filter methods by grant status">
+                            <button type="button" class="is-active" data-status="all" role="tab" aria-selected="true">
+                                All <span class="count" id="statusCountAll">0</span>
+                            </button>
+                            <button type="button" data-status="granted" role="tab" aria-selected="false">
+                                Granted <span class="count" id="statusCountGranted">0</span>
+                            </button>
+                            <button type="button" data-status="revoked" role="tab" aria-selected="false">
+                                Revoked <span class="count" id="statusCountRevoked">0</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search Statistics -->
+                <div id="searchStatistics" class="row mb-3" style="display: none;">
+                    <div class="col-12">
+                        <div class="alert alert-info mb-0" style="padding: 12px 16px; border-radius: 8px;">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <span id="searchStatsText" style="font-size: 0.9rem;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- No Results Message -->
+                <div id="noResultsMessage" class="row mb-4" style="display: none;">
+                    <div class="col-12">
+                        <div class="alert text-center" style="padding: 40px 20px; border-radius: 8px; background-color: #f8f9fa; border: 1px solid #e9ecef; border-left: 4px solid #6c757d;">
+                            <i class="fas fa-search" style="font-size: 3rem; color: #6c757d; margin-bottom: 15px; display: block; opacity: 0.7;"></i>
+                            <h5 style="color: #495057; margin-bottom: 10px; font-weight: 500;">No Results Found</h5>
+                            <p id="noResultsDetail" style="color: #6c757d; margin: 0;">No API methods found matching your filters.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="grants-region" class="portal-list-region">
+                    @await Html.PartialAsync("_Content", Model)
+                </div>
+                }
+            </div>
+        </div>
+    </form>
+
+    <div class="modal fade bd-example-modal-lg" id="itemDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" id="itemDetailsContainer">
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+            <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="3000">
+                <div class="toast-header" style="background-color: #d4edda; color: #155724;">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong class="me-auto">Success</strong>
+                    <button type="button" class="ms-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body" style="background-color: #d4edda; color: #155724;">
+                    Permission updated successfully.
+                </div>
+            </div>
+            <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
+                <div class="toast-header" style="background-color: #f8d7da; color: #721c24;">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="ms-2 mb-1 close" data-bs-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body" style="background-color: #f8d7da; color: #721c24;">
+                    An error occurred while updating the permission.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid" IsPageAvailable="false">
+    @await Html.PartialAsync("_NotAuthorized")
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/lazyload.js"></script>
+<script type="text/javascript">
+    // Configuration: Allow multiple collapsible sections to be open at the same time
+    var allowMultipleOpens = @Html.Raw(allowMultipleOpens.ToString().ToLower()); // Set to true to allow multiple sections open, false to allow only one
+
+    // Store all cards data on page load - this is our source of truth
+    var allCardsData = [];
+    var currentStatusFilter = 'all';
+
+    function syncGrantStatusLabel($switch) {
+        var granted = $switch.is(':checked');
+        var $label = $switch.closest('.d-flex').find('.grant-status-label');
+        $label.text(granted ? 'Granted' : 'Revoked')
+            .toggleClass('is-granted', granted)
+            .toggleClass('is-revoked', !granted);
+    }
+
+    function isCardGranted($card) {
+        return ($card.attr('data-granted') || '').toLowerCase() === 'true'
+            || $card.find('.ios-switch').is(':checked');
+    }
+
+    function rebuildCardsData() {
+        allCardsData = [];
+        $('.searchable-card').each(function () {
+            var $card = $(this);
+            allCardsData.push({
+                element: $card,
+                controllerName: ($card.attr('data-controller') || '').toLowerCase(),
+                method: ($card.attr('data-method') || '').toLowerCase(),
+                path: ($card.attr('data-path') || '').toLowerCase(),
+                granted: isCardGranted($card)
+            });
+        });
+        updateStatusCounts();
+    }
+
+    function updateStatusCounts() {
+        var all = allCardsData.length;
+        var granted = 0;
+        allCardsData.forEach(function (cardData) {
+            if (cardData.granted) granted++;
+        });
+        $('#statusCountAll').text(all);
+        $('#statusCountGranted').text(granted);
+        $('#statusCountRevoked').text(all - granted);
+    }
+
+    function setStatusFilter(status) {
+        currentStatusFilter = status || 'all';
+        $('.api-grant-status-filter [data-status]').each(function () {
+            var isActive = $(this).attr('data-status') === currentStatusFilter;
+            $(this).toggleClass('is-active', isActive).attr('aria-selected', isActive ? 'true' : 'false');
+        });
+    }
+
+    function cardMatches(cardData, searchText, statusFilter) {
+        if (statusFilter === 'granted' && !cardData.granted) return false;
+        if (statusFilter === 'revoked' && cardData.granted) return false;
+        if (searchText) {
+            var cardText = cardData.controllerName + ' ' + cardData.method + ' ' + cardData.path;
+            if (cardText.indexOf(searchText) === -1) return false;
+        }
+        return true;
+    }
+
+    function resetSearch() {
+        $('#accordionApiMethodModules > .card.mb-4').css('display', '');
+        $('.controller-collapse-header').closest('.card.mb-3').css('display', '');
+        allCardsData.forEach(function(cardData) {
+            cardData.element.css('display', '');
+        });
+
+        $('.module-count-badge').each(function() {
+            var $badge = $(this);
+            $badge.text($badge.attr('data-total') + ' models');
+        });
+        $('.controller-count-badge').each(function() {
+            var $badge = $(this);
+            $badge.text($badge.attr('data-total') + ' items');
+        });
+
+        $('[class*="no-search-results-"]').hide();
+        $('.searchable-cards-container').show();
+        $('#searchStatistics').hide();
+        $('#noResultsMessage').hide();
+        $('#accordionApiMethodModules').show();
+
+        if (!allowMultipleOpens) {
+            $('#accordionApiMethodModules > .card > .collapse').each(function() {
+                var $collapse = $(this);
+                var originalParent = $collapse.data('original-parent');
+                if (originalParent) {
+                    $collapse.attr('data-parent', originalParent);
+                    $collapse.removeData('original-parent');
+                } else if (!$collapse.attr('data-parent')) {
+                    $collapse.attr('data-parent', '#accordionApiMethodModules');
+                }
+            });
+        } else {
+            $('#accordionApiMethodModules > .card > .collapse').each(function() {
+                $(this).removeData('original-parent');
+            });
+        }
+        $('.searchable-cards-container.accordion').each(function() {
+            var accordionId = '#' + $(this).attr('id');
+            $(this).find('.collapse').each(function() {
+                var $collapse = $(this);
+                if (!$collapse.attr('data-parent')) {
+                    $collapse.attr('data-parent', accordionId);
+                }
+            });
+        });
+    }
+
+    function applyFilters() {
+        var searchText = ($('#searchInput').val() || '').toLowerCase().trim();
+        var statusFilter = currentStatusFilter || 'all';
+        var hasFilter = searchText.length > 0 || statusFilter !== 'all';
+
+        resetSearch();
+        if (!hasFilter) return;
+
+        $('#accordionApiMethodModules > .card > .collapse').each(function() {
+            var $collapse = $(this);
+            var currentParent = $collapse.attr('data-parent');
+            if (currentParent) {
+                if (!$collapse.data('original-parent')) {
+                    $collapse.data('original-parent', currentParent);
+                }
+                $collapse.removeAttr('data-parent');
+            }
+            if (!$collapse.hasClass('show')) {
+                $collapse.collapse('show');
+            }
+        });
+        $('.searchable-cards-container.accordion').each(function() {
+            var $accordion = $(this);
+            if ($accordion.is(':visible')) {
+                $accordion.find('.collapse').each(function() {
+                    var $collapse = $(this);
+                    if (!$collapse.hasClass('show')) {
+                        $collapse.collapse('show');
+                    }
+                });
+            }
+        });
+        setTimeout(function() {
+            $('#accordionApiMethodModules > .card > .collapse.show').each(function() {
+                var collapseId = '#' + $(this).attr('id');
+                var $icon = $('[data-bs-target="' + collapseId + '"]').find('.collapse-icon');
+                if ($icon.length > 0) {
+                    $icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+                }
+            });
+            $('.searchable-cards-container.accordion .collapse.show').each(function() {
+                var collapseId = '#' + $(this).attr('id');
+                var $icon = $('[data-bs-target="' + collapseId + '"]').find('.controller-collapse-icon');
+                if ($icon.length > 0) {
+                    $icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+                }
+            });
+        }, 350);
+
+        allCardsData.forEach(function(cardData) {
+            if (!cardMatches(cardData, searchText, statusFilter)) {
+                cardData.element.css('display', 'none');
+            }
+        });
+
+        $('.controller-collapse-header').each(function() {
+            var $controllerCard = $(this).closest('.card.mb-3');
+            var $badge = $(this).find('.controller-count-badge');
+            var total = parseInt($badge.attr('data-total')) || 0;
+            var visibleCards = 0;
+            $controllerCard.find('.searchable-card').each(function() {
+                if ($(this).css('display') !== 'none') visibleCards++;
+            });
+            $badge.text(visibleCards + ' / ' + total + ' items');
+            $controllerCard.css('display', visibleCards > 0 ? '' : 'none');
+        });
+
+        var totalModules = 0;
+        var visibleModules = 0;
+        var totalModels = 0;
+        var visibleModels = 0;
+        var visibleItems = 0;
+
+        $('#accordionApiMethodModules > .card.mb-4').each(function() {
+            var $moduleCard = $(this);
+            var $badge = $moduleCard.find('.module-count-badge');
+            var total = parseInt($badge.attr('data-total')) || 0;
+            totalModules++;
+            totalModels += total;
+
+            var visibleControllers = 0;
+            $moduleCard.find('.controller-collapse-header').closest('.card.mb-3').each(function() {
+                if ($(this).css('display') !== 'none') visibleControllers++;
+            });
+            $badge.text(visibleControllers + ' / ' + total + ' models');
+
+            var hasVisibleItems = false;
+            $moduleCard.find('.searchable-card').each(function() {
+                if ($(this).css('display') !== 'none') {
+                    hasVisibleItems = true;
+                    visibleItems++;
+                }
+            });
+
+            if (!hasVisibleItems) {
+                $moduleCard.css('display', 'none');
+            } else {
+                $moduleCard.css('display', '');
+                visibleModules++;
+                visibleModels += visibleControllers;
+            }
+        });
+
+        var statusLabel = statusFilter === 'granted' ? 'granted' : (statusFilter === 'revoked' ? 'revoked' : '');
+        var statsText = 'Showing <strong>' + visibleItems + '</strong> method' + (visibleItems !== 1 ? 's' : '');
+        if (statusLabel) {
+            statsText += ' with status <strong>' + statusLabel + '</strong>';
+        }
+        if (searchText) {
+            statsText += ' matching <strong>' + $('<div>').text(searchText).html() + '</strong>';
+        }
+        statsText += ' in <strong>' + visibleModules + '</strong> / ' + totalModules + ' module' + (totalModules !== 1 ? 's' : '') +
+            ' and <strong>' + visibleModels + '</strong> / ' + totalModels + ' model' + (totalModels !== 1 ? 's' : '') + '.';
+        $('#searchStatsText').html(statsText);
+        $('#searchStatistics').show();
+
+        if (visibleModules === 0) {
+            var emptyText = 'No API methods found matching your filters.';
+            if (!searchText && statusFilter === 'granted') emptyText = 'No granted API methods in this group.';
+            if (!searchText && statusFilter === 'revoked') emptyText = 'No revoked API methods in this group.';
+            $('#noResultsDetail').text(emptyText);
+            $('#noResultsMessage').show();
+            $('#accordionApiMethodModules').hide();
+        } else {
+            $('#noResultsMessage').hide();
+            $('#accordionApiMethodModules').show();
+        }
+    }
+
+    $("img.lazyload").lazyload();
+
+    // iOS Switch initialization
+    $(document).ready(function() {
+        // Update wrapper classes based on checkbox state
+        $('.ios-switch').each(function() {
+            var $wrapper = $(this).closest('.ios-switch-wrapper');
+            $wrapper.toggleClass('checked', $(this).is(':checked'));
+            syncGrantStatusLabel($(this));
+        });
+
+        // Update on change - handle both UI update and permission update
+        $(document).on('change', '.ios-switch', function(e) {
+            var $switch = $(this);
+            var $wrapper = $switch.closest('.ios-switch-wrapper');
+
+            // Update wrapper class for visual state
+            $wrapper.toggleClass('checked', $switch.is(':checked'));
+            syncGrantStatusLabel($switch);
+
+            // Call checkBoxChanged only once - prevent duplicate calls
+            if (!$switch.data('processing')) {
+                $switch.data('processing', true);
+                checkBoxChanged(this);
+                // Reset flag after a short delay
+                setTimeout(function() {
+                    $switch.data('processing', false);
+                }, 100);
+            }
+        });
+
+        // Allow clicking on wrapper to toggle switch - iOS compatible with touch events
+        var touchStartTime = 0;
+        var touchStartTarget = null;
+
+        // Handle checkbox touch - allow natural behavior but prevent wrapper handler
+        $(document).on('touchstart', '.ios-switch', function(e) {
+            e.stopPropagation();
+        });
+
+        $(document).on('touchstart', '.ios-switch-wrapper', function(e) {
+            var $target = $(e.target);
+            if (!$target.is('.ios-switch') && !$target.is('label') && !$target.closest('.ios-switch').length) {
+                touchStartTime = Date.now();
+                touchStartTarget = $(this);
+                e.preventDefault();
+            }
+        });
+
+        // Handle checkbox touchend - allow natural behavior
+        $(document).on('touchend', '.ios-switch', function(e) {
+            e.stopPropagation();
+        });
+
+        $(document).on('touchend', '.ios-switch-wrapper', function(e) {
+            var touchEndTime = Date.now();
+            var touchDuration = touchEndTime - touchStartTime;
+            var $target = $(this);
+
+            if (touchDuration < 300 && touchStartTarget && touchStartTarget[0] === $target[0]) {
+                if (!$(e.target).is('.ios-switch') && !$(e.target).is('label')) {
+                    var $switch = $target.find('.ios-switch');
+                    if ($switch.is(':disabled')) {
+                        touchStartTarget = null;
+                        return false;
+                    }
+                    if (!$switch.data('processing')) {
+                        $switch.prop('checked', !$switch.prop('checked')).trigger('change');
+                    }
+                }
+            }
+            touchStartTarget = null;
+        });
+
+        // Prevent label click from triggering checkbox
+        $(document).on('click', 'label', function(e) {
+            if ($(this).closest('.ios-switch-wrapper').length > 0 || $(this).next('.ios-switch-wrapper').length > 0) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+
+        // Handle checkbox click - allow natural behavior but prevent wrapper handler
+        $(document).on('click', '.ios-switch', function(e) {
+            e.stopPropagation();
+        });
+
+        $(document).on('click', '.ios-switch-wrapper', function(e) {
+            if (!('ontouchstart' in window)) {
+                var $target = $(e.target);
+                var $wrapper = $(this);
+
+                if ($target.is('.ios-switch') || $target.closest('.ios-switch').length > 0) {
+                    return;
+                }
+
+                if ($target.is('label')) {
+                    return;
+                }
+
+                var $switch = $wrapper.find('.ios-switch');
+                if ($switch.is(':disabled')) {
+                    return false;
+                }
+                if (!$switch.data('processing')) {
+                    $switch.prop('checked', !$switch.prop('checked')).trigger('change');
+                }
+            }
+        });
+    });
+
+    // Initialize icons for initially open collapses and set expand/collapse button states
+    $(document).ready(function() {
+        $('.collapse.show').each(function() {
+            var collapseId = '#' + $(this).attr('id');
+            var $icon = $('[data-bs-target="' + collapseId + '"]').find('.collapse-icon, .controller-collapse-icon');
+            $icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+        });
+
+        // Set initial state for expand/collapse all buttons
+        $('.expand-all-btn').each(function() {
+            var $btn = $(this);
+            var accordionId = '#' + $btn.data('accordion');
+            var $accordion = $(accordionId);
+            var $controllers = $accordion.find('.collapse');
+
+            // Check if all controllers are open
+            var allOpen = true;
+            $controllers.each(function() {
+                if (!$(this).hasClass('show')) {
+                    allOpen = false;
+                    return false; // break
+                }
+            });
+
+            // Set button text based on initial state
+            if (allOpen && $controllers.length > 0) {
+                $btn.find('.expand-all-text').text('Collapse All');
+            } else {
+                $btn.find('.expand-all-text').text('Expand All');
+            }
+        });
+    });
+
+    // Toggle icon on collapse button/header click
+    $(document).on('click', '[data-bs-toggle="collapse"], .controller-collapse-header', function(e) {
+        // Prevent event bubbling to parent collapse handlers
+        e.stopPropagation();
+
+        var target = $(this).data('bs-target') || $(this).attr('data-bs-target');
+        var $icon = $(this).find('.collapse-icon, .controller-collapse-icon');
+
+        if ($icon.length > 0 && target) {
+            var $targetEl = $(target);
+            // Toggle icon immediately based on current state (before animation)
+            if ($targetEl.hasClass('show')) {
+                // Will close, change to right
+                $icon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            } else {
+                // Will open, change to down
+                $icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+            }
+        }
+    });
+
+    // Expand/Collapse All Controllers button
+    $(document).on('click', '.expand-all-btn', function(e) {
+        e.stopPropagation(); // Prevent parent collapse from toggling
+
+        var $btn = $(this);
+        var accordionId = '#' + $btn.data('accordion');
+        var $accordion = $(accordionId);
+        var $controllers = $accordion.find('.collapse');
+
+        // Check if all are open or at least one is closed
+        var allOpen = true;
+        $controllers.each(function() {
+            if (!$(this).hasClass('show')) {
+                allOpen = false;
+                return false; // break
+            }
+        });
+
+        // Toggle all controllers
+        if (allOpen) {
+            // Close all
+            $controllers.collapse('hide');
+            $btn.find('.expand-all-icon').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+            // Update icons
+            $accordion.find('.controller-collapse-icon').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        } else {
+            // Open all
+            $controllers.collapse('show');
+            $btn.find('.expand-all-icon').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+            // Update icons after animation
+            setTimeout(function() {
+                $accordion.find('.controller-collapse-icon').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+            }, 350);
+        }
+    });
+
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        var targetId = '';
+        $(this).ekkoLightbox({
+            onShown: function(lb) {
+                $(targetId).addClass('lbackground');
+            },
+            onShow: function(lb) {
+                targetId = '#' + lb.delegateTarget.id
+                $(targetId).addClass('lbackground');
+            },
+            onHidden: function(){
+                $(targetId).removeClass('lbackground');
+                if ($('.modal:visible').length) {
+                    $('body').addClass('modal-open');
+                    $('#itemDetailsModal').focus();
+                }
+
+            }
+        });
+    });
+
+    function submitform() {
+        if (typeof refreshListRegion === 'function' && document.getElementById('grants-region')) {
+            refreshListRegion({
+                regionId: 'grants-region',
+                afterSwap: function () {
+                    $('#searchInput').val('');
+                    $('#searchStatistics').hide();
+                    $('#noResultsMessage').hide();
+                    setStatusFilter('all');
+                    rebuildCardsData();
+                    $('.ios-switch').each(function () {
+                        var $wrapper = $(this).closest('.ios-switch-wrapper');
+                        $wrapper.toggleClass('checked', $(this).is(':checked'));
+                        syncGrantStatusLabel($(this));
+                    });
+                    $('.collapse.show').each(function () {
+                        $(this).closest('.card').find('.collapse-icon').css('transform', 'rotate(90deg)');
+                    });
+                }
+            });
+            return;
+        }
+        $('#formList').submit();
+    }
+
+    function checkBoxChanged(cbox) {
+        console.log('Changed' + cbox.id);
+        var values = cbox.id.replace("cbox_", "").split("_");
+        var UpdatePermissionAccessRequestData =  {
+            "permissionGroupName": values[0],
+            "apiMethodDefinitionKey": values[1],
+            "value": cbox.checked ? 1 : 0
+        };
+
+        // Get method and path from the card
+        var $card = $(cbox).closest('.searchable-card');
+        $card.attr('data-granted', cbox.checked ? 'true' : 'false');
+        var method = $card.attr('data-method') || '';
+        var path = $card.attr('data-path') || '';
+        var statusText = cbox.checked ? 'granted' : 'revoked';
+        var permissionText = method && path ? method + ' ' + path : values[1];
+        allCardsData.forEach(function (cardData) {
+            if (cardData.element[0] === $card[0]) {
+                cardData.granted = cbox.checked;
+            }
+        });
+        updateStatusCounts();
+        applyFilters();
+
+        var url = '@Url.Action("UpdatePermission")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: UpdatePermissionAccessRequestData,
+            dataType: 'json',
+            success: function (data) {
+                console.log('Success Updated ' + cbox.id);
+                // Show success toast with specific permission
+                $('#successToast .toast-body').text('Permission ' + statusText + ' for: ' + permissionText);
+                $('#successToast').toast('show');
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+                // Show error toast
+                var errorMessage = 'An error occurred while updating permission for: ' + permissionText;
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage = xhr.responseJSON.message;
+                } else if (error) {
+                    errorMessage = 'Error: ' + error + ' (for: ' + permissionText + ')';
+                }
+                $('#errorToast .toast-body').text(errorMessage);
+                $('#errorToast').toast('show');
+            },
+        });
+    }
+
+    // Search + status filter
+    $(document).ready(function() {
+        rebuildCardsData();
+
+        $('#searchInput').on('keyup input paste', function() {
+            applyFilters();
+        });
+
+        $(document).on('click', '.api-grant-status-filter [data-status]', function() {
+            setStatusFilter($(this).attr('data-status'));
+            applyFilters();
+        });
+    });
+</script>

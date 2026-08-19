@@ -1,0 +1,25 @@
+@model ConfirmEmailData
+@{
+    ViewData["Title"] = "Confirm email";
+}
+
+<section class="auth-card">
+    <div class="auth-card__inner">
+        <p class="auth-card__eyebrow">Portal access</p>
+        <h1 class="auth-card__title">Confirm your email</h1>
+        <p class="auth-card__lead">You need a confirmed email before you can sign in.</p>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="auth-alert auth-alert--error" role="alert">@Model.ErrorMessage</div>
+        }
+        @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+        {
+            <div class="auth-alert auth-alert--success" role="status">@Model.SuccessMessage</div>
+        }
+
+        <div class="auth-footer">
+            <span><a class="auth-link" asp-action="Index" asp-controller="Login">Sign in</a></span>
+        </div>
+    </div>
+</section>

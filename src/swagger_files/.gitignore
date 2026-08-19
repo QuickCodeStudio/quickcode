@@ -1,0 +1,2 @@
+# Filled by module Api build (e.g. PostBuild: dotnet swagger tofile → this folder)
+*.json

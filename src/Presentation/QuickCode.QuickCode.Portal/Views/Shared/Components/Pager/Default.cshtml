@@ -1,0 +1,144 @@
+@model PagerData
+@{
+    var pageSizes = new[] { 10, 20, 50, 100 };
+    var minPageSize = pageSizes[0];
+    var showPageSize = Model.NumberOfRecord >= minPageSize;
+    var currentPageSize = pageSizes.Contains(Model.PageSize) ? Model.PageSize : 20;
+
+    // Window around current page + always first/last, with ellipsis gaps.
+    var pages = new List<int>();
+    void AddPage(int p)
+    {
+        if (p >= 1 && p <= Model.TotalPage && !pages.Contains(p))
+            pages.Add(p);
+    }
+
+    if (Model.TotalPage > 0)
+    {
+        AddPage(1);
+        for (var i = Model.CurrentPage - 1; i <= Model.CurrentPage + 1; i++)
+            AddPage(i);
+        AddPage(Model.TotalPage);
+        pages.Sort();
+    }
+
+    var totalLabel = Model.NumberOfRecord.ToString("N0");
+    var nounSingular = string.IsNullOrWhiteSpace(Model.RecordNounSingular) ? "item" : Model.RecordNounSingular.Trim();
+    var nounPlural = string.IsNullOrWhiteSpace(Model.RecordNounPlural) ? "items" : Model.RecordNounPlural.Trim();
+    var itemsWord = Model.NumberOfRecord == 1 ? nounSingular : nounPlural;
+    // All rows on one page — skip "1–2 of 2 rows" in favor of "2 rows".
+    var showCompactCount = !Model.HasMoreRecords && (Model.NumberOfRecord == 0 || Model.TotalPage <= 1);
+    var rangeLabel = Model.NumberOfRecord == 0
+        ? "0"
+        : $"{Model.StartIndex}–{Model.EndIndex}";
+}
+<div class="portal-list-pager">
+    <div class="portal-list-pager__cluster">
+        <div class="portal-list-pager__range" aria-live="polite">
+            @if (showCompactCount)
+            {
+                <span class="portal-list-pager__range-strong">@totalLabel</span>
+                <span class="portal-list-pager__range-muted">@itemsWord</span>
+            }
+            else if (Model.HasMoreRecords)
+            {
+                <span class="portal-list-pager__range-strong">@rangeLabel</span>
+                <span class="portal-list-pager__range-muted">@itemsWord</span>
+            }
+            else
+            {
+                <span class="portal-list-pager__range-strong">@rangeLabel</span>
+                <span class="portal-list-pager__range-muted">of @totalLabel @itemsWord</span>
+            }
+        </div>
+        @if (showPageSize)
+        {
+            <span class="portal-list-pager__sep" aria-hidden="true"></span>
+            <label class="portal-list-pagesize" title="Rows per page">
+                <select class="portal-list-pagesize__select" aria-label="Rows per page">
+                    @foreach (var size in pageSizes)
+                    {
+                        if (size == currentPageSize)
+                        {
+                            <option value="@size" selected>@size</option>
+                        }
+                        else
+                        {
+                            <option value="@size">@size</option>
+                        }
+                    }
+                </select>
+                <span class="portal-list-pagesize__suffix">/ page</span>
+            </label>
+        }
+        @* portal-list.js injects Reset layout when columns are customized *@
+    </div>
+
+    @if (Model.TotalPage > 1)
+    {
+        <nav class="portal-list-pager__nav" aria-label="Pagination" data-total-pages="@Model.TotalPage">
+            <ul class="portal-pager">
+                <li class="portal-pager__item @(Model.CurrentPage <= 1 ? "is-disabled" : null)">
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <a class="portal-pager__btn" href="javascript:void(0)" onclick="setPage(@(Model.CurrentPage - 1))" aria-label="Previous page">
+                            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="portal-pager__btn" aria-disabled="true" aria-label="Previous page">
+                            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                        </span>
+                    }
+                </li>
+
+                @{
+                    var previous = 0;
+                }
+                @foreach (var index in pages)
+                {
+                    if (previous > 0 && index - previous > 1)
+                    {
+                        <li class="portal-pager__item is-gap">
+                            <button type="button"
+                                    class="portal-pager__gap"
+                                    data-portal-page-jump
+                                    aria-label="Go to page">…</button>
+                        </li>
+                    }
+
+                    if (index == Model.CurrentPage)
+                    {
+                        <li class="portal-pager__item is-active">
+                            <span class="portal-pager__btn" aria-current="page">@index</span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="portal-pager__item">
+                            <a class="portal-pager__btn" href="javascript:void(0)" onclick="setPage(@index)">@index</a>
+                        </li>
+                    }
+
+                    previous = index;
+                }
+
+                <li class="portal-pager__item @(Model.CurrentPage >= Model.TotalPage ? "is-disabled" : null)">
+                    @if (Model.CurrentPage < Model.TotalPage)
+                    {
+                        <a class="portal-pager__btn" href="javascript:void(0)" onclick="setPage(@(Model.CurrentPage + 1))" aria-label="Next page">
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <span class="portal-pager__btn" aria-disabled="true" aria-label="Next page">
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </span>
+                    }
+                </li>
+            </ul>
+        </nav>
+    }
+</div>

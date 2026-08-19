@@ -1,0 +1,37 @@
+services:
+  quickcode-quickcode-gateway-api:
+    container_name: "quickcode-quickcode-gateway-api"
+    image: ${DOCKER_REGISTRY-}quickcode-quickcode-gateway-api
+    build:
+      context: .
+      dockerfile: Presentation/QuickCode.QuickCode.Gateway/Dockerfile
+
+  quickcode-quickcode-quick-code-module-api:
+    container_name: "quickcode-quickcode-quick-code-module-api"
+    image: ${DOCKER_REGISTRY-}quickcode-quickcode-quick-code-module-api
+    build:
+      context: . 
+      dockerfile: Modules/QuickCodeModule/Presentation/QuickCode.QuickCode.QuickCodeModule.Api/Dockerfile
+
+  quickcode-quickcode-identity-module-api:
+    container_name: "quickcode-quickcode-identity-module-api"
+    image: ${DOCKER_REGISTRY-}quickcode-quickcode-identity-module-api
+    build:
+      context: . 
+      dockerfile: Modules/IdentityModule/Presentation/QuickCode.QuickCode.IdentityModule.Api/Dockerfile
+
+#[-WEB-]
+  
+  quickcode-quickcode-portal:
+    container_name: "quickcode-quickcode-portal"
+    image: ${DOCKER_REGISTRY-}quickcode-quickcode-portal
+    build:
+      context: .
+      dockerfile: Presentation/QuickCode.QuickCode.Portal/Dockerfile
+      
+  quickcode-quickcode-event-listener-service:
+    container_name: "quickcode-quickcode-event-listener-service"
+    image: ${DOCKER_REGISTRY-}quickcode-quickcode-event-listener-service
+    build:
+      context: .
+      dockerfile: Services/QuickCode.QuickCode.EventListenerService/Dockerfile

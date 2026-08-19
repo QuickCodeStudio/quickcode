@@ -1,0 +1,325 @@
+﻿{
+	"DB_TYPES": [
+		{
+			"KEY": "mssql",
+			"NAME": "Microsoft SQL Server",
+			"DESCRIPTION": "Microsoft SQL Server",
+			"ICON_URL": "/img/skins/sql_server_logo.png"
+		},
+		{
+			"KEY": "mysql",
+			"NAME": "MySQL",
+			"DESCRIPTION": "MySQL",
+			"ICON_URL": "/img/skins/mysql_logo.png"
+		},
+		{
+			"KEY": "postgresql",
+			"NAME": "PostgreSQL",
+			"DESCRIPTION": "PostgreSQL",
+			"ICON_URL": "/img/skins/postgresql_logo.png"
+		}
+	],
+	"ARCHITECTURAL_PATTERNS": [
+		{
+			"KEY": "CqrsAndMediator",
+			"NAME": "CQRS & Mediator",
+			"DESCRIPTION": "CQRS & Mediator Architecture",
+			"ICON_URL": "/img/skins/mysql_logo.png"
+		},
+		{
+			"KEY": "Service",
+			"NAME": "Service",
+			"DESCRIPTION": "Microsoft SQL Server",
+			"ICON_URL": "/img/skins/sql_server_logo.png"
+		}
+	],
+	"GENERATION_STATUSES": [
+		{
+			"ID": 1,
+			"DESCRIPTION": "CreatingDatabase",
+			"EXECUTION_DESCRIPTION": "CreatingDatabase",
+			"ICON": "fa-solid fa-check",
+			"NAME": "CreatingDatabase"
+		},
+		{
+			"ID": 2,
+			"DESCRIPTION": "GeneratingSolution",
+			"EXECUTION_DESCRIPTION": "GeneratingSolution",
+			"ICON": "fa-solid fa-check",
+			"NAME": "GeneratingSolution"
+		},
+		{
+			"ID": 3,
+			"DESCRIPTION": "CreatingSubdomains",
+			"EXECUTION_DESCRIPTION": "CreatingSubdomains",
+			"ICON": "fa-solid fa-check",
+			"NAME": "CreatingSubdomains"
+		},
+		{
+			"ID": 4,
+			"DESCRIPTION": "CreatingWebSites",
+			"EXECUTION_DESCRIPTION": "CreatingWebSites",
+			"ICON": "fa-solid fa-check",
+			"NAME": "CreatingWebSites"
+		},
+		{
+			"ID": 5,
+			"DESCRIPTION": "BuildingSolution",
+			"EXECUTION_DESCRIPTION": "BuildingSolution",
+			"ICON": "fa-solid fa-check",
+			"NAME": "BuildingSolution"
+		},
+		{
+			"ID": 6,
+			"DESCRIPTION": "PublishingSolution",
+			"EXECUTION_DESCRIPTION": "PublishingSolution",
+			"ICON": "fa-solid fa-check",
+			"NAME": "PublishingSolution"
+		},
+		{
+			"ID": 7,
+			"DESCRIPTION": "Completed",
+			"EXECUTION_DESCRIPTION": "Completed",
+			"ICON": "fa-solid fa-check",
+			"NAME": "Completed"
+		}
+	],
+	"GENERATION_STEPS": [
+		{
+			"ID": 1,
+			"NAME": "Subdomains",
+			"WAITING_MESSAGE": "Waiting for subdomain configuration",
+			"IN_PROGRESS_MESSAGE": "Configuring subdomains",
+			"COMPLETED_MESSAGE": "Subdomains configured",
+			"DESCRIPTION": "Subdomain Configuration",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": ""
+		},
+		{
+			"ID": 2,
+			"NAME": "WebSites",
+			"WAITING_MESSAGE": "Waiting for website provisioning",
+			"IN_PROGRESS_MESSAGE": "Provisioning websites",
+			"COMPLETED_MESSAGE": "Websites provisioned",
+			"DESCRIPTION": "Website Provisioning",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": ""
+		},
+		{
+			"ID": 3,
+			"NAME": "Solution",
+			"WAITING_MESSAGE": "Waiting for solution generation",
+			"IN_PROGRESS_MESSAGE": "Generating solution",
+			"COMPLETED_MESSAGE": "Solution generated",
+			"DESCRIPTION": "Solution Generation",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "GitHubRepo"
+		},
+		{
+			"ID": 4,
+			"NAME": "GoogleCloudCreateProject",
+			"WAITING_MESSAGE": "Waiting for Google Cloud Platform project",
+			"IN_PROGRESS_MESSAGE": "Creating Google Cloud Platform project",
+			"COMPLETED_MESSAGE": "Google Cloud Platform project created",
+			"DESCRIPTION": "Google Cloud Platform Project",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": ""
+		},
+		{
+			"ID": 5,
+			"NAME": "GitHubRepo",
+			"WAITING_MESSAGE": "Waiting for GitHub repository",
+			"IN_PROGRESS_MESSAGE": "Creating GitHub repository",
+			"COMPLETED_MESSAGE": "GitHub repository created",
+			"DESCRIPTION": "GitHub Repository",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": ""
+		},
+		{
+			"ID": 6,
+			"NAME": "GitHubPush",
+			"WAITING_MESSAGE": "Waiting to push to GitHub",
+			"IN_PROGRESS_MESSAGE": "Pushing code to GitHub",
+			"COMPLETED_MESSAGE": "Code pushed to GitHub",
+			"DESCRIPTION": "GitHub Push",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GoogleCloudCreateProject,DatabaseMigration"
+		},
+		{
+			"ID": 7,
+			"NAME": "Build",
+			"WAITING_MESSAGE": "Waiting for build",
+			"IN_PROGRESS_MESSAGE": "Building solution",
+			"COMPLETED_MESSAGE": "Solution built",
+			"DESCRIPTION": "Solution Build",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution"
+		},
+		{
+			"ID": 8,
+			"NAME": "DatabaseMigration",
+			"WAITING_MESSAGE": "Waiting for Database migration scripts",
+			"IN_PROGRESS_MESSAGE": "Preparing Database migration scripts",
+			"COMPLETED_MESSAGE": "Database migration scripts prepared",
+			"DESCRIPTION": "Database Migration",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution"
+		},
+		{
+			"ID": 9,
+			"NAME": "SqlUpdateDatabase",
+			"WAITING_MESSAGE": "Waiting for SQL database update",
+			"IN_PROGRESS_MESSAGE": "Updating database with SQL migration runner",
+			"COMPLETED_MESSAGE": "Database updated with SQL migration runner",
+			"DESCRIPTION": "SQL Database Update",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "DatabaseMigration"
+		},
+		{
+			"ID": 10,
+			"NAME": "PublishModuleApi",
+			"WAITING_MESSAGE": "Waiting for API deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying API",
+			"COMPLETED_MESSAGE": "API deployed",
+			"DESCRIPTION": "API Deployment",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,Subdomains,WebSites"
+		},
+		{
+			"ID": 11,
+			"NAME": "PublishPortal",
+			"WAITING_MESSAGE": "Waiting for Portal deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying Portal",
+			"COMPLETED_MESSAGE": "Portal deployed",
+			"DESCRIPTION": "Portal Deployment",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,Subdomains,WebSites"
+		},
+		{
+			"ID": 12,
+			"NAME": "PublishWeb",
+			"WAITING_MESSAGE": "Waiting for web deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying web application",
+			"COMPLETED_MESSAGE": "Web application deployed",
+			"DESCRIPTION": "Web Application Deployment",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,Subdomains,WebSites"
+		},
+		{
+			"ID": 13,
+			"NAME": "PublishGateway",
+			"WAITING_MESSAGE": "Waiting for gateway deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying gateway",
+			"COMPLETED_MESSAGE": "Gateway deployed",
+			"DESCRIPTION": "Gateway Deployment",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,Subdomains,WebSites"
+		},
+		{
+			"ID": 14,
+			"NAME": "BuildAndPushContainerModuleApi",
+			"WAITING_MESSAGE": "Waiting for container build (GitHub Actions)",
+			"IN_PROGRESS_MESSAGE": "Building container via GitHub Actions",
+			"COMPLETED_MESSAGE": "Container pushed to registry",
+			"DESCRIPTION": "GitHub Actions - API Container",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush"
+		},
+		{
+			"ID": 15,
+			"NAME": "BuildAndPushContainerPortal",
+			"WAITING_MESSAGE": "Waiting for Portal container build (GitHub Actions)",
+			"IN_PROGRESS_MESSAGE": "Building Portal container via GitHub Actions",
+			"COMPLETED_MESSAGE": "Portal container pushed to registry",
+			"DESCRIPTION": "GitHub Actions - Portal Container",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush"
+		},
+		{
+			"ID": 16,
+			"NAME": "BuildAndPushContainerWeb",
+			"WAITING_MESSAGE": "Waiting for web container build (GitHub Actions)",
+			"IN_PROGRESS_MESSAGE": "Building web container via GitHub Actions",
+			"COMPLETED_MESSAGE": "Web container pushed to registry",
+			"DESCRIPTION": "GitHub Actions - Web Container",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush"
+		},
+		{
+			"ID": 17,
+			"NAME": "BuildAndPushContainerGateway",
+			"WAITING_MESSAGE": "Waiting for gateway container build (GitHub Actions)",
+			"IN_PROGRESS_MESSAGE": "Building gateway container via GitHub Actions",
+			"COMPLETED_MESSAGE": "Gateway container pushed to registry",
+			"DESCRIPTION": "GitHub Actions - Gateway Container",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush"
+		},
+		{
+			"ID": 18,
+			"NAME": "BuildAndPushContainerEventListenerService",
+			"WAITING_MESSAGE": "Waiting for event listener container build (GitHub Actions)",
+			"IN_PROGRESS_MESSAGE": "Building event listener container via GitHub Actions",
+			"COMPLETED_MESSAGE": "Event listener container pushed to registry",
+			"DESCRIPTION": "GitHub Actions - Event Listener Container",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush"
+		},
+		{
+			"ID": 19,
+			"NAME": "DeployToCloudRunModuleApi",
+			"WAITING_MESSAGE": "Waiting for Cloud Run deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying to Google Cloud Run",
+			"COMPLETED_MESSAGE": "Deployed to Cloud Run",
+			"DESCRIPTION": "Google Cloud Run - API",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush,BuildAndPushContainer"
+		},
+		{
+			"ID": 20,
+			"NAME": "DeployToCloudRunPortal",
+			"WAITING_MESSAGE": "Waiting for Portal Cloud Run deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying Portal to Cloud Run",
+			"COMPLETED_MESSAGE": "Portal deployed to Cloud Run",
+			"DESCRIPTION": "Google Cloud Run - Portal",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush,BuildAndPushContainer"
+		},
+		{
+			"ID": 21,
+			"NAME": "DeployToCloudRunWeb",
+			"WAITING_MESSAGE": "Waiting for web Cloud Run deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying web to Cloud Run",
+			"COMPLETED_MESSAGE": "Web deployed to Cloud Run",
+			"DESCRIPTION": "Google Cloud Run - Web",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush,BuildAndPushContainer"
+		},
+		{
+			"ID": 22,
+			"NAME": "DeployToCloudRunGateway",
+			"WAITING_MESSAGE": "Waiting for gateway Cloud Run deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying gateway to Cloud Run",
+			"COMPLETED_MESSAGE": "Gateway deployed to Cloud Run",
+			"DESCRIPTION": "Google Cloud Run - Gateway",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush,BuildAndPushContainer"
+		},
+		{
+			"ID": 23,
+			"NAME": "DeployToCloudRunEventListenerService",
+			"WAITING_MESSAGE": "Waiting for event listener Cloud Run deployment",
+			"IN_PROGRESS_MESSAGE": "Deploying event listener to Cloud Run",
+			"COMPLETED_MESSAGE": "Event listener deployed to Cloud Run",
+			"DESCRIPTION": "Google Cloud Run - Event Listener",
+			"ICON": "fa-solid fa-check",
+			"NEEDS": "Solution,GitHubRepo,GitHubPush,BuildAndPushContainer"
+		}
+	],
+	"GENERATION_RUN_TYPES": [
+		{
+			"ID": 1,
+			"NAME": "GenerationRunType1"
+		}
+	]
+}

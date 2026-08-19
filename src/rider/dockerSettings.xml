@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DockerSettings">
+    <option name="dockerComposeV2Enabled" value="true" />
+    <option name="dockerServers">
+      <list>
+        <DockerServerSettings>
+          <configuration>
+            <option name="apiUrl" value="unix:///var/run/docker.sock" />
+            <option name="certificatesPath" value="" />
+            <option name="connectTimeoutMillis" value="30000" />
+          </configuration>
+          <option name="name" value="Docker" />
+        </DockerServerSettings>
+      </list>
+    </option>
+  </component>
+</project>

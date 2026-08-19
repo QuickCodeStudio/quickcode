@@ -1,0 +1,92 @@
+{
+  "ReverseProxy": {
+    "clusters": {
+      "auth-api": {
+        "clusterId": "auth-api",
+        "destinations": {
+          "destination1": {
+            "address": "http://quickcode-quickcode-identity-module-api"
+          }
+        }
+      },
+      "quick-code-module-api": {
+        "clusterId": "quick-code-module-api",
+        "destinations": {
+          "destination1": {
+            "address": "http://quickcode-quickcode-quick-code-module-api"
+          }
+        }
+      },
+      "identity-module-api": {
+        "clusterId": "identity-module-api",
+        "destinations": {
+          "destination1": {
+            "address": "http://quickcode-quickcode-identity-module-api"
+          }
+        }
+      }
+    },
+    "routes": {
+      "auth": {
+        "routeId": "auth",
+        "clusterId": "auth-api",
+        "authorizationPolicy": null,
+        "match": {
+          "path": "api/auth/{**catch-all}",
+          "hosts": [
+            "localhost:6060",
+            "quickcode-gateway-821209474183.europe-west1.run.app",
+            "quickcode-gateway",
+            "quickcode-quickcode-gateway-api",
+            "quickcode-gateway.quickcode.net"
+          ]
+        },
+        "transforms": [
+          {
+            "PathPattern": "api/auth/{**catch-all}"
+          }
+        ]
+      },
+      "quick-code-module": {
+        "routeId": "quick-code-module",
+        "clusterId": "quick-code-module-api",
+        "authorizationPolicy": "QuickCodeGatewayPolicy",
+        "match": {
+          "path": "api/quick-code-module/{**catch-all}",
+          "hosts": [
+            "localhost:6060",
+            "quickcode-gateway-821209474183.europe-west1.run.app",
+            "quickcode-gateway",
+            "quickcode-quickcode-gateway-api",
+            "quickcode-gateway.quickcode.net"
+          ]
+        },
+        "transforms": [
+          {
+            "PathPattern": "api/quick-code-module/{**catch-all}"
+          }
+        ]
+      },
+      "identity-module": {
+        "routeId": "identity-module",
+        "clusterId": "identity-module-api",
+        "authorizationPolicy": "QuickCodeGatewayPolicy",
+        "match": {
+          "path": "api/identity-module/{**catch-all}",
+          "hosts": [
+            "localhost:6060",
+            "quickcode-gateway-821209474183.europe-west1.run.app",
+            "quickcode-gateway",
+            "quickcode-quickcode-gateway-api",
+            "quickcode-gateway.quickcode.net"
+          ]
+        },
+        "transforms": [
+          {
+            "PathPattern": "api/identity-module/{**catch-all}"
+          }
+        ]
+      }
+    }
+  }
+}

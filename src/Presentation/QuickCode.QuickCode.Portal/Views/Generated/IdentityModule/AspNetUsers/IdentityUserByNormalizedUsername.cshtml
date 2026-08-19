@@ -1,0 +1,147 @@
+﻿@model QuickCode.QuickCode.Portal.Models.IdentityModule.AspNetUserIdentityUserByNormalizedUsernameData
+@{
+    string title = "IdentityUserByNormalizedUsername".SplitCamelCaseToString();
+    TempData["Title"] = title;
+}
+<div class="container-fluid portal-query-page" IsPageAvailable="true">
+    <form method="post" id="formList" data-portal-query="true" class="portal-entity-form portal-query-form" data-list-partial-url="/IdentityModuleAspNetUsers/Queries/IdentityUserByNormalizedUsernamePartial">
+        @Html.AntiForgeryToken()
+        <div class="portal-query-shell">
+            <header class="portal-query-header">
+                <div class="portal-query-header__copy">
+                    <p class="portal-query-kicker">Live Report</p>
+                    <h2 class="portal-query-title">@title</h2>
+                    <p class="portal-query-lead">Set parameters, run, then scan the rows below.</p>
+                    <p class="portal-query-print-meta" hidden></p>
+                </div>
+                <button type="button"
+                        class="portal-query-endpoint"
+                        data-response-type="List<IdentityUserByNormalizedUsernameResponseDto>"
+                        data-response-fields='[{"name":"id","type":"string","description":"ID \u2014 field on the response DTO."},{"name":"firstName","type":"string","description":"First Name \u2014 field on the response DTO."},{"name":"lastName","type":"string","description":"Last Name \u2014 field on the response DTO."},{"name":"permissionGroupName","type":"string","description":"Permission Group Name \u2014 field on the response DTO."},{"name":"userName","type":"string","description":"User Name \u2014 field on the response DTO."},{"name":"normalizedUserName","type":"string","description":"Normalized User Name \u2014 field on the response DTO."},{"name":"email","type":"string","description":"Email \u2014 field on the response DTO."},{"name":"normalizedEmail","type":"string","description":"Normalized Email \u2014 field on the response DTO."},{"name":"emailConfirmed","type":"bool","description":"Email Confirmed \u2014 field on the response DTO."},{"name":"phoneNumber","type":"string","description":"Phone Number \u2014 field on the response DTO."},{"name":"phoneNumberConfirmed","type":"bool","description":"Phone Number Confirmed \u2014 field on the response DTO."},{"name":"twoFactorEnabled","type":"bool","description":"Two Factor Enabled \u2014 field on the response DTO."},{"name":"lockoutEnd","type":"DateTimeOffset","description":"Lockout End \u2014 field on the response DTO."},{"name":"lockoutEnabled","type":"bool","description":"Lockout Enabled \u2014 field on the response DTO."},{"name":"accessFailedCount","type":"int","description":"Access Failed Count \u2014 field on the response DTO."},{"name":"photoUrl","type":"string","description":"Photo URL \u2014 field on the response DTO."}]'
+                        aria-haspopup="dialog"
+                        title="View API endpoint details">
+                    <span class="portal-query-endpoint__method">GET</span>
+                    <span class="portal-query-endpoint__body">
+                        <span class="portal-query-endpoint__label">Endpoint</span>
+                        <code class="portal-query-endpoint__path">/api/identity-module/asp-net-users/identity-user-by-normalized-username/{aspNetUserNormalizedUserName}</code>
+                    </span>
+                    <span class="portal-query-endpoint__chevron" aria-hidden="true">
+                        <i class="fas fa-circle-info"></i>
+                    </span>
+                </button>
+                <script type="application/json" id="portalQueryResponseSchema" data-response-type="List<IdentityUserByNormalizedUsernameResponseDto>">[{"name":"id","type":"string","description":"ID \u2014 field on the response DTO."},{"name":"firstName","type":"string","description":"First Name \u2014 field on the response DTO."},{"name":"lastName","type":"string","description":"Last Name \u2014 field on the response DTO."},{"name":"permissionGroupName","type":"string","description":"Permission Group Name \u2014 field on the response DTO."},{"name":"userName","type":"string","description":"User Name \u2014 field on the response DTO."},{"name":"normalizedUserName","type":"string","description":"Normalized User Name \u2014 field on the response DTO."},{"name":"email","type":"string","description":"Email \u2014 field on the response DTO."},{"name":"normalizedEmail","type":"string","description":"Normalized Email \u2014 field on the response DTO."},{"name":"emailConfirmed","type":"bool","description":"Email Confirmed \u2014 field on the response DTO."},{"name":"phoneNumber","type":"string","description":"Phone Number \u2014 field on the response DTO."},{"name":"phoneNumberConfirmed","type":"bool","description":"Phone Number Confirmed \u2014 field on the response DTO."},{"name":"twoFactorEnabled","type":"bool","description":"Two Factor Enabled \u2014 field on the response DTO."},{"name":"lockoutEnd","type":"DateTimeOffset","description":"Lockout End \u2014 field on the response DTO."},{"name":"lockoutEnabled","type":"bool","description":"Lockout Enabled \u2014 field on the response DTO."},{"name":"accessFailedCount","type":"int","description":"Access Failed Count \u2014 field on the response DTO."},{"name":"photoUrl","type":"string","description":"Photo URL \u2014 field on the response DTO."}]</script>
+            </header>
+
+            <section class="portal-query-workspace" aria-label="Report parameters">
+                <div class="portal-query-toolbar">
+                    <div class="portal-query-params portal-entity-form">
+<form-group>
+	<input asp-for="AspNetUserNormalizedUserName" placeholder="Enter your Asp Net User Normalized User Name" bc-label="Asp Net User Normalized User Name" type="Text"  bc-required="true" bc-tooltip="Enter your Asp Net User Normalized User Name" bc-validation="true" />
+</form-group>
+                    </div>
+                    <div class="portal-query-actions">
+                        <button type="submit" class="portal-query-run">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            <span>Run Report</span>
+                        </button>
+                        <button type="button" class="portal-query-print" disabled aria-disabled="true" title="Run the report before printing">
+                            <i class="fas fa-print" aria-hidden="true"></i>
+                            <span>Print</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="list-region" class="portal-list-region portal-query-results" aria-label="Report results">
+                @await Html.PartialAsync("_IdentityUserByNormalizedUsernameTable", Model)
+            </section>
+        </div>
+        <input type="hidden" asp-for="CurrentPage" />
+        <input type="hidden" asp-for="PageSize" />
+        <input type="hidden" asp-for="HasRun" />
+    </form>
+</div>
+
+<div class="modal fade portal-query-endpoint-modal" id="portalQueryEndpointModal" tabindex="-1" role="dialog" aria-labelledby="portalQueryEndpointModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content portal-query-endpoint-modal__content">
+            <div class="modal-header portal-query-endpoint-modal__header">
+                <div>
+                    <p class="portal-query-endpoint-modal__kicker">API</p>
+                    <h5 class="modal-title" id="portalQueryEndpointModalTitle">Endpoint details</h5>
+                </div>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body portal-query-endpoint-modal__body">
+                <div class="portal-query-endpoint-modal__route">
+                    <span class="portal-query-endpoint-modal__method">GET</span>
+                    <code class="portal-query-endpoint-modal__url">/api/identity-module/asp-net-users/identity-user-by-normalized-username/{aspNetUserNormalizedUserName}</code>
+                </div>
+
+                <section class="portal-query-endpoint-modal__section" aria-label="Request parameters">
+                    <div class="portal-query-endpoint-modal__section-head">
+                        <h6 class="portal-query-endpoint-modal__section-title">Parameters</h6>
+                    </div>
+                    <p class="portal-query-endpoint-modal__intro">Values bound by this Live Report when it calls the module API.</p>
+                    <div class="portal-query-endpoint-modal__table-wrap">
+                        <table class="portal-query-endpoint-modal__table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">In</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Required</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td><code>aspNetUserNormalizedUserName</code></td><td><span class="portal-query-endpoint-modal__in">Path</span></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td><span class="portal-query-endpoint-modal__req portal-query-endpoint-modal__req--yes">Yes</span></td><td>Asp Net User Normalized User Name — Path filter on Asp Net User.NormalizedUserName (Equals).</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="portal-query-endpoint-modal__section portal-query-endpoint-modal__response" aria-label="Response model">
+                    <div class="portal-query-endpoint-modal__section-head">
+                        <h6 class="portal-query-endpoint-modal__section-title">Response</h6>
+                        <code class="portal-query-endpoint-modal__response-type">List&lt;IdentityUserByNormalizedUsernameResponseDto&gt;</code>
+                    </div>
+                    <p class="portal-query-endpoint-modal__intro">HTTP 200 — body schema returned by the module API.</p>
+                    <div class="portal-query-endpoint-modal__table-wrap">
+                        <table class="portal-query-endpoint-modal__table portal-query-endpoint-modal__table--response">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="portal-query-endpoint-modal__response-body">
+                            <tr><td><code>id</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>ID — field on the response DTO.</td></tr>
+                            <tr><td><code>firstName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>First Name — field on the response DTO.</td></tr>
+                            <tr><td><code>lastName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Last Name — field on the response DTO.</td></tr>
+                            <tr><td><code>permissionGroupName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Permission Group Name — field on the response DTO.</td></tr>
+                            <tr><td><code>userName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>User Name — field on the response DTO.</td></tr>
+                            <tr><td><code>normalizedUserName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Normalized User Name — field on the response DTO.</td></tr>
+                            <tr><td><code>email</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Email — field on the response DTO.</td></tr>
+                            <tr><td><code>normalizedEmail</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Normalized Email — field on the response DTO.</td></tr>
+                            <tr><td><code>emailConfirmed</code></td><td><span class="portal-query-endpoint-modal__type">bool</span></td><td>Email Confirmed — field on the response DTO.</td></tr>
+                            <tr><td><code>phoneNumber</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Phone Number — field on the response DTO.</td></tr>
+                            <tr><td><code>phoneNumberConfirmed</code></td><td><span class="portal-query-endpoint-modal__type">bool</span></td><td>Phone Number Confirmed — field on the response DTO.</td></tr>
+                            <tr><td><code>twoFactorEnabled</code></td><td><span class="portal-query-endpoint-modal__type">bool</span></td><td>Two Factor Enabled — field on the response DTO.</td></tr>
+                            <tr><td><code>lockoutEnd</code></td><td><span class="portal-query-endpoint-modal__type">DateTimeOffset</span></td><td>Lockout End — field on the response DTO.</td></tr>
+                            <tr><td><code>lockoutEnabled</code></td><td><span class="portal-query-endpoint-modal__type">bool</span></td><td>Lockout Enabled — field on the response DTO.</td></tr>
+                            <tr><td><code>accessFailedCount</code></td><td><span class="portal-query-endpoint-modal__type">int</span></td><td>Access Failed Count — field on the response DTO.</td></tr>
+                            <tr><td><code>photoUrl</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Photo URL — field on the response DTO.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" IsPageAvailable="false">
+ @await Html.PartialAsync("_NotAuthorized")
+</div>

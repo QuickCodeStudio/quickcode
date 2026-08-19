@@ -1,0 +1,3527 @@
+/* Portal list pages — light 2026 polish (aligned with entity modals) */
+:root {
+  --pl-ink: #0f172a;
+  --pl-muted: #64748b;
+  --pl-line: #e8edf3;
+  --pl-line-soft: #f1f5f9;
+  --pl-surface: #ffffff;
+  --pl-canvas: #f4f6f9;
+  --pl-header: #1e293b;
+  --pl-accent: #2f3d78;
+  --pl-accent-soft: rgba(47, 61, 120, 0.12);
+  --pl-radius: 14px;
+  --pl-radius-sm: 10px;
+
+  /* List column width tokens (data-col-type). Compact kinds stay fixed;
+     table itself is content-sized (no stretch-to-fill when few columns). */
+  --pl-col-ops: 7.9rem; /* 3 action buttons fallback */
+  --pl-col-ops-1: 3.2rem;
+  --pl-col-ops-2: 5.55rem;
+  --pl-col-ops-3: 7.9rem;
+  --pl-col-id: 4.5rem;
+  --pl-col-bool: 5.5rem;
+  --pl-col-thumb: 7rem;
+  --pl-col-file: 9.75rem;
+  --pl-col-int: 5.5rem;
+  --pl-col-money: 7rem;
+  --pl-col-datetime: 11.75rem;
+  --pl-col-email: 14rem;
+  --pl-col-phone: 9rem;
+  --pl-col-short: 8rem;
+  --pl-col-url: 12rem;
+  --pl-col-guid: 8rem;
+  --pl-col-fk: 12rem;
+  --pl-col-large-min: 12rem;
+}
+
+/* List shell card */
+.content-area .container-fluid > form#formList > .card,
+.content-area form#formList > .card {
+  border: 1px solid var(--pl-line);
+  border-radius: var(--pl-radius);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  background: var(--pl-surface);
+}
+
+.content-area form#formList > .card > .card-body {
+  padding: 1.15rem 1.25rem 1.35rem;
+}
+
+.content-area form#formList .card-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--pl-ink);
+  line-height: 1.25;
+}
+
+.content-area form#formList .card-text {
+  margin-bottom: 0.85rem;
+  color: var(--pl-muted);
+  font-size: 0.92rem;
+}
+
+/* List pages: divider under Insert is redundant — pager chrome already separates sections */
+.content-area form#formList > .card > .card-body > hr {
+  display: none;
+}
+
+.content-area form#formList > .card > .card-footer {
+  background: var(--pl-canvas);
+  border-top: 1px solid var(--pl-line);
+  padding: 0.85rem 1.25rem;
+}
+
+/* Insert CTA — never treat as icon-only */
+.content-area form#formList .opButtonInsert,
+.content-area form#formList button.opButtonInsert,
+.content-area form#formList .portal-query-run,
+.content-area form#formList button.portal-query-run {
+  width: auto !important;
+  min-width: auto !important;
+  height: auto !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  white-space: nowrap;
+  border-radius: 10px;
+  border: 0;
+  background: var(--pl-accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  padding: 0.55rem 1rem !important;
+  margin-bottom: 0.75rem;
+  box-shadow: none;
+}
+
+.content-area form#formList .opButtonInsert:hover,
+.content-area form#formList button.opButtonInsert:hover,
+.content-area form#formList .portal-query-run:hover,
+.content-area form#formList button.portal-query-run:hover {
+  filter: brightness(1.06);
+  color: #fff;
+}
+
+.content-area form#formList .opButtonInsert i,
+.content-area form#formList .portal-query-run i {
+  margin-right: 0 !important;
+}
+
+/* Pager — undo template negative margin that overlaps the table */
+.content-area form#formList .card-body > .d-flex.justify-content-between {
+  margin-bottom: 0.75rem !important;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Legacy bootstrap pagination fallback (older regenerated lists) */
+.content-area form#formList .pagination {
+  gap: 0.2rem;
+  margin-bottom: 0;
+  flex-wrap: wrap;
+}
+
+.content-area form#formList .pagination .page-link {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 8px !important;
+  color: var(--pl-ink);
+  background: transparent;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.content-area form#formList .pagination .page-item.active .page-link {
+  background: var(--pl-ink);
+  border-color: var(--pl-ink);
+  color: #fff;
+}
+
+.content-area form#formList .pagination .page-item.disabled .page-link {
+  color: #94a3b8;
+  background: transparent;
+}
+
+.content-area form#formList .d-flex.justify-content-between > .p-2:first-child {
+  color: var(--pl-muted);
+  font-size: 0.86rem;
+  font-weight: 500;
+  padding-left: 0 !important;
+}
+
+/* Data table — shell hugs content when few columns; scrolls when many.
+   Desktop: fixed max-height so sticky thead works without jitter.
+   Phones: no vertical clip (see mobile rules) — iOS stretches sticky <th> otherwise. */
+.content-area form#formList .portal-table-scroll {
+  border: 1px solid var(--pl-line);
+  border-radius: var(--pl-radius-sm);
+  background: #fff;
+  overflow-x: auto;
+  overflow-y: visible;
+  width: fit-content;
+  max-width: 100%;
+  max-height: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: auto;
+}
+
+@media (min-width: 768px) {
+  .content-area form#formList .portal-table-scroll {
+    overflow: auto;
+    max-height: calc(100dvh - 14rem);
+  }
+}
+
+/* Content-sized table: do not stretch columns to fill the card when there are few of them.
+   Many columns still scroll horizontally via .portal-table-scroll. */
+.content-area form#formList .portal-table-scroll > .table,
+.content-area form#formList table.table,
+.content-area form#formList table.table-responsive {
+  margin-bottom: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: max-content !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  table-layout: fixed;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.content-area form#formList table thead th,
+.content-area form#formList table thead td {
+  background: var(--pl-header) !important;
+  color: #f8fafc !important;
+  border: 0 !important;
+  border-bottom: 1px solid #0f172a !important;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.7rem 0.75rem !important;
+  vertical-align: middle;
+  /* Sticky only on desktop — iOS Safari stretches sticky <th> in overflow scrollports */
+  position: relative;
+  top: auto;
+  z-index: 2;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.35);
+}
+
+@media (min-width: 768px) {
+  .content-area form#formList table thead th,
+  .content-area form#formList table thead td {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+  }
+}
+
+.content-area form#formList table thead th:first-child,
+.content-area form#formList table thead td:first-child {
+  border-top-left-radius: var(--pl-radius-sm);
+}
+
+.content-area form#formList table thead th:last-child,
+.content-area form#formList table thead td:last-child {
+  border-top-right-radius: var(--pl-radius-sm);
+}
+
+.content-area form#formList table tbody tr:last-child > td:first-child {
+  border-bottom-left-radius: var(--pl-radius-sm);
+}
+
+.content-area form#formList table tbody tr:last-child > td:last-child {
+  border-bottom-right-radius: var(--pl-radius-sm);
+}
+
+.content-area form#formList table tbody td {
+  border-color: var(--pl-line-soft) !important;
+  color: var(--pl-ink);
+  font-size: 0.875rem;
+  padding: 0.65rem 0.75rem !important;
+  vertical-align: middle;
+  background-clip: padding-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-area form#formList table.table {
+  /* Bootstrap tints rows via --bs-table-accent-bg box-shadow, not background-color */
+  --bs-table-hover-bg: rgba(47, 61, 120, 0.08);
+  --bs-table-hover-color: var(--pl-ink);
+  --bs-table-striped-bg: rgba(15, 23, 42, 0.035);
+}
+
+.content-area form#formList table.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: #fff;
+}
+
+.content-area form#formList table.table-striped > tbody > tr:nth-of-type(even) > * {
+  background-color: #f8fafc;
+}
+
+.content-area form#formList table.table-hover > tbody > tr:hover {
+  --bs-table-accent-bg: rgba(47, 61, 120, 0.08);
+  color: var(--pl-ink);
+}
+
+.content-area form#formList table.table-hover > tbody > tr:hover > * {
+  background-color: #f3f5fa !important;
+  box-shadow: inset 0 0 0 9999px rgba(47, 61, 120, 0.07) !important;
+}
+
+.content-area form#formList table.table-hover > tbody > tr:hover > *:first-child {
+  box-shadow:
+    inset 3px 0 0 0 var(--pl-accent),
+    inset 0 0 0 9999px rgba(47, 61, 120, 0.07) !important;
+}
+
+/* Operations column — width tracks visible action button count */
+.content-area form#formList table .portal-ops-cell,
+.content-area form#formList table th.portal-ops-cell,
+.content-area form#formList table td.portal-ops-cell,
+.content-area form#formList table [data-col-type="ops"],
+.content-area form#formList table thead th:first-child,
+.content-area form#formList table tbody td:first-child,
+.content-area form#formList table tbody td:has(.opButtonDetail),
+.content-area form#formList table tbody td:has(.opButtonUpdate),
+.content-area form#formList table tbody td:has(.opButtonDelete),
+.content-area form#formList table tbody td[style*="width:150px"] {
+  width: var(--pl-col-ops);
+  min-width: var(--pl-col-ops);
+  max-width: var(--pl-col-ops);
+  white-space: nowrap;
+  padding-left: 0.55rem !important;
+  padding-right: 0.55rem !important;
+  vertical-align: middle;
+  box-sizing: border-box;
+  overflow: visible !important;
+  text-overflow: clip !important;
+}
+
+.content-area form#formList table .portal-ops-cell[data-ops-count="1"],
+.content-area form#formList table [data-col-type="ops"][data-ops-count="1"] {
+  width: var(--pl-col-ops-1) !important;
+  min-width: var(--pl-col-ops-1) !important;
+  max-width: var(--pl-col-ops-1) !important;
+}
+
+.content-area form#formList table .portal-ops-cell[data-ops-count="2"],
+.content-area form#formList table [data-col-type="ops"][data-ops-count="2"] {
+  width: var(--pl-col-ops-2) !important;
+  min-width: var(--pl-col-ops-2) !important;
+  max-width: var(--pl-col-ops-2) !important;
+}
+
+.content-area form#formList table .portal-ops-cell[data-ops-count="3"],
+.content-area form#formList table [data-col-type="ops"][data-ops-count="3"] {
+  width: var(--pl-col-ops-3) !important;
+  min-width: var(--pl-col-ops-3) !important;
+  max-width: var(--pl-col-ops-3) !important;
+}
+
+.content-area form#formList table th.portal-ops-cell {
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* Visual break after actions column so it doesn't blend into the next field */
+.content-area form#formList table thead th.portal-ops-cell,
+.content-area form#formList table thead th:first-child {
+  border-right: 1px solid rgba(248, 250, 252, 0.22) !important;
+  /* Keep thead bottom edge + right divider (do not drop the shared sticky shadow). */
+  box-shadow:
+    0 1px 0 rgba(15, 23, 42, 0.35),
+    1px 0 0 rgba(15, 23, 42, 0.35);
+}
+
+.content-area form#formList table tbody td.portal-ops-cell,
+.content-area form#formList table tbody td[data-col-type="ops"],
+.content-area form#formList table tbody td:first-child {
+  border-right: 1px solid var(--pl-line) !important;
+}
+
+/* Type-based column widths (generator emits data-col-type + data-col-key). */
+.content-area form#formList table .portal-col,
+.content-area form#formList table [data-col-type] {
+  min-width: 0;
+}
+
+.content-area form#formList table [data-col-type="id"] {
+  width: var(--pl-col-id);
+  white-space: nowrap;
+}
+
+/* Fallback for list views not yet regenerated (no data-col-type). */
+.content-area form#formList table thead th:nth-child(2):not([data-col-type]),
+.content-area form#formList table tbody td:nth-child(2):not([data-col-type]) {
+  width: var(--pl-col-id);
+  white-space: nowrap;
+}
+
+.content-area form#formList table [data-col-type="bool"] {
+  width: var(--pl-col-bool);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.content-area form#formList table [data-col-type="thumb"] {
+  width: var(--pl-col-thumb);
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.content-area form#formList table [data-col-type="file"] {
+  width: var(--pl-col-file);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.content-area form#formList table [data-col-type="int"] {
+  width: var(--pl-col-int);
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.content-area form#formList table [data-col-type="money"],
+.content-area form#formList table [data-col-type="decimal"],
+.content-area form#formList table [data-col-type="percent"] {
+  width: var(--pl-col-money);
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.content-area form#formList table [data-col-type="datetime"],
+.content-area form#formList table [data-col-type="date"] {
+  width: var(--pl-col-datetime);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.content-area form#formList table [data-col-type="datetime"] time,
+.content-area form#formList table [data-col-type="date"] time {
+  font-variant-numeric: tabular-nums;
+}
+
+.content-area form#formList table [data-col-type="email"] {
+  width: var(--pl-col-email);
+}
+
+.content-area form#formList table [data-col-type="phone"] {
+  width: var(--pl-col-phone);
+  white-space: nowrap;
+}
+
+.content-area form#formList table [data-col-type="short"] {
+  width: var(--pl-col-short);
+}
+
+.content-area form#formList table [data-col-type="url"] {
+  width: var(--pl-col-url);
+}
+
+.content-area form#formList table [data-col-type="guid"] {
+  width: var(--pl-col-guid);
+  white-space: nowrap;
+}
+
+.content-area form#formList table [data-col-type="fk"] {
+  width: var(--pl-col-fk);
+  min-width: 8rem;
+}
+
+/* Default / STRING — capped width so long values scroll/ellipsis instead of blowing the row */
+.content-area form#formList table [data-col-type="text"] {
+  width: 12rem;
+  min-width: 10rem;
+  max-width: 12rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-area form#formList table [data-col-type="large"] {
+  width: 16rem;
+  min-width: var(--pl-col-large-min);
+  max-width: 16rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* BLOB_IMAGE thumbs — inline-flex + fit-content (plain display:flex inflates table). */
+.content-area form#formList table a.portal-list-thumb-link,
+.content-area form#formList table a[data-toggle="lightbox"][data-type="image"] {
+  display: inline-flex !important;
+  width: fit-content !important;
+  max-width: 110px;
+  margin-inline: auto;
+  vertical-align: middle;
+}
+
+.content-area form#formList table tbody td img.lazyload:not(.topic-workflow-diagram__img),
+.content-area form#formList table tbody td img[bc-thumbnail="true"],
+.content-area form#formList table a.portal-list-thumb-link img {
+  max-width: 96px !important;
+  max-height: 64px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: cover;
+}
+
+.content-area form#formList table thead th {
+  max-width: none;
+  min-width: 0; /* override sb-admin .thead-* th { min-width: 110px } */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-area form#formList table thead th.portal-col-head {
+  overflow: visible;
+}
+
+.content-area form#formList table tbody td .portal-ops-group,
+.content-area form#formList table tbody td .btn-group,
+.content-area form#formList table tbody td button-group,
+.content-area form#formList table tbody td [class*="btn-group"],
+.content-area .api-keys-page table tbody td .portal-ops-group,
+.content-area .api-keys-page table tbody td button-group {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  gap: 0.35rem;
+  overflow: visible;
+  text-overflow: clip;
+  vertical-align: middle;
+}
+
+/* Fallback sizing when data-ops-count is present */
+.content-area form#formList table .portal-ops-cell[data-ops-count="1"] .portal-ops-group {
+  min-width: 2rem;
+}
+
+.content-area form#formList table .portal-ops-cell[data-ops-count="2"] .portal-ops-group {
+  min-width: calc(2 * 2rem + 0.35rem);
+}
+
+.content-area form#formList table .portal-ops-cell[data-ops-count="3"] .portal-ops-group {
+  min-width: calc(3 * 2rem + 2 * 0.35rem);
+}
+
+.content-area form#formList .opButtonDetail,
+.content-area form#formList .opButtonUpdate,
+.content-area form#formList .opButtonDelete,
+.content-area form#formList .opButtonRevoke,
+.content-area form#formList button.opButtonDetail,
+.content-area form#formList button.opButtonUpdate,
+.content-area form#formList button.opButtonDelete,
+.content-area form#formList button.opButtonRevoke,
+.content-area .api-keys-page .opButtonRevoke,
+.content-area .api-keys-page button.opButtonRevoke {
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  border: 0;
+  color: #fff;
+  box-shadow: none;
+  line-height: 1;
+  transition: filter 0.15s ease, background-color 0.15s ease;
+}
+
+.content-area form#formList .opButtonDetail:hover,
+.content-area form#formList .opButtonUpdate:hover,
+.content-area form#formList .opButtonDelete:hover,
+.content-area form#formList .opButtonRevoke:hover,
+.content-area .api-keys-page .opButtonRevoke:hover {
+  filter: brightness(1.06);
+  color: #fff;
+}
+
+/* Op colors from original Primary / Warning / Danger buttons */
+.content-area form#formList .opButtonDetail,
+.content-area form#formList button.opButtonDetail,
+.content-area form#formList .opButtonDetail.btn-primary {
+  background: #3e4889;
+}
+
+.content-area form#formList .opButtonUpdate,
+.content-area form#formList button.opButtonUpdate,
+.content-area form#formList .opButtonUpdate.btn-warning {
+  background: #f5c345;
+  color: #fff;
+}
+
+.content-area form#formList .opButtonDelete,
+.content-area form#formList button.opButtonDelete,
+.content-area form#formList .opButtonDelete.btn-danger,
+.content-area form#formList .opButtonRevoke,
+.content-area form#formList button.opButtonRevoke,
+.content-area form#formList .opButtonRevoke.btn-danger,
+.content-area .api-keys-page .opButtonRevoke,
+.content-area .api-keys-page button.opButtonRevoke {
+  background: #d65644;
+}
+
+.content-area form#formList thead .opButtonDetail,
+.content-area form#formList thead .opButtonUpdate,
+.content-area form#formList thead .opButtonDelete {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.content-area form#formList thead .opButtonDetail:hover,
+.content-area form#formList thead .opButtonUpdate:hover,
+.content-area form#formList thead .opButtonDelete:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  filter: none;
+}
+
+.content-area form#formList .alert {
+  border-radius: var(--pl-radius-sm);
+  border: 1px solid var(--pl-line);
+}
+
+@media (max-width: 767.98px) {
+  .content-area form#formList > .card > .card-body {
+    padding: 1rem;
+  }
+
+  .content-area form#formList .card-title {
+    font-size: 1.15rem;
+  }
+
+  .content-area form#formList .opButtonInsert,
+  .content-area form#formList button.opButtonInsert {
+    max-width: 100%;
+    white-space: normal;
+    text-align: left;
+  }
+
+  /* Resize grips are awkward on phones and paint odd mid-header bars on iOS */
+  form#formList table .portal-col-resize,
+  #itemListModal form#formList table .portal-col-resize {
+    display: none !important;
+  }
+}
+
+/* List region — AJAX pagination swaps this block only */
+.portal-list-region {
+  position: relative;
+  min-height: 3rem;
+}
+
+.portal-list-region.is-loading {
+  pointer-events: none;
+}
+
+.portal-list-region__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 250, 252, 0.82);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.portal-list-region__loading-panel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  color: #475569;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.portal-list-region__loading-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #cbd5e1;
+  border-top-color: #3e4889;
+  border-radius: 50%;
+  animation: portal-crud-spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+/* Legacy bottom-pager footer (kept inert; sticky top pager replaces it). */
+.portal-list-region .portal-list-region__footer {
+  display: none !important;
+}
+
+/* List CRUD busy: full-viewport veil (covers sidebar + content) until modal HTML arrives */
+body.portal-crud-busy-open {
+  overflow: hidden;
+}
+
+/* Match modal-open: drop sidebar under the veil so blur applies immediately on click */
+body.portal-crud-busy-open .portal-sidebar {
+  z-index: 1030;
+}
+
+body > .portal-crud-busy {
+  position: fixed;
+  inset: 0;
+  z-index: 1040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 80% at 50% 12%, rgba(255, 255, 255, 0.06), transparent 55%),
+    rgba(10, 12, 16, 0.72);
+  /* Solid veil only — backdrop-filter applies late and looks like a second blur pass. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body > .portal-crud-busy .portal-crud-busy__panel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.18);
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+body > .portal-crud-busy .portal-crud-busy__spinner {
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid #cbd5e1;
+  border-top-color: #3e4889;
+  border-radius: 50%;
+  animation: portal-crud-spin 0.7s linear infinite;
+}
+
+.content-area form#formList .opButtonDetail.is-busy,
+.content-area form#formList .opButtonUpdate.is-busy,
+.content-area form#formList .opButtonDelete.is-busy,
+.content-area form#formList .opButtonInsert.is-busy,
+.content-area form#formList button.opButtonDetail.is-busy,
+.content-area form#formList button.opButtonUpdate.is-busy,
+.content-area form#formList button.opButtonDelete.is-busy,
+.content-area form#formList button.opButtonInsert.is-busy {
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+@keyframes portal-crud-spin {
+  to { transform: rotate(360deg); }
+}
+/* —— Column layout (pager toolbar + resize/reorder) —— */
+/* Topbar must stack above sticky list pager (z-index 25); breadcrumb menus live inside it. */
+.content-area > .portal-topbar {
+  z-index: 40;
+}
+
+form#formList .portal-list-pager {
+  --pl-pager-sticky-gap: 0.35rem;
+  --pl-pager-bleed: 1.25rem; /* match .card-body horizontal padding */
+  --pl-pager-pad-x: 0.55rem;
+  --pl-pager-pad-y: 0.45rem;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 0.65rem 1rem;
+  width: auto;
+  max-width: none;
+  /* Bleed to card-body edges so the sticky sheath fully masks scrolling rows */
+  margin: 0 calc(var(--pl-pager-bleed) * -1) 0.85rem;
+  padding:
+    calc(var(--pl-pager-sticky-gap) + var(--pl-pager-pad-y))
+    calc(var(--pl-pager-bleed) + var(--pl-pager-pad-x))
+    calc(0.35rem + var(--pl-pager-pad-y));
+  border: 0;
+  border-radius: 0;
+  /* Opaque sticky sheath (gap is padding, not empty air above the panel) */
+  background: var(--pl-surface);
+  box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.28);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  position: sticky;
+  top: var(--portal-topbar-sticky-offset, 0px);
+  z-index: 25;
+  isolation: isolate;
+}
+
+/* Rounded chrome sits inside the sheath — breathing room without content bleed-through */
+form#formList .portal-list-pager::before {
+  content: "";
+  position: absolute;
+  left: var(--pl-pager-bleed);
+  right: var(--pl-pager-bleed);
+  top: var(--pl-pager-sticky-gap);
+  bottom: 0.35rem;
+  z-index: -1;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--pl-radius-sm);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  pointer-events: none;
+}
+
+/* Keep controls above the chrome layer */
+form#formList .portal-list-pager > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Mobile: sit below the sticky portal topbar */
+@media (max-width: 767.98px) {
+  form#formList .portal-list-pager {
+    top: 3.4rem;
+    --pl-pager-sticky-gap: 0.45rem;
+  }
+}
+
+/* Sticky must not be trapped by card/region overflow clipping */
+.content-area form#formList > .card,
+.content-area form#formList > .card > .card-body,
+.portal-list-region {
+  overflow: visible;
+}
+
+#wrapper #content-wrapper:has(form#formList) {
+  overflow-x: clip;
+}
+
+form#formList .portal-list-pager__cluster,
+form#formList .portal-list-pager__meta {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.55rem;
+  min-width: 0;
+  /* Match full pager row (pagesize / nav / reset) so compact "N items" isn't shorter */
+  min-height: 2.15rem;
+  padding: 0.1rem 0.15rem;
+}
+
+form#formList .portal-list-pager__range,
+form#formList .portal-list-pager__summary {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+form#formList .portal-list-pager__range-strong {
+  color: var(--pl-ink);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+form#formList .portal-list-pager__range-muted,
+form#formList .portal-list-pager__summary {
+  color: var(--pl-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+form#formList .portal-list-pager__sep {
+  width: 1px;
+  height: 1.05rem;
+  background: rgba(15, 23, 42, 0.12);
+  flex: 0 0 auto;
+}
+
+form#formList .portal-list-pagesize {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.15rem 0.55rem 0.15rem 0.35rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--pl-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+form#formList .portal-list-pagesize:hover {
+  border-color: rgba(15, 23, 42, 0.16);
+  background: #fff;
+}
+
+form#formList .portal-list-pagesize__select {
+  min-width: 1.9rem;
+  width: auto;
+  height: 1.55rem;
+  padding: 0 0.95rem 0 0.35rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M1.4 1.4 6 6l4.6-4.6'/%3E%3C/svg%3E") no-repeat right 0.15rem center;
+  background-size: 0.55rem;
+  color: var(--pl-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+form#formList .portal-list-pagesize__select:focus {
+  outline: none;
+}
+
+form#formList .portal-list-pagesize__suffix {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+form#formList .portal-list-pager__nav {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+/* Count + page-size stay left; page buttons stay right even when the bar wraps. */
+form#formList .portal-list-pager > .portal-list-pager__cluster,
+form#formList .portal-list-pager > .portal-list-pager__meta {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+form#formList .portal-pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0.15rem;
+  list-style: none;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+form#formList .portal-pager__item {
+  margin: 0;
+}
+
+form#formList .portal-pager__btn {
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease, transform 0.14s ease;
+}
+
+form#formList .portal-pager__btn i {
+  font-size: 0.62rem;
+}
+
+form#formList .portal-pager__item:not(.is-disabled):not(.is-active) .portal-pager__btn:hover {
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--pl-ink);
+}
+
+form#formList .portal-pager__item.is-active .portal-pager__btn {
+  background: var(--pl-ink);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.18);
+  cursor: default;
+}
+
+form#formList .portal-pager__item.is-disabled .portal-pager__btn {
+  color: #cbd5e1;
+  cursor: default;
+  pointer-events: none;
+}
+
+form#formList .portal-pager__gap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+form#formList .portal-pager__gap:hover,
+form#formList .portal-pager__gap:focus-visible {
+  background: rgba(15, 23, 42, 0.06);
+  color: var(--pl-ink);
+  outline: none;
+}
+
+/* Mobile: always 2 tidy rows
+   Row 1: [items][reset] .............. [page size]
+   Row 2: ........................ [pager nav →] */
+@media (max-width: 767.98px) {
+  form#formList .portal-list-pager {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 0.5rem;
+  }
+
+  form#formList .portal-list-pager__cluster,
+  form#formList .portal-list-pager__meta {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 0.35rem;
+    flex: 0 0 auto !important;
+  }
+
+  form#formList .portal-list-pager__sep {
+    display: none !important;
+  }
+
+  /* Visual order: count → reset → (spacer) → page size */
+  form#formList .portal-list-pager__range,
+  form#formList .portal-list-pager__summary {
+    order: 1;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 58%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Keep a fixed icon slot so showing Reset never reflows the pager */
+  form#formList .portal-list-pager .portal-list-toolbar {
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    order: 2;
+    display: inline-flex;
+    flex: 0 0 auto;
+    margin: 0;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    pointer-events: auto;
+  }
+
+  form#formList .portal-list-pagesize {
+    order: 3;
+    flex: 0 0 auto;
+    margin-left: auto;
+    min-height: 2.75rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.5rem;
+    gap: 0.3rem;
+    font-size: 0.84rem;
+  }
+
+  /* Icon-only reset */
+  form#formList .portal-list-reset {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0 !important;
+    justify-content: center;
+  }
+
+  form#formList .portal-list-reset span {
+    display: none;
+  }
+
+  form#formList .portal-list-pagesize__select {
+    min-width: 2.35rem;
+    min-height: 2.25rem;
+    height: 2.25rem;
+    padding: 0 1.05rem 0 0.4rem;
+    font-size: 0.9rem;
+    background-position: right 0.2rem center;
+    background-size: 0.65rem;
+  }
+
+  form#formList .portal-list-pagesize__suffix {
+    font-size: 0.78rem;
+  }
+
+  /* Page nav always right-aligned; hug content when few pages */
+  form#formList .portal-list-pager__nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 0;
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  form#formList .portal-pager {
+    width: auto;
+    max-width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 0.28rem;
+    padding: 0.28rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  form#formList .portal-pager__btn,
+  form#formList .portal-pager__gap {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    height: 2.75rem;
+    padding: 0 0.55rem;
+    font-size: 0.9rem;
+    flex: 0 0 auto;
+  }
+
+  form#formList .portal-pager__btn i {
+    font-size: 0.78rem;
+  }
+
+  form#formList .portal-pager__jump {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    height: 2.75rem;
+    font-size: 0.95rem;
+  }
+
+  .content-area form#formList .opButtonInsert,
+  .content-area form#formList button.opButtonInsert {
+    min-height: 2.75rem;
+    padding: 0.7rem 1.15rem !important;
+    font-size: 0.95rem;
+  }
+}
+
+form#formList .portal-pager__item.is-jump {
+  display: inline-flex;
+  align-items: center;
+}
+
+form#formList .portal-pager__jump {
+  width: 3.1rem;
+  height: 1.85rem;
+  margin: 0;
+  padding: 0 0.4rem;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--pl-ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  line-height: 1;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+form#formList .portal-pager__jump::-webkit-outer-spin-button,
+form#formList .portal-pager__jump::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form#formList .portal-pager__jump:focus {
+  outline: none;
+  border-color: var(--pl-ink);
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+}
+
+form#formList .portal-list-toolbar {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Sit beside page-size in the left cluster (not centered in the bar) */
+form#formList .portal-list-pager .portal-list-toolbar {
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  z-index: 2;
+  margin: 0;
+  display: none;
+  flex: 0 0 auto;
+  pointer-events: auto;
+}
+
+form#formList .portal-list-pager .portal-list-toolbar:has(.portal-list-reset.is-active) {
+  display: inline-flex;
+}
+
+form#formList .portal-list-toolbar--solo {
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  /* Hidden until Reset layout is active — otherwise empty slot gaps the results */
+  display: none;
+  justify-content: flex-start;
+  margin: 0;
+  pointer-events: auto;
+}
+
+form#formList .portal-list-toolbar--solo:has(.portal-list-reset.is-active) {
+  display: flex;
+  margin: 0 0 0.55rem;
+}
+
+form#formList .portal-list-reset {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  /* Match .portal-pager shell height (btn 1.85rem + padding 0.15rem×2) */
+  height: 2.15rem;
+  min-height: 2.15rem;
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+  border: 1px solid transparent !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: var(--pl-muted) !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  box-shadow: none;
+  cursor: pointer;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease, background 0.15s ease;
+}
+
+form#formList .portal-list-reset.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  border-color: var(--pl-line) !important;
+  background: #fff !important;
+}
+
+form#formList .portal-list-reset i {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+form#formList .portal-list-reset.is-active:hover:not(:disabled) {
+  color: var(--pl-accent) !important;
+  border-color: rgba(47, 61, 120, 0.28) !important;
+  background: rgba(47, 61, 120, 0.06) !important;
+}
+
+form#formList .portal-list-reset:disabled {
+  cursor: default;
+}
+
+form#formList table thead th.portal-col-head {
+  overflow: visible;
+  padding-right: 0.75rem !important;
+}
+
+@media (min-width: 768px) {
+  form#formList table thead th.portal-col-head {
+    /* Desktop only — sticky on phones desyncs columns and inflates header height. */
+    position: sticky;
+    top: 0;
+    z-index: 6;
+  }
+}
+
+form#formList table thead th.portal-col-draggable {
+  user-select: none;
+  cursor: grab;
+  /* Allow table h-scroll until long-press arms reorder (JS sets none then). */
+  touch-action: pan-x pan-y;
+}
+
+form#formList table thead th.portal-col-draggable.is-hold-pending {
+  cursor: grab;
+}
+
+form#formList table thead th.portal-col-draggable.is-hold-ready,
+form#formList table thead th.portal-col-draggable.is-dragging {
+  cursor: grabbing;
+  touch-action: none;
+}
+
+form#formList table thead th.portal-col-draggable.is-hold-ready {
+  box-shadow: inset 0 0 0 1px rgba(147, 197, 253, 0.55);
+}
+
+form#formList table thead th.portal-col-draggable.is-dragging,
+form#formList table tbody td.is-col-lifted {
+  opacity: 0.32;
+}
+
+form#formList .portal-table-scroll {
+  position: relative;
+  scroll-padding-inline: 0.5rem;
+}
+
+form#formList .portal-col-inserter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 3px;
+  margin-left: -1px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #60a5fa 0%, #2563eb 100%);
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.18),
+    0 8px 20px rgba(37, 99, 235, 0.28);
+  pointer-events: none;
+  opacity: 0;
+  transform: scaleY(0.92);
+  transform-origin: center top;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+form#formList .portal-col-inserter.is-visible {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+form#formList .portal-col-inserter::before,
+form#formList .portal-col-inserter::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2563eb;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+  transform: translateX(-50%);
+}
+
+form#formList .portal-col-inserter::before {
+  top: -2px;
+}
+
+form#formList .portal-col-inserter::after {
+  bottom: -2px;
+}
+
+form#formList table .portal-col-resize {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  width: 12px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+  z-index: 6;
+}
+
+form#formList table .portal-col-resize::after {
+  content: "";
+  position: absolute;
+  top: 22%;
+  bottom: 22%;
+  left: 5px;
+  width: 2px;
+  border-radius: 1px;
+  background: rgba(248, 250, 252, 0.2);
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+form#formList table thead th:hover .portal-col-resize::after,
+form#formList table.is-col-resizing .portal-col-resize::after {
+  background: #93c5fd;
+  box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.35);
+}
+
+/* Mobile: larger resize hit target + always-visible divider cue */
+@media (max-width: 767.98px) {
+  form#formList table .portal-col-resize {
+    width: 28px;
+    right: -12px;
+    z-index: 8;
+  }
+
+  form#formList table .portal-col-resize::after {
+    left: 12px;
+    width: 3px;
+    top: 18%;
+    bottom: 18%;
+    background: rgba(248, 250, 252, 0.5);
+  }
+}
+
+.portal-col-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  pointer-events: none;
+  max-width: 280px;
+  padding: 0.55rem 0.85rem 0.55rem 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  color: #f8fafc;
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 18px 48px rgba(15, 23, 42, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.portal-col-ghost__grip {
+  display: inline-flex;
+  color: #93c5fd;
+  font-size: 0.65rem;
+  opacity: 0.95;
+}
+
+.portal-col-ghost__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 10rem;
+}
+
+.portal-col-ghost__hint {
+  margin-left: 0.15rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.22);
+  color: #bfdbfe;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+body.portal-list-resizing {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+body.portal-list-reordering {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+
+body.portal-list-resizing iframe,
+body.portal-list-reordering iframe {
+  pointer-events: none;
+}
+
+form#formList table.is-col-reordering tbody td:not(.is-col-lifted) {
+  opacity: 0.88;
+}
+
+form#formList table.is-col-reordering thead th:not(.is-dragging) {
+  transition: box-shadow 0.12s ease;
+}
+
+/* ── Query pages — 2026 workspace (same tokens as list shell) ───────────── */
+.content-area .portal-query-page {
+  --pq-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-shell {
+  position: relative;
+  border: 1px solid var(--pl-line);
+  border-radius: var(--pl-radius);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.92) 0%, rgba(244, 246, 249, 0.55) 42%, #fff 100%),
+    var(--pl-surface);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 6px 18px rgba(15, 23, 42, 0.04);
+  overflow: visible;
+  /* Opacity-only: translateY + radius clipped the page title at the top. */
+  animation: portal-query-enter 0.35s var(--pq-ease) both;
+}
+
+@keyframes portal-query-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-area form#formList[data-portal-query="true"] .portal-query-shell {
+    animation: none;
+  }
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-header {
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem 1rem 0.75rem;
+  border-bottom: 1px solid var(--pl-line);
+  background:
+    radial-gradient(90% 120% at 0% 0%, rgba(47, 61, 120, 0.07), transparent 55%),
+    linear-gradient(180deg, #fbfcfe 0%, rgba(255, 255, 255, 0.4) 100%);
+  overflow: visible;
+}
+
+@media (min-width: 900px) {
+  .content-area form#formList[data-portal-query="true"] .portal-query-header {
+    grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 1fr);
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+  }
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-kicker {
+  margin: 0 0 0.2rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pl-accent);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-title {
+  margin: 0.1rem 0 0.25rem;
+  padding: 0.05rem 0;
+  font-size: clamp(1.2rem, 1.05rem + 0.55vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--pl-ink);
+  line-height: 1.4;
+  overflow: visible;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-lead {
+  margin: 0;
+  max-width: 36rem;
+  color: var(--pl-muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-print-meta {
+  display: none;
+  margin: 0.35rem 0 0;
+  color: #475569;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+  border: 1px solid rgba(15, 118, 110, 0.22);
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(240, 253, 250, 0.95) 0%, rgba(255, 255, 255, 0.96) 48%, rgba(248, 250, 252, 0.92) 100%);
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease,
+    background 0.18s ease;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint:hover {
+  border-color: rgba(15, 118, 110, 0.42);
+  box-shadow:
+    0 8px 22px rgba(15, 118, 110, 0.1),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  transform: translateY(-1px);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint:focus-visible {
+  outline: 2px solid rgba(15, 118, 110, 0.45);
+  outline-offset: 2px;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint:active {
+  transform: translateY(0);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint__method {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(180deg, #0f766e 0%, #0d9488 100%);
+  color: #ecfdf5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 11px 0 0 11px;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.12rem;
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint__label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f766e;
+  line-height: 1;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint__path {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: transparent;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint__chevron {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.85rem;
+  color: #0f766e;
+  opacity: 0.72;
+  font-size: 0.95rem;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-endpoint:hover .portal-query-endpoint__chevron {
+  opacity: 1;
+  transform: translateX(1px);
+}
+
+/* API Method Access Grant cards — endpoint detail chip (same language as Live Reports) */
+.portal-api-method-endpoint {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  border: 1px solid rgba(15, 118, 110, 0.22);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(240, 253, 250, 0.92));
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.portal-api-method-endpoint:hover {
+  border-color: rgba(15, 118, 110, 0.4);
+  box-shadow:
+    0 8px 22px rgba(15, 118, 110, 0.1),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  transform: translateY(-1px);
+}
+
+.portal-api-method-endpoint:focus-visible {
+  outline: 2px solid rgba(15, 118, 110, 0.45);
+  outline-offset: 2px;
+}
+
+.portal-api-method-endpoint .portal-query-endpoint__method,
+.portal-api-method-endpoint__method {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  padding: 0.55rem 0.7rem;
+  background: linear-gradient(180deg, #0f766e 0%, #0d9488 100%);
+  color: #ecfdf5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 11px 0 0 11px;
+}
+
+.portal-api-method-endpoint .portal-query-endpoint__body,
+.portal-api-method-endpoint__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.12rem;
+  min-width: 0;
+  padding: 0.4rem 0.65rem;
+}
+
+.portal-api-method-endpoint .portal-query-endpoint__label,
+.portal-api-method-endpoint__label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f766e;
+  line-height: 1;
+}
+
+.portal-api-method-endpoint .portal-query-endpoint__path,
+.portal-api-method-endpoint__path {
+  margin: 0;
+  padding: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.35;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: transparent;
+}
+
+.portal-api-method-endpoint .portal-query-endpoint__chevron,
+.portal-api-method-endpoint__chevron {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  color: #0f766e;
+  opacity: 0.72;
+  font-size: 0.95rem;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.portal-api-method-endpoint:hover .portal-query-endpoint__chevron,
+.portal-api-method-endpoint:hover .portal-api-method-endpoint__chevron {
+  opacity: 1;
+  transform: translateX(1px);
+}
+
+/* Endpoint details modal */
+.portal-query-endpoint-modal .portal-query-endpoint-modal__content {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__header {
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem 0.85rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(90% 140% at 0% 0%, rgba(15, 118, 110, 0.1), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__kicker {
+  margin: 0 0 0.15rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0f766e;
+}
+
+.portal-query-endpoint-modal .modal-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__route {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0 0 0.85rem;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__method {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(180deg, #0f766e 0%, #0d9488 100%);
+  color: #ecfdf5;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__url {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0.55rem 0.8rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  background: transparent;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__intro {
+  margin: 0 0 0.75rem;
+  color: #64748b;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__section {
+  margin-top: 1.1rem;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__section:first-of-type {
+  margin-top: 0.85rem;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 0 0.45rem;
+  flex-wrap: wrap;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__section-title {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__response-type {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.2rem 0.55rem;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6d28d9;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.16);
+  word-break: break-all;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table-wrap {
+  border: 1px solid rgba(226, 232, 240, 0.95);
+  border-radius: 12px;
+  overflow: auto;
+  max-height: min(36vh, 20rem);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__response .portal-query-endpoint-modal__table-wrap {
+  max-height: min(40vh, 22rem);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table td {
+  padding: 0.65rem 0.7rem;
+  vertical-align: top;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  line-height: 1.35;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table tr:last-child td {
+  border-bottom: 0;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__table code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: rgba(15, 118, 110, 0.08);
+  padding: 0.12rem 0.35rem;
+  border-radius: 5px;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__in,
+.portal-query-endpoint-modal .portal-query-endpoint-modal__type {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__in {
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.1);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__type {
+  color: #9a3412;
+  background: rgba(234, 88, 12, 0.1);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__req {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__req--yes {
+  color: #047857;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__req--no {
+  color: #64748b;
+  background: rgba(148, 163, 184, 0.16);
+}
+
+.portal-query-endpoint-modal .portal-query-endpoint-modal__empty {
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-workspace {
+  padding: 0.75rem 1rem 0.7rem;
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.65), transparent 70%);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-toolbar {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  justify-items: start;
+  width: 100%;
+}
+
+/* Two columns, content-sized cluster — fits without stretching full row. */
+.content-area form#formList[data-portal-query="true"] .portal-query-params.portal-entity-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 0.85rem;
+  margin: 0;
+  width: 100%;
+  max-width: 48rem; /* ~2 × 384px */
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .portal-query-date-range {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem 0.85rem;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Unwrapped From/To: keep as a pair on their own row inside the cluster. */
+.content-area form#formList[data-portal-query="true"] .portal-query-params > .form-group.row:has(.flatpickr-datetime [name$="From"], .flatpickr-datetime [id$="From"], .portal-datetime-input[name$="From"], .portal-datetime-input[id$="From"]) {
+  grid-column-start: 1;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params > .form-group.row:has(.flatpickr-datetime [name$="To"], .flatpickr-datetime [id$="To"], .portal-datetime-input[name$="To"], .portal-datetime-input[id$="To"]) {
+  grid-column-start: 2;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-group.row,
+.content-area form#formList[data-portal-query="true"] .portal-query-params form-group {
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Stack datetime labels above the control. */
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-group.row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.25rem;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-group.row > [class*="col-"] {
+  width: 100%;
+  max-width: none;
+  flex: 0 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-group.row > .col-form-label,
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #475569;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-select,
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-control,
+.content-area form#formList[data-portal-query="true"] .portal-query-params .select2-container,
+.content-area form#formList[data-portal-query="true"] .portal-query-params .select2-container .select2-selection--single {
+  width: 100% !important;
+  max-width: 100%;
+  border-radius: 10px !important;
+  border-color: #dbe3ee;
+  min-height: 2.35rem;
+  transition: border-color 0.18s var(--pq-ease), box-shadow 0.18s var(--pq-ease);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-select:focus,
+.content-area form#formList[data-portal-query="true"] .portal-query-params .form-control:focus {
+  border-color: rgba(47, 61, 120, 0.45);
+  box-shadow: 0 0 0 3px var(--pl-accent-soft);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding-top: 0;
+  width: 100%;
+  max-width: 48rem;
+}
+
+@media (max-width: 575.98px) {
+  .content-area form#formList[data-portal-query="true"] .portal-query-params.portal-entity-form,
+  .content-area form#formList[data-portal-query="true"] .portal-query-params .portal-query-date-range {
+    grid-template-columns: 1fr;
+    max-width: 24rem;
+  }
+
+  .content-area form#formList[data-portal-query="true"] .portal-query-params > .form-group.row:has(.flatpickr-datetime [name$="From"], .flatpickr-datetime [id$="From"], .portal-datetime-input[name$="From"], .portal-datetime-input[id$="From"]),
+  .content-area form#formList[data-portal-query="true"] .portal-query-params > .form-group.row:has(.flatpickr-datetime [name$="To"], .flatpickr-datetime [id$="To"], .portal-datetime-input[name$="To"], .portal-datetime-input[id$="To"]) {
+    grid-column: 1 / -1;
+  }
+
+  .content-area form#formList[data-portal-query="true"] .portal-query-actions {
+    max-width: 24rem;
+  }
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-run,
+.content-area form#formList[data-portal-query="true"] button.portal-query-run {
+  margin: 0 !important;
+  padding: 0.55rem 1rem !important;
+  border-radius: 10px;
+  letter-spacing: -0.01em;
+  transition: transform 0.18s var(--pq-ease), filter 0.18s var(--pq-ease), box-shadow 0.18s var(--pq-ease);
+  box-shadow: 0 4px 12px rgba(47, 61, 120, 0.18);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-run:hover,
+.content-area form#formList[data-portal-query="true"] button.portal-query-run:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-run:active,
+.content-area form#formList[data-portal-query="true"] button.portal-query-run:active {
+  transform: translateY(0);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-print,
+.content-area form#formList[data-portal-query="true"] button.portal-query-print {
+  width: auto !important;
+  min-width: auto !important;
+  height: auto !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 !important;
+  padding: 0.55rem 0.95rem !important;
+  border-radius: 10px;
+  border: 1px solid #d0d7e4;
+  background: #fff;
+  color: var(--pl-ink);
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: none;
+  transition: border-color 0.18s var(--pq-ease), background 0.18s var(--pq-ease), color 0.18s var(--pq-ease);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-print i {
+  margin-right: 0 !important;
+  color: #475569;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-print:hover:not(:disabled),
+.content-area form#formList[data-portal-query="true"] button.portal-query-print:hover:not(:disabled) {
+  border-color: #b6c0d1;
+  background: #f8fafc;
+  color: var(--pl-ink);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-print:disabled,
+.content-area form#formList[data-portal-query="true"] button.portal-query-print:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-results {
+  margin: 0;
+  padding: 0.65rem 1rem 0.85rem;
+  border-top: 1px solid var(--pl-line);
+  background: #fff;
+  animation: portal-query-results-in 0.35s var(--pq-ease) both;
+  animation-delay: 0.05s;
+}
+
+@keyframes portal-query-results-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-area form#formList[data-portal-query="true"] .portal-query-results,
+  .content-area form#formList[data-portal-query="true"] .portal-query-run,
+  .content-area form#formList[data-portal-query="true"] button.portal-query-run {
+    animation: none;
+    transition: none;
+  }
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--pl-radius-sm);
+  background:
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  color: var(--pl-ink);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty__title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty__status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.55rem;
+  border-radius: 7px;
+  border: 1px solid #dbe3ee;
+  background: #fff;
+  color: #475569;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty__text {
+  color: var(--pl-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty--error {
+  border-style: solid;
+  border-color: #f5c2c0;
+  background: linear-gradient(180deg, #fff8f7 0%, #fff1f0 100%);
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty--error .portal-query-empty__title {
+  color: #9f1239;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty--error .portal-query-empty__status {
+  border-color: #f5c2c0;
+  color: #9f1239;
+  background: #fff;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-empty--empty {
+  border-color: #e2e8f0;
+}
+
+.content-area form#formList[data-portal-query="true"] .portal-query-rownum {
+  width: 3.25rem;
+  min-width: 3.25rem;
+  max-width: 3.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #64748b;
+  white-space: nowrap !important;
+}
+
+.content-area form#formList[data-portal-query="true"] thead th.portal-query-rownum {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+}
+
+/* Long query values (keys, topics, URLs) — wrap instead of overlapping */
+.content-area form#formList[data-portal-query="true"] table tbody td.portal-col,
+.content-area form#formList[data-portal-query="true"] table tbody td[data-col-type] {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: top;
+  line-height: 1.35;
+}
+
+.content-area form#formList[data-portal-query="true"] table [data-col-type="text"],
+.content-area form#formList[data-portal-query="true"] table [data-col-type="large"] {
+  width: auto;
+  min-width: 12rem;
+  max-width: 28rem;
+}
+
+.content-area form#formList[data-portal-query="true"] table thead th.portal-col {
+  white-space: nowrap;
+}
+
+/* Live Report: print column picker modal */
+.portal-query-print-config .portal-query-print-config__dialog {
+  max-width: min(1180px, calc(100vw - 1.25rem));
+  margin: 0.6rem auto;
+}
+
+.portal-query-print-config .portal-query-print-config__content {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+}
+
+.portal-query-print-config .portal-query-print-config__content--split {
+  height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-query-print-config .portal-query-print-config__header {
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem 0.85rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(90% 140% at 0% 0%, rgba(47, 61, 120, 0.1), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+  flex-shrink: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__heading {
+  min-width: 0;
+  padding-right: 0.5rem;
+}
+
+.portal-query-print-config .portal-query-print-config__kicker {
+  margin: 0 0 0.2rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pl-accent, #2f3d78);
+}
+
+.portal-query-print-config .modal-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.portal-query-print-config .portal-query-print-config__subtitle {
+  margin: 0.35rem 0 0;
+  color: #64748b;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.portal-query-print-config .portal-query-print-config__body {
+  padding: 1rem 1.25rem;
+}
+
+.portal-query-print-config .portal-query-print-config__body--split {
+  display: grid;
+  grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+  gap: 0.85rem 1rem;
+  padding: 0.85rem 1rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.portal-query-print-config .portal-query-print-config__controls {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  /* Keep orientation card borders/outlines from being clipped on the sides. */
+  padding: 1px;
+}
+
+.portal-query-print-config .portal-query-print-config__controls .portal-query-print-config__list {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+}
+
+.portal-query-print-config .portal-query-print-config__preview {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e8edf4;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(255, 255, 255, 0.72);
+  flex-shrink: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-head-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem 0.75rem;
+  min-width: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pl-accent, #2f3d78);
+}
+
+.portal-query-print-config .portal-query-print-config__preview-meta {
+  color: #64748b;
+  font-size: 0.72rem;
+}
+
+.portal-query-print-config .portal-query-print-config__zoom {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.portal-query-print-config .portal-query-print-config__zoom .btn {
+  padding: 0.15rem 0.45rem;
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+
+.portal-query-print-config .portal-query-print-config__zoom .btn.is-active {
+  color: #fff;
+  background: var(--pl-accent, #2f3d78);
+  border-color: var(--pl-accent, #2f3d78);
+}
+
+.portal-query-print-config .portal-query-print-config__preview-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  background: #c5ceda;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: 0.85rem 0.75rem 1rem;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  min-height: 100%;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-empty {
+  margin: 2.5rem auto;
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-sheet {
+  position: relative;
+  flex-shrink: 0;
+  margin: 0 auto 0.85rem;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.65rem;
+  width: min(100%, 36rem);
+  margin: 0.05rem auto 0.95rem;
+  padding: 0.15rem 0;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-rule {
+  display: block;
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(47, 61, 120, 0.08) 12%,
+    rgba(47, 61, 120, 0.28) 48%,
+    rgba(100, 116, 139, 0.22) 72%,
+    transparent 100%
+  );
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-rule:last-child {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(100, 116, 139, 0.22) 28%,
+    rgba(47, 61, 120, 0.28) 52%,
+    rgba(47, 61, 120, 0.08) 88%,
+    transparent 100%
+  );
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.18rem;
+  padding: 0.28rem 0.7rem 0.3rem;
+  border-radius: 999px;
+  border: 1px solid rgba(47, 61, 120, 0.16);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.92) 0%, rgba(241, 245, 249, 0.88) 100%),
+    linear-gradient(120deg, rgba(47, 61, 120, 0.1), rgba(100, 116, 139, 0.06));
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.75) inset,
+    0 6px 16px rgba(15, 23, 42, 0.08);
+  color: #475569;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-index {
+  color: var(--pl-accent, #2f3d78);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-sep {
+  color: rgba(100, 116, 139, 0.7);
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.portal-query-print-config .portal-query-print-config__pdf-gap-total {
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1.5rem;
+  background: rgba(197, 206, 218, 0.92);
+  backdrop-filter: blur(2px);
+  text-align: center;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-loading[hidden] {
+  display: none !important;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2.5px solid rgba(47, 61, 120, 0.2);
+  border-top-color: var(--pl-accent, #2f3d78);
+  border-radius: 50%;
+  animation: portal-query-print-spin 0.75s linear infinite;
+}
+
+@keyframes portal-query-print-spin {
+  to { transform: rotate(360deg); }
+}
+
+.portal-query-print-config .portal-query-print-config__preview-loading-title {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-loading-sub {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+.portal-query-print-config .portal-query-print-config__preview-frame {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .portal-query-print-config .portal-query-print-config__body--split {
+    grid-template-columns: 1fr;
+    overflow: auto;
+  }
+
+  .portal-query-print-config .portal-query-print-config__preview {
+    min-height: 18rem;
+  }
+
+  .portal-query-print-config .portal-query-print-config__content--split {
+    height: auto;
+    max-height: min(96vh, 100dvh);
+  }
+
+  .portal-query-print-config .portal-query-print-config__controls .portal-query-print-config__list {
+    max-height: 12rem;
+  }
+}
+
+.portal-query-print-config .portal-query-print-config__intro {
+  margin: 0 0 0.75rem;
+  color: #64748b;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-legend,
+.portal-query-print-config .portal-query-print-config__section-label {
+  margin: 0 0 0.45rem;
+  padding: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  /* Room for 2px borders + focus ring so they are not clipped. */
+  padding: 2px;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-option {
+  margin: 0;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  min-height: 4.6rem;
+  padding: 0.65rem 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-option:hover .portal-query-print-config__orientation-card {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-option input:checked + .portal-query-print-config__orientation-card {
+  border-color: var(--pl-accent, #2f3d78);
+  background: rgba(47, 61, 120, 0.06);
+  box-shadow: none;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-option input:focus-visible + .portal-query-print-config__orientation-card {
+  outline: 2px solid rgba(47, 61, 120, 0.35);
+  outline-offset: 1px;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-icon {
+  margin-bottom: 0.2rem;
+  color: var(--pl-accent, #2f3d78);
+  font-size: 1rem;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-icon--landscape {
+  transform: rotate(-90deg);
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.portal-query-print-config .portal-query-print-config__orientation-hint {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.portal-query-print-config .portal-query-print-config__section-label {
+  margin-top: 0.15rem;
+}
+
+.portal-query-print-config .portal-query-print-config__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.portal-query-print-config .portal-query-print-config__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: min(46vh, 22rem);
+  overflow: auto;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.portal-query-print-config .portal-query-print-config__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0.55rem 0.7rem 0.55rem 0.45rem;
+  border: 0;
+  border-bottom: 1px solid #f1f5f9;
+  border-radius: 0;
+  background: #fff;
+  cursor: default;
+  transition: background 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+.portal-query-print-config .portal-query-print-config__item:last-child {
+  border-bottom: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__item:hover {
+  background: #f8fafc;
+  box-shadow: none;
+}
+
+.portal-query-print-config .portal-query-print-config__item.is-dragging {
+  opacity: 0.55;
+  background: #eef2ff;
+  box-shadow: inset 0 0 0 1px rgba(47, 61, 120, 0.18);
+}
+
+.portal-query-print-config .portal-query-print-config__drag {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0.35rem;
+  background: transparent;
+  color: #94a3b8;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.portal-query-print-config .portal-query-print-config__drag:hover,
+.portal-query-print-config .portal-query-print-config__drag:focus {
+  color: var(--pl-accent, #2f3d78);
+  background: rgba(47, 61, 120, 0.08);
+  outline: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__drag:active {
+  cursor: grabbing;
+}
+
+.portal-query-print-config .portal-query-print-config__drag-dots {
+  display: block;
+  width: 0.7rem;
+  height: 1rem;
+  background-image: radial-gradient(circle, currentColor 1.1px, transparent 1.25px);
+  background-size: 0.35rem 0.35rem;
+  background-position: 0 0;
+  opacity: 0.9;
+}
+
+.portal-query-print-config .portal-query-print-config__item-main {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.portal-query-print-config .portal-query-print-config__check {
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  float: none !important;
+  position: static !important;
+  display: inline-block;
+  flex: 0 0 1.1rem;
+  width: 1.1rem !important;
+  height: 1.1rem !important;
+  min-width: 1.1rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle;
+  accent-color: #2f3d78;
+  cursor: pointer;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+.portal-query-print-config .portal-query-print-config__label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #0f172a;
+  line-height: 1.35;
+  padding-left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.portal-query-print-config .portal-query-print-config__section-hint {
+  margin-left: 0.35rem;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.portal-query-print-config .portal-query-print-config__width-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.portal-query-print-config .portal-query-print-config__width {
+  box-sizing: border-box;
+  width: 4.75rem;
+  min-width: 4.75rem;
+  height: 1.75rem;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+  background: #fff;
+  color: #0f172a;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.portal-query-print-config .portal-query-print-config__width::-webkit-outer-spin-button,
+.portal-query-print-config .portal-query-print-config__width::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__width::placeholder {
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  opacity: 1;
+}
+
+.portal-query-print-config .portal-query-print-config__width:focus {
+  outline: 0;
+  border-color: #2f3d78;
+  box-shadow: 0 0 0 2px rgba(47, 61, 120, 0.15);
+}
+
+.portal-query-print-config .portal-query-print-config__width-unit {
+  flex: 0 0 auto;
+  min-width: 0.85rem;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.portal-query-print-config .portal-query-print-config__badge {
+  flex: 0 0 auto;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9a3412;
+  background: rgba(234, 88, 12, 0.12);
+}
+
+.portal-query-print-config .portal-query-print-config__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e2e8f0;
+  padding: 0.85rem 1.25rem 1.05rem;
+  gap: 0.65rem;
+}
+
+.portal-query-print-config .portal-query-print-config__footer-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.portal-query-print-config .portal-query-print-config__btn-close {
+  order: 0;
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--pl-accent, #2f3d78);
+  background: rgba(47, 61, 120, 0.08);
+  border: 1px solid rgba(47, 61, 120, 0.28);
+  font-weight: 600;
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download:hover,
+.portal-query-print-config .portal-query-print-config__btn-download:focus {
+  color: #fff;
+  background: var(--pl-accent, #2f3d78);
+  border-color: var(--pl-accent, #2f3d78);
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download-csv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #0f766e;
+  background: rgba(13, 148, 136, 0.1);
+  border: 1px solid rgba(13, 148, 136, 0.32);
+  font-weight: 600;
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download-csv:hover,
+.portal-query-print-config .portal-query-print-config__btn-download-csv:focus {
+  color: #fff;
+  background: #0f766e;
+  border-color: #0f766e;
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download.is-export-focus,
+.portal-query-print-config .portal-query-print-config__btn-download-csv.is-export-focus {
+  box-shadow: 0 0 0 3px rgba(47, 61, 120, 0.28);
+  transform: translateY(-1px);
+}
+
+.portal-query-print-config .portal-query-print-config__btn-download-csv.is-export-focus {
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.3);
+}
+
+.portal-query-print-config .portal-query-print-config__btn-print,
+.portal-query-print-config .portal-query-print-config__footer .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Live Report: PDF print preview modal */
+.portal-query-pdf-preview .portal-query-pdf-preview__dialog {
+  max-width: min(1120px, calc(100vw - 1.5rem));
+  margin: 0.75rem auto;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__content {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.18);
+  height: min(92vh, 920px);
+  display: flex;
+  flex-direction: column;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__header {
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem 0.85rem;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  background:
+    radial-gradient(90% 140% at 0% 0%, rgba(47, 61, 120, 0.1), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+  flex-shrink: 0;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__kicker {
+  margin: 0 0 0.15rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pl-accent, #2f3d78);
+}
+
+.portal-query-pdf-preview .modal-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__meta {
+  margin: 0.2rem 0 0;
+  color: #64748b;
+  font-size: 0.78rem;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__body {
+  padding: 0.75rem 1rem 0.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  background: #eef2f7;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: min(62vh, 640px);
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #c5ceda;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__scroll {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  padding: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__page {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.15rem 1.25rem 1.35rem;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 2px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 10px 28px rgba(15, 23, 42, 0.18);
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__host[data-orientation="portrait"] .portal-query-pdf-preview__page {
+  max-width: 720px;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__page-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__page-meta {
+  margin: 0 0 0.85rem;
+  color: #64748b;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__table th,
+.portal-query-pdf-preview .portal-query-pdf-preview__table td {
+  border: 1px solid #e2e8f0;
+  padding: 0.35rem 0.45rem;
+  text-align: left;
+  vertical-align: top;
+  word-break: break-word;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__table thead th {
+  background: #e2e8f0;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__table tbody tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+/* Hidden print host — off-screen but still loadable by the PDF plugin (no new tab). */
+.portal-query-pdf-preview__print-frame,
+#portalQueryPdfPrintFrame {
+  position: fixed !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  overflow: hidden !important;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__frame {
+  display: none;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  background: rgba(248, 250, 252, 0.92);
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__loading[hidden] {
+  display: none !important;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem 1.05rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.95);
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.portal-query-pdf-preview .portal-query-pdf-preview__footer .btn-primary,
+.portal-query-pdf-preview .portal-query-pdf-preview__footer .btn-outline-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+@media (max-width: 767.98px) {
+  .portal-query-pdf-preview .portal-query-pdf-preview__content {
+    height: min(96vh, 100dvh);
+  }
+
+  .portal-query-pdf-preview .portal-query-pdf-preview__dialog {
+    max-width: calc(100vw - 0.75rem);
+    margin: 0.35rem auto;
+  }
+}
+
+/* Live Report print — start at top of page (no sticky/modal/viewport gaps) */
+@media print {
+  /* Orientation is set at print time by #portal-query-print-orientation-style (JS).
+     Do not hardcode landscape here — it overrides the Print Options choice. */
+  @page {
+    margin: 8mm;
+  }
+
+  html:has(form#formList[data-portal-query="true"]),
+  body:has(form#formList[data-portal-query="true"]),
+  html.portal-query-printing,
+  html.portal-query-printing body {
+    background: #fff !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-sidebar,
+  body:has(form#formList[data-portal-query="true"]) .portal-sidebar-backdrop,
+  body:has(form#formList[data-portal-query="true"]) .portal-topbar,
+  body:has(form#formList[data-portal-query="true"]) .portal-sticky-footer,
+  body:has(form#formList[data-portal-query="true"]) .scroll-to-top,
+  body:has(form#formList[data-portal-query="true"]) .modal,
+  body:has(form#formList[data-portal-query="true"]) .modal-backdrop,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-pdf-preview,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-print-config,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-endpoint,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-endpoint-modal,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-lead,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-kicker,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-actions,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-run,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-print,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-print-config,
+  body:has(form#formList[data-portal-query="true"]) .portal-list-pager,
+  body:has(form#formList[data-portal-query="true"]) .portal-list-pager__nav,
+  body:has(form#formList[data-portal-query="true"]) .portal-list-toolbar,
+  body:has(form#formList[data-portal-query="true"]) .select2-dropdown,
+  body:has(form#formList[data-portal-query="true"]) .select2-selection__arrow,
+  body:has(form#formList[data-portal-query="true"]) .select2-selection__clear,
+  body:has(form#formList[data-portal-query="true"]) .container-fluid[IsPageAvailable="false"],
+  body:has(form#formList[data-portal-query="true"]) .flatpickr-calendar {
+    display: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) th[data-print-hide="1"],
+  body:has(form#formList[data-portal-query="true"]) td[data-print-hide="1"] {
+    display: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) #wrapper,
+  body:has(form#formList[data-portal-query="true"]) #content-wrapper,
+  body:has(form#formList[data-portal-query="true"]) #content,
+  body:has(form#formList[data-portal-query="true"]) .content-area,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-page,
+  body:has(form#formList[data-portal-query="true"]) .container-fluid.portal-query-page,
+  body:has(form#formList[data-portal-query="true"]) form#formList,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-shell,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-header,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-workspace,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-results,
+  body:has(form#formList[data-portal-query="true"]) .portal-table-scroll,
+  body:has(form#formList[data-portal-query="true"]) .portal-list-region {
+    display: block !important;
+    position: static !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    transform: none !important;
+    inset: auto !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    flex: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-shell {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    animation: none !important;
+    overflow: visible !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-header {
+    display: block !important;
+    padding: 2mm 0 3mm !important;
+    border: none !important;
+    background: transparent !important;
+    animation: none !important;
+    overflow: visible !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-title {
+    margin: 0 0 0.35rem !important;
+    padding: 0.5mm 0 !important;
+    font-size: 14pt !important;
+    line-height: 1.4 !important;
+    color: #0f172a !important;
+    overflow: visible !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-workspace {
+    padding: 0 0 0.45rem !important;
+    border: none !important;
+    background: transparent !important;
+    animation: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-results {
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    animation: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-print-meta {
+    display: block !important;
+    margin: 0 0 0.35rem !important;
+    color: #334155 !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-toolbar,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params.portal-entity-form {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params .form-group.row {
+    display: inline-block !important;
+    width: auto !important;
+    max-width: 48% !important;
+    margin: 0 1rem 0.35rem 0 !important;
+    vertical-align: top;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params .form-select,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params .form-control,
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params .select2-container .select2-selection--single {
+    border: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) .portal-query-params .select2-selection__rendered {
+    padding: 0 !important;
+    color: #0f172a !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Safari/WebKit: sticky/fixed leaves a large blank band at the top of page 1 */
+  body:has(form#formList[data-portal-query="true"]) .portal-list-pager,
+  body:has(form#formList[data-portal-query="true"]) table thead,
+  body:has(form#formList[data-portal-query="true"]) table thead th,
+  body:has(form#formList[data-portal-query="true"]) .portal-col {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: auto !important;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) table thead th {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body:has(form#formList[data-portal-query="true"]) table th,
+  body:has(form#formList[data-portal-query="true"]) table td {
+    border: 1px solid #cbd5e1 !important;
+    padding: 0.3rem 0.4rem !important;
+    font-size: 0.75rem !important;
+  }
+}
+
+/*
+ * Touch phones with a wide/"desktop" viewport: keep sticky thead + vertical clip off.
+ * (Narrow phones already get this from the base rules + min-width: 768px sticky gate.)
+ */
+@media (hover: none) and (pointer: coarse) {
+  .content-area form#formList .portal-table-scroll,
+  form#formList .portal-table-scroll,
+  #itemListModal form#formList .portal-table-scroll {
+    max-height: none !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+  }
+
+  .content-area form#formList table thead th,
+  .content-area form#formList table thead td,
+  form#formList table thead th,
+  form#formList table thead td,
+  form#formList table thead th.portal-col-head,
+  #itemListModal form#formList table thead th {
+    position: relative !important;
+    top: auto !important;
+    z-index: 2 !important;
+  }
+
+  form#formList table .portal-col-resize,
+  #itemListModal form#formList table .portal-col-resize {
+    display: none !important;
+  }
+}
+
