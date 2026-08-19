@@ -1,0 +1,7 @@
+@model ViewPermissionItemData
+
+@if (Model.Item.Insert)
+{
+    <button type="button" class="opButtonInsert" data-module-name="@Model.AreaName@Model.ControllerName" bc-color="Primary" bc-size="Default"><i class="fas fa-plus-circle" style="margin-right:10px;"></i>Create New @Model.ControllerName.SplitCamelCaseToString() Record</button>
+}
+

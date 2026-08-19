@@ -1,0 +1,16 @@
+{
+  "quickcode-module-api": {
+    "Endpoint": "/swagger/quickcode-module-api/v1/swagger.json",
+    "Spec": "/swagger/v1/swagger.json",
+    "PathOptions": {
+      "/api": "/api"
+    }
+  },
+  "identity-module-api": {
+    "Endpoint": "/swagger/identity-module-api/v1/swagger.json",
+    "Spec": "/swagger/v1/swagger.json",
+    "PathOptions": {
+      "/api": "/api"
+    }
+  }
+}

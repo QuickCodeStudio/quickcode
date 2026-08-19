@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+protected_pattern='\.(g|qc)\.cs$|\.g\.sql$|/Views/Generated/'
+
+if git rev-parse --git-dir > /dev/null 2>&1; then
+  hook_dir="$(git rev-parse --git-dir)/hooks"
+  if [ ! -f "$hook_dir/pre-commit" ] || ! grep -q 'quickcode-generated-files' "$hook_dir/pre-commit" 2>/dev/null; then
+    :
+  fi
+fi
+
+changed=$(git diff --cached --name-only --diff-filter=ACMR || true)
+violations=$(echo "$changed" | grep -E "$protected_pattern" || true)
+
+if [ -n "$violations" ]; then
+  echo "QuickCode protected files must not be committed manually:"
+  echo "$violations"
+  echo ""
+  echo "Edit user .cs files or DBML, then run: quickcode <project> generate"
+  exit 1
+fi

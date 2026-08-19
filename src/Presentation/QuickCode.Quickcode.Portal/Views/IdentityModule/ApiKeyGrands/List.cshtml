@@ -1,0 +1,616 @@
+@model QuickCode.Quickcode.Portal.Models.IdentityModule.ApiKeyGrandsData
+@{
+    var title = "API Keys";
+    TempData["Title"] = title;
+    var expiresAtValue = Model.CreateRequest.ExpiresAt.Year > 1
+        ? Model.CreateRequest.ExpiresAt.ToUniversalTime().ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+        : DateTime.UtcNow.AddDays(90).ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+}
+<style>
+    #apiKeysSecretModal .api-keys-secret-warn {
+        display: flex;
+        gap: 0.65rem;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        padding: 0.75rem 0.85rem;
+        border-radius: 10px;
+        background: rgba(180, 83, 9, 0.08);
+        border: 1px solid rgba(180, 83, 9, 0.18);
+        color: #9a3412;
+        font-size: 0.875rem;
+        line-height: 1.45;
+    }
+    #apiKeysSecretModal .api-keys-secret-warn i {
+        margin-top: 0.15rem;
+        color: #c2410c;
+    }
+    #apiKeysSecretModal .api-keys-secret-field {
+        display: flex;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    #apiKeysSecretModal .api-keys-secret-field input {
+        flex: 1;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.82rem;
+        border-radius: 10px;
+        border: 1px solid var(--pe-line, #e8edf3);
+        background: #fff;
+        padding: 0.7rem 0.85rem;
+        color: var(--pe-ink, #0f172a);
+    }
+    #apiKeysSecretModal .api-keys-secret-field .btn-copy {
+        border-radius: 10px;
+        border: 1px solid var(--pe-line, #e8edf3);
+        background: #fff;
+        color: var(--pe-ink, #0f172a);
+        font-weight: 600;
+        padding: 0 0.95rem;
+        white-space: nowrap;
+    }
+    #apiKeysSecretModal .api-keys-secret-field .btn-copy.is-copied {
+        background: rgba(22, 163, 74, 0.1);
+        border-color: rgba(22, 163, 74, 0.28);
+        color: #15803d;
+    }
+    #apiKeysSecretModal .api-keys-secret-meta {
+        margin-top: 0.65rem;
+        font-size: 0.8rem;
+        color: var(--pe-muted, #64748b);
+    }
+    .api-keys-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.85rem;
+        margin: 1rem 0 1.1rem;
+    }
+    .api-keys-status-filter {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        padding: 0.28rem;
+        background: #f1f4f8;
+        border: 1px solid #e8edf3;
+        border-radius: 999px;
+    }
+    .api-keys-status-filter a {
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.5rem 0.95rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .api-keys-status-filter a:hover {
+        color: #0f172a;
+        background: rgba(15, 23, 42, 0.05);
+    }
+    .api-keys-status-filter a.is-active {
+        background: #fff;
+        color: #2f3d78;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.03);
+    }
+    .api-keys-status-filter .count {
+        font-size: 0.75rem;
+        font-weight: 700;
+        min-width: 1.35rem;
+        height: 1.35rem;
+        padding: 0 0.35rem;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(15, 23, 42, 0.06);
+        color: inherit;
+    }
+    .api-keys-status-filter a.is-active .count {
+        background: rgba(47, 61, 120, 0.12);
+    }
+    .api-keys-status-badge {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        padding: 0.28rem 0.6rem;
+        border-radius: 999px;
+        line-height: 1;
+    }
+    .api-keys-status-badge.is-active {
+        background: rgba(22, 163, 74, 0.12);
+        color: #15803d;
+    }
+    .api-keys-status-badge.is-revoked {
+        background: rgba(220, 38, 38, 0.1);
+        color: #b91c1c;
+    }
+    .api-keys-status-badge.is-expired {
+        background: rgba(146, 64, 14, 0.1);
+        color: #9a3412;
+    }
+    .api-keys-status-badge.is-other {
+        background: rgba(100, 116, 139, 0.12);
+        color: #475569;
+    }
+    @@media (max-width: 575.98px) {
+        .api-keys-status-filter {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+</style>
+
+<div class="container-fluid api-keys-page"
+     IsPageAvailable="true"
+     data-status-message="@Model.StatusMessage"
+     data-status-error="@(Model.IsError ? "true" : "false")">
+    <form method="post" id="formList">
+        @Html.AntiForgeryToken()
+        <div class="card text shadow mb-4">
+            <div class="card-body">
+                <h2 class="card-title">@title</h2>
+                <p class="card-text">Create and revoke machine API keys. Plaintext is shown once after create.</p>
+                <button type="button"
+                        class="opButtonInsert"
+                        data-portal-local-modal="true"
+                        data-bs-toggle="modal"
+                        data-bs-target="#apiKeysCreateModal"
+                        bc-color="Primary"
+                        bc-size="Default">
+                    <i class="fas fa-plus-circle" style="margin-right:10px;"></i>Create Api Key
+                </button>
+@{
+                    var filter = Model.StatusFilter ?? "Active";
+                    string FilterHref(string value) =>
+                        string.Equals(value, "Active", StringComparison.OrdinalIgnoreCase)
+                            ? "/IdentityModuleApiKeyGrands/List"
+                            : $"/IdentityModuleApiKeyGrands/List?status={Uri.EscapeDataString(value)}";
+                    string FilterClass(string value) =>
+                        string.Equals(filter, value, StringComparison.OrdinalIgnoreCase) ? "is-active" : "";
+                }
+                <div class="api-keys-toolbar">
+                    <div class="api-keys-status-filter" role="tablist" aria-label="Filter API keys by status">
+                        <a href="@FilterHref("Active")" class="@FilterClass("Active")" role="tab" aria-selected="@(filter == "Active" ? "true" : "false")">
+                            Active <span class="count">@Model.ActiveCount</span>
+                        </a>
+                        <a href="@FilterHref("All")" class="@FilterClass("All")" role="tab" aria-selected="@(filter == "All" ? "true" : "false")">
+                            All keys <span class="count">@Model.AllCount</span>
+                        </a>
+                        <a href="@FilterHref("Revoked")" class="@FilterClass("Revoked")" role="tab" aria-selected="@(filter == "Revoked" ? "true" : "false")">
+                            Revoked <span class="count">@Model.RevokedCount</span>
+                        </a>
+                        <a href="@FilterHref("Expired")" class="@FilterClass("Expired")" role="tab" aria-selected="@(filter == "Expired" ? "true" : "false")">
+                            Expired <span class="count">@Model.ExpiredCount</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="list-region" class="portal-list-region">
+                    @if (Model.Items.Count == 0)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @if (string.Equals(filter, "All", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <text>No Data available in API Keys table.</text>
+                            }
+                            else
+                            {
+                                <text>No @filter.ToLowerInvariant() API keys.</text>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive portal-table-scroll">
+                            <table bc-border="Bordered" bc-striped="true" bc-hover="true" class="table" bc-theme="Light">
+                                <thead bc-theme="Dark">
+                                    <tr>
+                                        <th class="portal-ops-cell" data-ops-count="1" data-col-key="ops" data-col-type="ops" aria-label="Actions" title="Actions"></th>
+                                        <th class="portal-col" data-col-type="text" data-col-key="Name">Name</th>
+                                        <th class="portal-col" data-col-type="text" data-col-key="KeyPrefix">Prefix</th>
+                                        <th class="portal-col" data-col-type="fk" data-col-key="PermissionGroupName">Group</th>
+                                        <th class="portal-col" data-col-type="text" data-col-key="Status">Status</th>
+                                        <th class="portal-col" data-col-type="datetime" data-col-key="ExpiresAt">Expires</th>
+                                        <th class="portal-col" data-col-type="datetime" data-col-key="LastUsedAt">Last used</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    var isActive = item.IsActive && string.Equals(item.Status, "Active", StringComparison.OrdinalIgnoreCase);
+                                    var statusClass = string.Equals(item.Status, "Active", StringComparison.OrdinalIgnoreCase) ? "is-active"
+                                        : string.Equals(item.Status, "Revoked", StringComparison.OrdinalIgnoreCase) ? "is-revoked"
+                                        : string.Equals(item.Status, "Expired", StringComparison.OrdinalIgnoreCase) ? "is-expired"
+                                        : "is-other";
+                                    <tr>
+                                        <td class="portal-ops-cell" data-ops-count="1" data-col-key="ops" data-col-type="ops">
+                                            @if (isActive)
+                                            {
+                                                <button-group class="portal-ops-group">
+                                                    <button type="button"
+                                                            id="RevokeItem_@item.Id"
+                                                            class="opButtonRevoke"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#apiKeysRevokeModal"
+                                                            data-revoke-form="revokeForm_@item.Id"
+                                                            data-revoke-name="@item.Name"
+                                                            bc-color="Danger"
+                                                            bc-tooltip="Revoke"
+                                                            bc-size="Small"
+                                                            title="Revoke"
+                                                            aria-label="Revoke @item.Name">
+                                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                                    </button>
+                                                </button-group>
+                                            }
+                                        </td>
+                                        <td class="portal-col" data-col-type="text" data-col-key="Name">
+                                            @item.Name
+                                            @if (!string.IsNullOrWhiteSpace(item.Description))
+                                            {
+                                                <br /><small class="text-muted">@item.Description</small>
+                                            }
+                                        </td>
+                                        <td class="portal-col" data-col-type="text" data-col-key="KeyPrefix"><code>@item.KeyPrefix…</code></td>
+                                        <td class="portal-col" data-col-type="fk" data-col-key="PermissionGroupName">@item.PermissionGroupName</td>
+                                        <td class="portal-col" data-col-type="text" data-col-key="Status">
+                                            <span class="api-keys-status-badge @statusClass">@item.Status</span>
+                                        </td>
+                                        <td class="portal-col" data-col-type="datetime" data-col-key="ExpiresAt">@item.ExpiresAt.ToUniversalTime().ToString("u")</td>
+                                        <td class="portal-col" data-col-type="datetime" data-col-key="LastUsedAt">@(item.LastUsedAt?.ToUniversalTime().ToString("u") ?? "—")</td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @foreach (var item in Model.Items)
+    {
+        var isActive = item.IsActive && string.Equals(item.Status, "Active", StringComparison.OrdinalIgnoreCase);
+        if (!isActive)
+        {
+            continue;
+        }
+        <form id="revokeForm_@item.Id" method="post" asp-action="Revoke" class="d-none">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@item.Id" />
+            <input type="hidden" name="status" value="@Model.StatusFilter" />
+        </form>
+    }
+</div>
+
+<!-- Revoke confirm — same Bootstrap chrome as logoutModal -->
+<div class="modal fade" id="apiKeysRevokeModal" tabindex="-1" role="dialog" aria-labelledby="apiKeysRevokeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="apiKeysRevokeModalLabel">Revoke API key?</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Select "Revoke" below if you are sure. It will stop working immediately.
+                <div class="small text-muted mt-2" id="apiKeysRevokeModalName"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" type="button" id="apiKeysRevokeConfirmOk">Revoke</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create — same structure as standard CRUD Insert modal -->
+<div class="modal fade bd-example-modal-lg" id="apiKeysCreateModal" tabindex="-1" role="dialog" aria-labelledby="apiKeysCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content portal-entity-modal" data-operation="Insert">
+            <div class="modal-header">
+                <h5 class="modal-title" id="apiKeysCreateModalLabel">Api Keys Insert Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card" IsPageAvailable="true">
+                    <div class="card-body">
+                        <form bc-label-width-sm="4" bc-horizontal="true" id="formApiKeyCreate" action="Create" method="post" class="needs-validation portal-entity-form" bc-validation="true">
+                            @Html.AntiForgeryToken()
+                            <form-group>
+                                <input asp-for="CreateRequest.Name" placeholder="Enter your Name" bc-label="Name" type="Text" bc-required="true" bc-tooltip="Enter your Name" bc-validation="true" />
+                            </form-group>
+                            <form-group>
+                                <select bc-label="Permission Group" class="form-select searchable-select" asp-for="CreateRequest.PermissionGroupName" data-placeholder="Search for Permission Group...">
+                                    @foreach (var group in Model.ComboList.GetValueOrDefault("PermissionGroups") ?? new Dictionary<string, string>())
+                                    {
+                                        if (string.Equals(group.Key, Model.CreateRequest.PermissionGroupName, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            <option value="@group.Key" selected="selected">@group.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@group.Key">@group.Value</option>
+                                        }
+                                    }
+                                </select>
+                            </form-group>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4" for="CreateRequest_ExpiresAt">Expires At</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group flatpickr flatpickr-datetime" id="fp_CreateRequest_ExpiresAt">
+                                        <input id="CreateRequest_ExpiresAt" name="CreateRequest.ExpiresAt" class="form-control portal-datetime-input" type="text" data-input autocomplete="off" placeholder="yyyy-MM-dd HH:mm" required
+                                               value="@expiresAtValue" />
+                                        <button class="input-group-text portal-datetime-toggle" type="button" data-toggle title="Select date" tabindex="-1" aria-label="Select date">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <form-group>
+                                <input asp-for="CreateRequest.Description" placeholder="Enter your Description" bc-label="Description" type="Text" bc-tooltip="Enter your Description" />
+                            </form-group>
+
+                            <div id="apiKeyCreateActionResultDiv" style="display:none;">
+                                <h5 id="apiKeyCreateActionResultMessage">Action Result</h5>
+                            </div>
+                            <div class="portal-entity-footer">
+                                <div class="portal-entity-actions">
+                                    <button type="button" data-bs-dismiss="modal" class="btn btn-portal-secondary" bc-color="Secondary">Cancel</button>
+                                    <button type="reset" class="btn btn-portal-ghost" bc-outline="true" bc-color="Info">Clear</button>
+                                    <button type="submit" formmethod="post" formaction="/IdentityModuleApiKeyGrands/Create" class="btn btn-portal-primary" bc-color="Primary">Insert</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Secret result — portal entity modal chrome -->
+<div class="modal fade" id="apiKeysSecretModal" tabindex="-1" role="dialog" aria-labelledby="apiKeysSecretModalLabel" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content portal-entity-modal" data-operation="Detail">
+            <div class="modal-header">
+                <h5 class="modal-title" id="apiKeysSecretModalLabel">API key created</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="api-keys-secret-warn" role="status">
+                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                            <div>Copy and store this secret now. It will not be shown again after you close this dialog.</div>
+                        </div>
+                        <div class="api-keys-secret-meta mb-2" id="apiKeysSecretName"></div>
+                        <div class="api-keys-secret-field">
+                            <input id="createdApiKeyValue"
+                                   type="text"
+                                   readonly
+                                   value=""
+                                   aria-label="New API key secret"
+                                   onclick="this.select()" />
+                            <button type="button" class="btn btn-copy" id="apiKeysCopySecretBtn">
+                                <i class="fas fa-copy me-1" aria-hidden="true"></i>Copy
+                            </button>
+                        </div>
+                        <div class="api-keys-secret-meta" id="apiKeysCopyHint">Click Copy, then store the key securely.</div>
+                        <div class="portal-entity-footer">
+                            <div class="portal-entity-actions">
+                                <button type="button" class="btn btn-portal-primary" id="apiKeysSecretDoneBtn" bc-color="Primary">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var createModal = document.getElementById('apiKeysCreateModal');
+    var secretModal = document.getElementById('apiKeysSecretModal');
+    var createForm = document.getElementById('formApiKeyCreate');
+    var resultDiv = document.getElementById('apiKeyCreateActionResultDiv');
+    var resultMsg = document.getElementById('apiKeyCreateActionResultMessage');
+    var secretInput = document.getElementById('createdApiKeyValue');
+    var secretName = document.getElementById('apiKeysSecretName');
+    var copyBtn = document.getElementById('apiKeysCopySecretBtn');
+    var copyHint = document.getElementById('apiKeysCopyHint');
+    var doneBtn = document.getElementById('apiKeysSecretDoneBtn');
+    var reloadAfterSecret = false;
+
+    function showModal(el) {
+        if (!el || typeof bootstrap === 'undefined' || !bootstrap.Modal) return;
+        bootstrap.Modal.getOrCreateInstance(el).show();
+    }
+
+    function hideModal(el) {
+        if (!el || typeof bootstrap === 'undefined' || !bootstrap.Modal) return;
+        var instance = bootstrap.Modal.getInstance(el);
+        if (instance) instance.hide();
+    }
+
+    if (createModal) {
+        createModal.addEventListener('shown.bs.modal', function () {
+            if (typeof enhancePortalEntityForm === 'function') {
+                enhancePortalEntityForm(createModal);
+            }
+            if (typeof initSearchableSelects === 'function') {
+                initSearchableSelects(createModal);
+            }
+            if (typeof initDatePickers === 'function') {
+                initDatePickers(createModal);
+            }
+            if (resultDiv) resultDiv.style.display = 'none';
+        });
+    }
+
+    if (createForm) {
+        createForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            if (typeof $(createForm).valid === 'function' && !$(createForm).valid()) {
+                return;
+            }
+            if (typeof createForm.checkValidity === 'function' && !createForm.checkValidity()) {
+                createForm.classList.add('was-validated');
+                return;
+            }
+
+            var submitBtn = createForm.querySelector('button[type="submit"]');
+            var formActionUrl = (submitBtn && submitBtn.getAttribute('formaction')) || '/IdentityModuleApiKeyGrands/Create';
+            var formData = new FormData(createForm);
+
+            if (resultDiv) resultDiv.style.display = 'block';
+            if (resultMsg) {
+                resultMsg.style.color = 'black';
+                resultMsg.textContent = 'Please wait...';
+            }
+
+            $.ajax({
+                url: formActionUrl,
+                type: 'POST',
+                dataType: 'JSON',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (resultMsg) {
+                        resultMsg.style.color = 'green';
+                        resultMsg.textContent = 'Successfully Completed';
+                    }
+                    var apiKey = (response && (response.apiKey || response.ApiKey)) || '';
+                    var name = (response && (response.name || response.Name)) || '';
+                    if (!apiKey) {
+                        if (resultMsg) {
+                            resultMsg.style.color = 'red';
+                            resultMsg.textContent = 'API key was created but secret was not returned.';
+                        }
+                        return;
+                    }
+                    if (secretInput) secretInput.value = apiKey;
+                    if (secretName) secretName.innerHTML = name ? ('<strong>' + name + '</strong>') : '';
+                    if (copyHint) copyHint.textContent = 'Click Copy, then store the key securely.';
+                    if (copyBtn) {
+                        copyBtn.classList.remove('is-copied');
+                        copyBtn.innerHTML = '<i class="fas fa-copy me-1" aria-hidden="true"></i>Copy';
+                    }
+                    reloadAfterSecret = true;
+                    hideModal(createModal);
+                    showModal(secretModal);
+                },
+                error: function (xhr, desc, error) {
+                    var fallbackMessage = error || desc || 'Request failed';
+                    var payload = (typeof getPortalAjaxErrorPayload === 'function')
+                        ? getPortalAjaxErrorPayload(xhr)
+                        : (xhr.responseJSON || null);
+                    var msg = (payload && (payload.message || payload.Message))
+                        ? (payload.message || payload.Message)
+                        : ((xhr.responseJSON && (xhr.responseJSON.message || xhr.responseJSON.Message))
+                            ? (xhr.responseJSON.message || xhr.responseJSON.Message)
+                            : fallbackMessage);
+                    if (resultMsg) {
+                        resultMsg.style.color = 'red';
+                        resultMsg.textContent = msg;
+                    }
+                    if (typeof handlePortalAjaxError === 'function') {
+                        handlePortalAjaxError(xhr, { reload: false, fallbackMessage: fallbackMessage });
+                    } else if (typeof showPortalToast === 'function') {
+                        showPortalToast(msg, 'error');
+                    }
+                }
+            });
+        });
+    }
+
+    if (copyBtn && secretInput) {
+        copyBtn.addEventListener('click', async function () {
+            var value = secretInput.value || '';
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(value);
+                } else {
+                    secretInput.select();
+                    document.execCommand('copy');
+                }
+                copyBtn.classList.add('is-copied');
+                copyBtn.innerHTML = '<i class="fas fa-check me-1" aria-hidden="true"></i>Copied';
+                if (copyHint) copyHint.textContent = 'Copied to clipboard. Store it somewhere safe.';
+                setTimeout(function () {
+                    copyBtn.classList.remove('is-copied');
+                    copyBtn.innerHTML = '<i class="fas fa-copy me-1" aria-hidden="true"></i>Copy';
+                }, 2200);
+            } catch (err) {
+                secretInput.select();
+                if (copyHint) copyHint.textContent = 'Select the key and copy it manually (Cmd/Ctrl+C).';
+            }
+        });
+    }
+
+    if (doneBtn) {
+        doneBtn.addEventListener('click', function () {
+            hideModal(secretModal);
+            if (reloadAfterSecret) {
+                window.location.reload();
+            }
+        });
+    }
+
+    if (secretModal) {
+        secretModal.addEventListener('hidden.bs.modal', function () {
+            if (reloadAfterSecret) {
+                window.location.reload();
+            }
+        });
+    }
+
+    var pendingRevokeFormId = null;
+    var revokeModal = document.getElementById('apiKeysRevokeModal');
+    var revokeNameEl = document.getElementById('apiKeysRevokeModalName');
+    var revokeOk = document.getElementById('apiKeysRevokeConfirmOk');
+
+    document.querySelectorAll('.opButtonRevoke[data-revoke-form]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            pendingRevokeFormId = btn.getAttribute('data-revoke-form');
+            var name = btn.getAttribute('data-revoke-name') || '';
+            if (revokeNameEl) {
+                revokeNameEl.textContent = name ? ('Key: ' + name) : '';
+            }
+        });
+    });
+
+    if (revokeModal) {
+        revokeModal.addEventListener('hidden.bs.modal', function () {
+            pendingRevokeFormId = null;
+            if (revokeNameEl) revokeNameEl.textContent = '';
+        });
+    }
+
+    if (revokeOk) {
+        revokeOk.addEventListener('click', function () {
+            var formId = pendingRevokeFormId;
+            pendingRevokeFormId = null;
+            hideModal(revokeModal);
+            var form = formId ? document.getElementById(formId) : null;
+            if (!form) return;
+            if (typeof form.requestSubmit === 'function') form.requestSubmit();
+            else form.submit();
+        });
+    }
+})();
+</script>
+
+<div class="container-fluid" IsPageAvailable="false">
+ @await Html.PartialAsync("_NotAuthorized")
+</div>

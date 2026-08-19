@@ -1,0 +1,19 @@
+@using QuickCode.Quickcode.Portal;
+@using QuickCode.Quickcode.Portal.Models
+@using QuickCode.Quickcode.Portal.Helpers
+@using QuickCode.Quickcode.Portal.ViewComponents
+@using BSolutions.Bocons.Enumerations
+@using BSolutions.Brecons.Core.Enumerations
+@using QuickCode.Quickcode.Infrastructure.Web.Helpers
+@using QuickcodeModuleApi = QuickCode.Quickcode.Infrastructure.Integration.Nswag.Clients.QuickcodeModuleApi.Contracts
+@using IdentityModuleApi = QuickCode.Quickcode.Infrastructure.Integration.Nswag.Clients.IdentityModuleApi.Contracts
+@using QuickCode.Quickcode.Portal.Models.QuickcodeModule
+@using QuickcodeModule = QuickCode.Quickcode.Portal.Models.QuickcodeModule
+@using QuickCode.Quickcode.Portal.Models.IdentityModule
+@using IdentityModule = QuickCode.Quickcode.Portal.Models.IdentityModule
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, BSolutions.Bocons
+@addTagHelper *, QuickCode.Quickcode.Portal
+@inject IPortalPagePermissionManager PortalPagePermissions

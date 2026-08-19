@@ -1,0 +1,121 @@
+﻿{
+	"PortalMenus": [
+		{
+			"Key": "PermissionSettings_ApiMethodDefinitions",
+			"Name": "ApiMethodDefinitions",
+			"Text": "ApiMethodDefinitions",
+			"Tooltip": "ApiMethodDefinitions",
+			"ActionName": "/IdentityModuleApiMethodDefinitions/List",
+			"OrderNo": 0,
+			"ParentName": "PermissionSettings"
+		},
+		{
+			"Key": "PermissionSettings_ApiMethodAccessGrants",
+			"Name": "ApiMethodAccessGrants",
+			"Text": "ApiMethodAccessGrants",
+			"Tooltip": "ApiMethodAccessGrants",
+			"ActionName": "/IdentityModuleApiMethodAccessGrants/List",
+			"OrderNo": 0,
+			"ParentName": "PermissionSettings"
+		},
+		{
+			"Key": "PermissionSettings_PortalPageAccessGrants",
+			"Name": "PortalPageAccessGrants",
+			"Text": "PortalPageAccessGrants",
+			"Tooltip": "PortalPageAccessGrants",
+			"ActionName": "/IdentityModulePortalPageAccessGrants/List",
+			"OrderNo": 0,
+			"ParentName": "PermissionSettings"
+		},
+		{
+			"Key": "PermissionSettings_PortalPageDefinitions",
+			"Name": "PortalPageDefinitions",
+			"Text": "PortalPageDefinitions",
+			"Tooltip": "PortalPageDefinitions",
+			"ActionName": "/IdentityModulePortalPageDefinitions/List",
+			"OrderNo": 1,
+			"ParentName": "PermissionSettings"
+		},
+		{
+			"Key": "PermissionSettings_PermissionGroups",
+			"Name": "PermissionGroups",
+			"Text": "PermissionGroups",
+			"Tooltip": "PermissionGroups",
+			"ActionName": "/IdentityModulePermissionGroups/List",
+			"OrderNo": 10,
+			"ParentName": "PermissionSettings"
+		},
+		{
+			"Key": "PortalSettings_PortalMenus",
+			"Name": "PortalMenus",
+			"Text": "PortalMenus",
+			"Tooltip": "PortalMenus",
+			"ActionName": "/IdentityModulePortalMenus/List",
+			"OrderNo": 13,
+			"ParentName": "PortalSettings"
+		},
+		{
+			"Key": "AccessGrantManagers_PortalPageGrants",
+			"Name": "PortalPageGrants",
+			"Text": "PortalPageGrants",
+			"Tooltip": "PortalPageGrants",
+			"ActionName": "/IdentityModulePortalPageAccessGrants/GetGroupPermissions",
+			"OrderNo": 3,
+			"ParentName": "AccessGrantManagers"
+		},
+		{
+			"Key": "AccessGrantManagers_ApiMethodGrants",
+			"Name": "ApiMethodGrants",
+			"Text": "ApiMethodGrants",
+			"Tooltip": "ApiMethodGrants",
+			"ActionName": "/IdentityModuleApiMethodAccessGrants/GetModulePermissions",
+			"OrderNo": 1,
+			"ParentName": "AccessGrantManagers"
+		},
+		{
+			"Key": "AccessGrantManagers_ApiKeyGrands",
+			"Name": "ApiKeyGrands",
+			"Text": "API Keys",
+			"Tooltip": "API Keys",
+			"ActionName": "/IdentityModuleApiKeyGrands/List",
+			"OrderNo": 2,
+			"ParentName": "AccessGrantManagers"
+		},
+		{
+			"Key": "WorkflowManagers_KafkaEventManager",
+			"Name": "KafkaEventsWorkflows",
+			"Text": "KafkaEventsWorkflows",
+			"Tooltip": "KafkaEventsWorkflows",
+			"ActionName": "/IdentityModuleKafkaEvents/GetKafkaEvents",
+			"OrderNo": 2,
+			"ParentName": "WorkflowManagers"
+		},
+		{
+			"Key": "PortalSettings_Users",
+			"Name": "Users",
+			"Text": "Users",
+			"Tooltip": "Users",
+			"ActionName": "/IdentityModuleAspNetUsers/List",
+			"OrderNo": 28,
+			"ParentName": "PortalSettings"
+		},
+		{
+			"Key": "PortalSettings_ColumnTypes",
+			"Name": "ColumnTypes",
+			"Text": "ColumnTypes",
+			"Tooltip": "ColumnTypes",
+			"ActionName": "/IdentityModuleColumnTypes/List",
+			"OrderNo": 3,
+			"ParentName": "PortalSettings"
+		},
+		{
+			"Key": "PortalSettings_TableComboboxSettings",
+			"Name": "TableComboboxSettings",
+			"Text": "TableComboboxSettings",
+			"Tooltip": "TableComboboxSettings",
+			"ActionName": "/IdentityModuleTableComboboxSettings/List",
+			"OrderNo": 40,
+			"ParentName": "PortalSettings"
+		}
+	]
+}

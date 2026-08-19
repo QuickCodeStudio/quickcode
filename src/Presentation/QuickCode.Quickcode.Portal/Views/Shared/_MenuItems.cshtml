@@ -1,0 +1,40 @@
+@model List<IdentityModuleApi.PortalMenuDto>
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-group">
+                    <label>@Model[i].Name.SplitCamelCaseToString()</label>
+                    <span>@Model[i].ActionName.SplitCamelCaseToString()</span>
+                    <label>@Model[i].ParentName.SplitCamelCaseToString()</label>
+                    <label asp-for="@Model[i].Name"></label>
+                </div>
+
+                <div class="form-group" style="text-align: right ">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="sendRequest(@i);">Select</button>
+                </div>
+            }
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div>
+
+
+<script>
+        var listRecipient = JSON.parse(JSON.stringify(@JavaScriptConvert.SerializeObject(Model)));
+        function sendRequest(index) {
+            var model = listRecipient[index];
+
+
+            $(this).closest(".modal").modal('hide');
+        }
+</script>

@@ -1,0 +1,96 @@
+@model LoginData
+@{
+    ViewData["Title"] = "Sign in";
+    var queryCollection = Context.Request.Query;
+    var routeData = new Dictionary<string, string>(queryCollection.Select(x => new KeyValuePair<string, string>(x.Key, x.Value!)));
+    if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        ViewData["AuthToast"] = Model.SuccessMessage;
+        ViewData["AuthToastType"] = "success";
+    }
+}
+
+<section class="auth-card">
+    <div class="auth-card__inner">
+        <p class="auth-card__eyebrow">Portal access</p>
+        <h1 class="auth-card__title">Sign in</h1>
+        <p class="auth-card__lead">Sign in to continue to Quickcode.</p>
+
+        <form class="auth-form"
+              asp-action="Index"
+              asp-all-route-data="routeData"
+              novalidate
+              data-auth-invalid-credentials="@(Model.InvalidCredentials ? "true" : "false")">
+            <div class="auth-field">
+                <label class="auth-field__label" asp-for="Username">Email</label>
+                <input asp-for="Username"
+                       class="auth-field__input"
+                       type="email"
+                       autocomplete="username"
+                       inputmode="email"
+                       placeholder="name@company.com"
+                       aria-required="true" />
+                <span asp-validation-for="Username" class="auth-field__hint"></span>
+            </div>
+
+            <div class="auth-field">
+                <label class="auth-field__label" asp-for="Password">Password</label>
+                <div class="auth-password">
+                    <input asp-for="Password"
+                           id="login-password"
+                           class="auth-field__input@(Model.InvalidCredentials ? " is-invalid" : "")"
+                           type="password"
+                           autocomplete="current-password"
+                           placeholder="Enter your password"
+                           aria-required="true" />
+                    <button type="button"
+                            class="auth-password__toggle"
+                            data-auth-password-toggle
+                            aria-controls="login-password"
+                            aria-pressed="false"
+                            aria-label="Show password">
+                        <i class="far fa-eye" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Password" class="auth-field__hint"></span>
+            </div>
+
+            <div class="auth-row">
+                <a class="auth-link" asp-action="ForgotPassword" asp-controller="Login">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="auth-btn">Sign in</button>
+
+            <div class="auth-alert auth-alert--error"
+                 data-auth-alert
+                 role="alert"
+                 hidden="@string.IsNullOrEmpty(Model.ErrorMessage)">@Model.ErrorMessage</div>
+        </form>
+
+        <div class="auth-footer">
+            <span>New here? <a class="auth-link" asp-action="Register" asp-controller="Login">Create an account</a></span>
+        </div>
+    </div>
+</section>
+
+<div id="authConfirmDialog"
+     class="auth-dialog@(Model.ShowResendConfirmation ? " is-open" : "")"
+     data-auth-resend-url="@Url.Action("ResendConfirmation")"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="authConfirmTitle">
+    <div class="auth-dialog__backdrop" data-auth-dialog-dismiss></div>
+    <div class="auth-dialog__panel">
+        <p class="auth-card__eyebrow">Email confirmation</p>
+        <h2 id="authConfirmTitle" class="auth-dialog__title">Confirm your email first</h2>
+        <p class="auth-dialog__lead">This account exists, but the email is not confirmed yet. Send a new confirmation link to <strong data-auth-dialog-email>@Model.Username</strong>?</p>
+        <div class="auth-dialog__actions">
+            <button type="button" class="auth-btn auth-btn--ghost" data-auth-dialog-dismiss>Not now</button>
+            <button type="button" class="auth-btn" data-auth-dialog-confirm>Send email</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

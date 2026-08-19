@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 1400" role="img" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Logo blue #3b488e darkened ~2 steps -->
+    <linearGradient id="bg" x1="8%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a2348"/>
+      <stop offset="40%" stop-color="#222c58"/>
+      <stop offset="75%" stop-color="#283568"/>
+      <stop offset="100%" stop-color="#1e284e"/>
+    </linearGradient>
+    <linearGradient id="slabA" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#141c3a" stop-opacity=".95"/>
+      <stop offset="100%" stop-color="#303b74" stop-opacity=".5"/>
+    </linearGradient>
+    <linearGradient id="slabB" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1c264e" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#3b488e" stop-opacity=".4"/>
+    </linearGradient>
+    <linearGradient id="slabC" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#222c58" stop-opacity=".75"/>
+      <stop offset="100%" stop-color="#3b488e" stop-opacity=".32"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-5%" width="140%" height="110%">
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+  </defs>
+
+  <rect width="320" height="1400" fill="url(#bg)"/>
+
+  <g transform="translate(160 700) rotate(-32) translate(-160 -700)">
+    <rect x="24" y="-200" width="48" height="1800" rx="7" fill="url(#slabA)" opacity=".88"/>
+    <rect x="88" y="-160" width="58" height="1720" rx="8" fill="url(#slabB)" opacity=".8"/>
+    <rect x="160" y="-120" width="72" height="1640" rx="8" fill="url(#slabA)" opacity=".92"/>
+    <rect x="244" y="-80" width="50" height="1560" rx="7" fill="url(#slabB)" opacity=".84"/>
+    <rect x="306" y="-40" width="38" height="1480" rx="6" fill="url(#slabC)" opacity=".78"/>
+    <rect x="354" y="20" width="28" height="1380" rx="5" fill="url(#slabB)" opacity=".55"/>
+    <rect x="392" y="80" width="18" height="1280" rx="4" fill="#303b74" opacity=".45"/>
+    <rect x="420" y="140" width="12" height="1180" rx="3" fill="#4656a0" opacity=".2"/>
+
+    <rect x="-20" y="-40" width="32" height="1600" rx="6" fill="url(#slabA)" opacity=".38"/>
+
+    <rect x="196" y="40" width="12" height="1200" rx="3" fill="#3b488e" opacity=".38"/>
+    <rect x="274" y="140" width="8" height="1040" rx="2.5" fill="#4656a0" opacity=".26"/>
+    <rect x="332" y="220" width="6" height="920" rx="2" fill="#303b74" opacity=".32"/>
+
+    <g stroke="#6b7cb0" stroke-linecap="round" opacity=".26" filter="url(#blur)">
+      <line x1="90" y1="60" x2="90" y2="280" stroke-width="1.6"/>
+      <line x1="126" y1="160" x2="126" y2="400" stroke-width="1.2"/>
+      <line x1="430" y1="100" x2="430" y2="340" stroke-width="1.5"/>
+      <line x1="450" y1="200" x2="450" y2="440" stroke-width="1.2"/>
+      <line x1="90" y1="560" x2="90" y2="780" stroke-width="1.4"/>
+      <line x1="430" y1="600" x2="430" y2="820" stroke-width="1.4"/>
+      <line x1="126" y1="1000" x2="126" y2="1220" stroke-width="1.2"/>
+      <line x1="450" y1="1040" x2="450" y2="1260" stroke-width="1.2"/>
+    </g>
+  </g>
+</svg>

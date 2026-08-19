@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <GenerateCode>True</GenerateCode>
+        <QuickCodeSiteSrcDir Condition="'$(QuickCodeSiteSrcDir)' == ''">$([System.IO.Path]::GetFullPath('$(MSBuildProjectDirectory)/../../../..'))</QuickCodeSiteSrcDir>
+    </PropertyGroup>
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591;AD0001</NoWarn>
+        <UserSecretsId>089bf36e-214c-4a56-9682-7502b3f26351</UserSecretsId>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Build" />
+        <PackageReference Include="Newtonsoft.Json" />
+        <PackageReference Include="RestSharp" />
+        <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+        <PackageReference Include="Microsoft.IdentityModel.Tokens" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+        <PackageReference Include="NSwag.MSBuild" >
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="AspNetCore.HealthChecks.UI" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.Client" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.SqlServer.Storage" />
+        <PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
+        <PackageReference Include="AspNetCore.HealthChecks.NpgSql" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI.PostgreSQL.Storage" />
+        <PackageReference Include="AspNetCore.HealthChecks.Elasticsearch" />
+        <PackageReference Include="AspNetCoreRateLimit" />
+        <PackageReference Include="Polly" />
+        <PackageReference Include="Polly.Extensions.Http" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" />
+        <PackageReference Include="OpenTelemetry" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" />
+        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Core\QuickCode.Quickcode.IdentityModule.Application\QuickCode.Quickcode.IdentityModule.Application.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\..\Infrastructure\QuickCode.Quickcode.IdentityModule.Persistence\QuickCode.Quickcode.IdentityModule.Persistence.csproj" PrivateAssets="All" />
+        <ProjectReference Include="..\..\..\..\Shared\QuickCode.Quickcode.Infrastructure.Web\QuickCode.Quickcode.Infrastructure.Web.csproj" PrivateAssets="All" >
+            <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+        </ProjectReference>
+    </ItemGroup>
+    <Target Name="NSwag_swagger_out" BeforeTargets="PostBuildEvent" Condition="'$(GenerateCode)' == 'True'">
+        <PropertyGroup>
+            <_QuickCodeToolRestoreCmd Condition="$([MSBuild]::IsOSPlatform('Linux'))">flock -w 300 /tmp/quickcode-dotnet-tool-restore.lock dotnet tool restore</_QuickCodeToolRestoreCmd>
+            <_QuickCodeToolRestoreCmd Condition="'$(_QuickCodeToolRestoreCmd)' == ''">dotnet tool restore</_QuickCodeToolRestoreCmd>
+            <_QuickCodeSwaggerOutPath>$([System.IO.Path]::Combine($(QuickCodeSiteSrcDir), 'swagger_files', '$(AssemblyName)-Swagger.json'))</_QuickCodeSwaggerOutPath>
+            <_QuickCodeSwaggerOutArgs>--output $([MSBuild]::Escape('$(_QuickCodeSwaggerOutPath)')) $([MSBuild]::Escape('$(TargetDir)$(AssemblyName).dll')) v1</_QuickCodeSwaggerOutArgs>
+            <_QuickCodeSwaggerTofileCmd Condition="$([MSBuild]::IsOSPlatform('Linux'))">flock -w 300 /tmp/quickcode-swagger-tofile.lock dotnet swagger tofile $(_QuickCodeSwaggerOutArgs)</_QuickCodeSwaggerTofileCmd>
+            <_QuickCodeSwaggerTofileCmd Condition="'$(_QuickCodeSwaggerTofileCmd)' == ''">dotnet swagger tofile $(_QuickCodeSwaggerOutArgs)</_QuickCodeSwaggerTofileCmd>
+        </PropertyGroup>
+        <Exec Command="$(_QuickCodeToolRestoreCmd)"
+              WorkingDirectory="$(QuickCodeSiteSrcDir)"
+              EnvironmentVariables="DOTNET_ROLL_FORWARD=LatestMajor" />
+        <Exec Condition="$([MSBuild]::IsOSUnixLike())"
+              Command="$(_QuickCodeSwaggerTofileCmd)"
+              WorkingDirectory="$(QuickCodeSiteSrcDir)"
+              EnvironmentVariables="DOTNET_ROLL_FORWARD=LatestMajor;ASPNETCORE_ENVIRONMENT=Local;RUN_MIGRATION=NO;ASPNETCORE_CONTENTROOT=$([MSBuild]::Escape('$(ProjectDir)'))" />
+        <Exec Condition="$([MSBuild]::IsOSPlatform('Windows'))"
+              Command="$(_QuickCodeSwaggerTofileCmd)"
+              WorkingDirectory="$(QuickCodeSiteSrcDir)"
+              EnvironmentVariables="DOTNET_ROLL_FORWARD=LatestMajor;ASPNETCORE_ENVIRONMENT=Local;RUN_MIGRATION=NO;ASPNETCORE_CONTENTROOT=$([MSBuild]::Escape('$(ProjectDir)'))" />
+    </Target>
+</Project>

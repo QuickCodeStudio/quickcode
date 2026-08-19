@@ -1,0 +1,16 @@
+@{
+    string errorCode = ViewBag.ErrorCode;
+    string errorMessage = ViewBag.ErrorMessage;
+    string errorDescription = ViewBag.ErrorDescription;
+    ViewBag.Title = $"{errorCode} - {errorMessage}";
+    Layout = ViewBag.Layout;
+}
+
+<div class="auth-error">
+    <p class="auth-error__code">@errorCode</p>
+    <h1 class="auth-solo__title">@errorMessage</h1>
+    @if (!string.IsNullOrWhiteSpace(errorDescription))
+    {
+        <p class="auth-solo__body">@errorDescription</p>
+    }
+</div>

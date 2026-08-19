@@ -1,0 +1,17 @@
+﻿{
+	"ApiKeys": [
+		{
+			"Id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+			"Name": "Default Admin API Key",
+			"Description": "Seeded default Admin API key. Plaintext is delivered only in the deployment email.",
+			"KeyPrefix": "qc_3f71da37e",
+			"KeyHash": "c9a1a10f16e97e1ae799b67e39f0768762c9ddbd02fa62032552967ffbeb55b7",
+			"PermissionGroupName": "Admin",
+			"CreatedByUserId": "6dc95356-04a1-4a46-ba39-df026d4391c0",
+			"Status": "Active",
+			"IsActive": true,
+			"ExpiresAt": "2099-12-31T23:59:59",
+			"CreatedDate": "2026-01-01T00:00:00"
+		}
+	]
+}

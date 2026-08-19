@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <title><!--|@PROJECT_NAME@|--> Gateway (<!--|@ENVIRONMENT@|-->)</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--|@IS_HTTPS@|-->
+    <link rel="icon" type="image/png" href="https://www.quickcode.net/img/icons/qc_icon.png" />
+    <link rel="shortcut icon" type="image/png" href="https://www.quickcode.net/img/icons/qc_icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .nav-link{
+            color: whitesmoke !important;
+        }
+
+        .dropdown-menu{
+            color: whitesmoke !important;
+        }
+
+        .active{
+            background-color: whitesmoke !important;
+            color: #3b488e !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid h-100 " style="background-color: #3b488e; min-height: 100%;">
+    <div class="container-fluid">
+        <div class="row hstack  ps-2 pt-1">
+            <div class="col-12 col-md-6 p-2">
+                <a href="/">
+                    <img class="img-fluid  " style="max-height: 50px;"  src="https://www.quickcode.net/img/skins/quickcode_logo_dark.png" alt="QuickCode">
+                </a>
+            </div>
+            <div class="col-12 col-md-6 hstack">
+                <div class="p-1 ms-auto">
+                    <button onclick="refreshGateway()" type="button" class="btn btn-primary btn-sm float-right">
+                        Refresh
+                    </button>
+                </div>
+                <div class="p-1">
+                    <button onclick="resetGateway()" type="button" class="btn btn-danger btn-sm float-right">
+                        Reset Config
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row hstack  pb-2 ps-2 pt-1">
+            <div class="col-12 col-xl-auto p-0 pe-4"><span class="h4 align-middle"><!--|@PROJECT_NAME@|--> Gateway Dashboard</span></div>
+            <div class="col-6 col-xl-auto p-0 pe-2"><span class="align-middle"><!--|@ENVIRONMENT@|--> (<!--|@LAST_UPDATE@|-->)</span></div>
+            <div class="col-6 col-xl-auto p-0 pe-3"><span class="align-middle"><!--|@VERSION@|--></span></div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row  pb-2 ps-0 pt-1">
+            <div class="col-auto p-1 ">
+                <button id="portalButton" type="button" class="btn btn-outline-info btn-sm">
+                    Portal
+                </button>
+            </div>
+            <div class="col-auto p-1">
+                <button onclick=" window.open('<!--|@ELASTIC_URL@|-->', '_blank' ).focus();" type="button" class="btn btn-outline-info btn-sm">
+                    Kibana
+                </button>
+            </div>
+            <div class="col-auto p-1">
+                <button onclick=" window.open('<!--|@GITHUB_URL@|-->', '_blank' ).focus();" type="button" class="btn btn-outline-info btn-sm">
+                    GitHub
+                </button>
+            </div>
+            <div class="col-auto p-1">
+                <button onclick=" window.open('<!--|@KAFDROP_URL@|-->', '_blank' ).focus();" type="button" class="btn btn-outline-info btn-sm">
+                    Kafdrop
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" aria-current="page" href="/swagger">Gateway Api</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Modules <span class="badge bg-primary"><!--|@TABS_COUNT@|--></span></a>
+            <ul class="dropdown-menu" style="">
+                <!--|@TABS@|-->
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" aria-current="page" href="/hc-ui">Health Checks</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" aria-current="page" href="/api/gateway/config">Config</a>
+        </li>
+        <li class="nav-item">
+            <a data-toggle="tab" class="nav-link" aria-current="page" href="/api/gateway/swagger-config">Swagger Map</a>
+        </li>
+    </ul>
+    <div style="background-color: #212529;  min-height: 300px" class="mb-2">
+        <iframe id="dashboardIFrame" name="dashboardIFrame" src="/swagger"  style="display: none; "  frameborder="0" width="100%" onload="resizeIframe(this)"></iframe>
+        <div id="loadingMessage" class="d-flex flex-column">
+            <span id="dashboardIFrameTitle" class="align-self-center mt-5">Loading...</span>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
+
+<script>
+    $(document).ready(function() {
+        console.log("ready!");
+
+        if (localStorage.getItem('lastTab') === null || localStorage.getItem('lastTab') === "") {
+            localStorage.setItem('lastTab', "Gateway Api");
+        }
+
+        setSelectedTab();
+
+        const currentHost = window.location.hostname;
+        if (currentHost.startsWith("<!--|@PROJECT_NAME_LOWER@|-->-gateway")) {
+            const portalHost = currentHost.replace("<!--|@PROJECT_NAME_LOWER@|-->-gateway", "<!--|@PROJECT_NAME_LOWER@|-->-portal");
+            const eventListenerService = currentHost.replace("<!--|@PROJECT_NAME_LOWER@|-->-gateway", "<!--|@PROJECT_NAME_LOWER@|-->-event-listener-service");
+            $("#portalButton").attr("onclick", `window.open('https://${portalHost}', '_blank').focus();`);
+            $("#event_listener_service").attr("href", `https://${eventListenerService}/swagger/index.html`);
+        }
+        else
+        {
+            $("#portalButton").attr("onclick",  `window.open('<!--|@PORTAL_URL@|-->', '_blank').focus();`);
+        }
+    });
+
+    function resizeIframe(obj) {
+        obj.style.height = 0;
+        obj.style.height = ($(window).height()-160  ) + 'px';
+        $('#loadingMessage').addClass("d-none");
+        $('#dashboardIFrame').css('display', 'block');
+    }
+    function refreshGateway() {
+        location.reload();
+    }
+    function resetGateway(){
+        $.get( "/reset" );
+    }
+
+    $('a[data-toggle="tab"]').click(function (e) {
+        e.preventDefault();
+        var tabName=e.currentTarget.innerText;
+
+
+        let dropdownToggle=$('.dropdown-toggle');
+        $('.nav-link').removeClass('active');
+        $('.dropdown-item').removeClass('active');
+        dropdownToggle.removeClass('active');
+        $('.dropdown').removeClass('active');
+
+        if($(this).attr("class")==="nav-link") {
+            $(this).addClass("active");
+        }else{
+            dropdownToggle.addClass("active");
+            $(this).addClass("active");
+        }
+
+        $('#loadingMessage').removeClass("d-none");
+        $('#dashboardIFrame').css('display', 'none');
+
+        if(tabName === "Portal" || tabName === "Logs"){
+            window.open(e.target.href, '_blank' ).focus();
+            $("#dashboardIFrameTitle").html(e.target.text + " -> New Tab Opened !!!");
+        }else {
+            $("#dshboardIFrameTitle").html(e.target.text + " -> Loading...");
+            $("#dashboardIFrame").attr("src", e.target.href);
+            $("#loadingMessage").css("height", ($(window).height() - 210) + 'px');
+            localStorage.setItem('lastTab', tabName);
+        }
+    });
+
+    function clearSelectedTab(){
+        const items = $('a[data-toggle="tab"]');
+        for (const item of items) {
+            if($(item).hasClass("active")) {
+                $(item).removeClass("active");
+                console.log("hasClass:" + item.innerText);
+            }
+        }
+    }
+
+    function setSelectedTab(){
+        const  tabValue = localStorage.getItem('lastTab')
+        clearSelectedTab();
+        const items = $('a[data-toggle="tab"]');
+        for (const item of items) {
+            if(item.innerText === tabValue) {
+                if ($(item).hasClass("dropdown-item")) {
+                    const toggle = $( ".dropdown-toggle" );
+                    $(toggle).addClass("active");
+                }
+
+                $(item).addClass("active");
+                $("#dashboardIFrame").attr("src", $(item).attr("href"));
+                $("#loadingMessage").css("height", ($(window).height()-210) + 'px');
+            }
+        }
+        $("#loadingMessage").css("height", ($(window).height()-210) + 'px');
+    }
+</script>

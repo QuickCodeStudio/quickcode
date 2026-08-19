@@ -1,0 +1,391 @@
+﻿@using QuickCode.Quickcode.Portal.Models.IdentityModule
+@model IdentityModule.AspNetUserData
+<div class="modal-content portal-entity-modal" data-operation="Update">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Asp Net User Update Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+     <div class="card" IsPageAvailable="true">
+        <div class="card-body">
+            <form bc-label-width-sm="4" bc-horizontal="true" id="formUpdate" action="Update" method="post" class="needs-validation portal-entity-form" bc-validation="true">
+                @Html.AntiForgeryToken()
+                <form-group>
+	<input asp-for="SelectedItem.Id" placeholder="Enter your Id" bc-label="ID" type="Text"  bc-required="true" bc-tooltip="Enter your Id" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.FirstName" placeholder="Enter your FirstName" bc-label="First Name" type="Text"  bc-tooltip="Enter your FirstName" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.LastName" placeholder="Enter your LastName" bc-label="Last Name" type="Text"  bc-tooltip="Enter your LastName" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<select bc-label="Permission Group Name" class="form-select searchable-select" asp-for="SelectedItem.PermissionGroupName" asp-items="@Model.GetComboBoxList("PermissionGroups", Model.SelectedItem.PermissionGroupName)"  data-placeholder="Search for PermissionGroupName..."></select>
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.UserName" placeholder="Enter your UserName" bc-label="User Name" type="Text"  bc-tooltip="Enter your UserName" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.NormalizedUserName" placeholder="Enter your NormalizedUserName" bc-label="Normalized User Name" type="Text"  bc-tooltip="Enter your NormalizedUserName" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.Email" placeholder="Enter your Email" bc-label="Email" type="Text"  bc-tooltip="Enter your Email" bc-validation="true" />
+</form-group>
+
+<form-group>
+	<input asp-for="SelectedItem.NormalizedEmail" placeholder="Enter your NormalizedEmail" bc-label="Normalized Email" type="Text"  bc-tooltip="Enter your NormalizedEmail" bc-validation="true" />
+</form-group>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="SelectedItem.EmailConfirmed">Email Confirmed</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.HiddenFor(m => m.SelectedItem.EmailConfirmed)
+                @if (Model.SelectedItem.EmailConfirmed == true)
+                {
+                    <div class="ios-switch-wrapper checked">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_EmailConfirmed" checked />
+                    </div>
+                }
+                else
+                {
+                    <div class="ios-switch-wrapper">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_EmailConfirmed" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+<form-group>
+	<input asp-for="SelectedItem.PhoneNumber" placeholder="Enter your PhoneNumber" bc-label="Phone Number" type="Text"  bc-tooltip="Enter your PhoneNumber" bc-validation="true" />
+</form-group>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="SelectedItem.PhoneNumberConfirmed">Phone Number Confirmed</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.HiddenFor(m => m.SelectedItem.PhoneNumberConfirmed)
+                @if (Model.SelectedItem.PhoneNumberConfirmed == true)
+                {
+                    <div class="ios-switch-wrapper checked">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_PhoneNumberConfirmed" checked />
+                    </div>
+                }
+                else
+                {
+                    <div class="ios-switch-wrapper">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_PhoneNumberConfirmed" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="SelectedItem.TwoFactorEnabled">Two Factor Enabled</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.HiddenFor(m => m.SelectedItem.TwoFactorEnabled)
+                @if (Model.SelectedItem.TwoFactorEnabled == true)
+                {
+                    <div class="ios-switch-wrapper checked">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_TwoFactorEnabled" checked />
+                    </div>
+                }
+                else
+                {
+                    <div class="ios-switch-wrapper">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_TwoFactorEnabled" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+<div class="form-group row">
+    <label class="col-form-label col-sm-4" for="SelectedItem_LockoutEnd">Lockout End</label>
+    <div class="col-sm-8">
+        <div class="input-group flatpickr flatpickr-datetime" id="fp_SelectedItem_LockoutEnd">
+            <!input id="SelectedItem_LockoutEnd" name="SelectedItem.LockoutEnd" class="form-control portal-datetime-input" type="text" data-input autocomplete="off" placeholder="yyyy-MM-dd HH:mm"
+                value="@(Model.SelectedItem.LockoutEnd == null ? string.Empty : (Convert.ToDateTime(Model.SelectedItem.LockoutEnd).Year > 1 ? Convert.ToDateTime(Model.SelectedItem.LockoutEnd).ToString("yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture) : string.Empty))" />
+            <!button class="input-group-text portal-datetime-toggle" type="button" data-toggle title="Select date" tabindex="-1" aria-label="Select date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </!button>
+        </div>
+    </div>
+</div>
+
+    <div class="form-group row">
+        <label class="col-sm-4 col-form-label" for="SelectedItem.LockoutEnabled">Lockout Enabled</label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.HiddenFor(m => m.SelectedItem.LockoutEnabled)
+                @if (Model.SelectedItem.LockoutEnabled == true)
+                {
+                    <div class="ios-switch-wrapper checked">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_LockoutEnabled" checked />
+                    </div>
+                }
+                else
+                {
+                    <div class="ios-switch-wrapper">
+                        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_SelectedItem_LockoutEnabled" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+<form-group>
+	<input asp-for="SelectedItem.AccessFailedCount" placeholder="Enter your AccessFailedCount" bc-label="Access Failed Count" type="Text"  bc-required="true" bc-tooltip="Enter your AccessFailedCount" bc-validation="true" />
+</form-group>
+
+<div class="form-group row">
+    <label class="col-sm-4 col-form-label">Photo URL</label>
+    <div class="col-sm-8">
+         <a href="@(Model.SelectedItem.PhotoUrl == null || Model.SelectedItem.PhotoUrl.Length == 0 ? "/images/no_image.png" : Model.SelectedItem.PhotoUrl)" data-toggle="lightbox" data-type="image">
+             <img id="SelectedItem_PhotoUrlImg" class="lazyload" src="/images/loading.svg" data-src="@(Model.SelectedItem.PhotoUrl == null || Model.SelectedItem.PhotoUrl.Length == 0 ? "/images/no_image.png" : Model.SelectedItem.PhotoUrl)" style="height:auto; width:auto; max-height: 250px; max-width: 350px; margin-bottom: -10px; margin-top: 0px; display: block; margin-right: auto;" bc-thumbnail="true" bc-round="true" />
+         </a>
+    </div>
+</div>
+ <form-group>
+     <input asp-for="SelectedItem.PhotoUrl" placeholder="Enter your SelectedItem.PhotoUrl" class="opButtonImageUpload" type="file" accept="image/*" data-max-bytes="5242880"   bc-label=" " bc-tooltip="Enter your SelectedItem.PhotoUrl"  />
+     <help class="text-muted small mt-1">Max size: 5 MB</help>
+</form-group>
+
+
+
+                <div id="actionResultDiv">
+                    <h5 id="actionResultMessage">
+                        Text Result
+                    </h5>
+                </div>
+                <div class="portal-entity-footer">
+                    <div class="portal-entity-actions">
+                 <button type="button" data-bs-dismiss="modal" class="btn btn-portal-secondary" bc-color="Secondary">Cancel</button>
+<button type="reset" class="btn btn-portal-ghost" bc-outline="true" bc-color="Info">Clear</button>
+<button type="submit" formmethod="post" formaction="/IdentityModuleAspNetUsers/Update" class="btn btn-portal-primary" bc-color="Primary">Update</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card" IsPageAvailable="false">
+        @await Html.PartialAsync("_NotAuthorized")
+    </div>
+</div>
+</div>
+<script src="/js/bootstrap-toggle.js"></script>
+<script>
+        var fileData = {};
+        $('.textarea-editor').summernote(
+        {
+            height: 200
+        });
+       
+        window.addEventListener('load', (event) => {
+            init();
+        });
+
+        $("img.lazyload").lazyload();
+
+        function checkBoxChanged(cbox) {
+            console.log('Changed ' + cbox.id);
+            console.log('Changed ' + cbox.checked);
+            var itemId = cbox.id.replace("cbox_", "").replace(".", "_");
+            $("#" + itemId).val(cbox.checked);
+        }
+
+        $('.opButtonImageUpload').change(function (e) {
+            var formData = new FormData($("#formUpdate")[0]);
+            var reader = new FileReader();
+            var imageId = '#' + this.id + 'Img';
+            var realImageId = '' + this.id;
+            imageId = imageId.replace('.', '_');
+            
+            reader.onload = function (event) {
+              var image = new Image();
+          
+              image.onload=function(){
+                  var imageMaxSize=1200;
+                  var fileType = this.src.split(';')[0].split(':')[1];
+                  
+                  if(fileType.split('/').length>1 && fileType.split('/')[1] != 'gif'){
+                      var canvas = document.createElement('canvas'),
+                          max_size = imageMaxSize,// TODO : pull max size from a site config
+                          width = image.width,
+                          height = image.height;
+                      if (width > height) {
+                          if (width > max_size) {
+                              height *= max_size / width;
+                              width = max_size;
+                          }
+                      } else {
+                          if (height > max_size) {
+                              width *= max_size / height;
+                              height = max_size;
+                          }
+                      }
+                      canvas.width = width;
+                      canvas.height = height;
+    
+                      canvas.getContext('2d').drawImage(image, 0, 0, width, height);
+                      $(imageId).attr("src", canvas.toDataURL());
+                      var resizedImage = createBlob(canvas.toDataURL());
+                      var fileType = this.src.split(';')[0].split(':')[1];
+                      var options = {
+                            maxSizeMB: 1,
+                            maxWidthOrHeight: imageMaxSize,
+                            useWebWorker: true,
+                            fileType: fileType,
+                            initialQuality: 0.5
+                      }
+                  
+                      imageCompression(resizedImage, options)
+                            .then(function (compressedFile) {
+                              fileData[realImageId] =  compressedFile;
+                            })
+                            .catch(function (error) {
+                              console.log(error.message);
+                            });
+                    }
+                  
+              } 
+
+              image.src=event.target.result;
+            };
+
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        function createBlob(dataURL) {
+          var BASE64_MARKER = ';base64,';
+          if (dataURL.indexOf(BASE64_MARKER) == -1) {
+            var parts = dataURL.split(',');
+            var contentType = parts[0].split(':')[1];
+            var raw = decodeURIComponent(parts[1]);
+            return new Blob([raw], { type: contentType });
+          }
+          
+          var parts = dataURL.split(BASE64_MARKER);
+          var contentType = parts[0].split(':')[1];
+          var raw = window.atob(parts[1]);
+          var rawLength = raw.length;
+
+          var uInt8Array = new Uint8Array(rawLength);
+
+          for (var i = 0; i < rawLength; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+          }
+
+          return new Blob([uInt8Array], { type: contentType });
+        }
+
+        var forms = document.getElementsByClassName('needs-validation');
+        $("#formUpdate").on('submit', function (e) {
+            $("#actionResultDiv").hide();
+            if ($("#formUpdate").valid()) {
+                var formData = new FormData(this);
+                e.preventDefault(); // prevent the form's normal submission
+                $("#actionResultDiv").show();
+                $("#actionResultMessage").css('color', 'black');
+                $("#actionResultMessage").text("Please wait...");
+                Object.keys(fileData).forEach(function(fileKey) {
+                    formData.set(fileKey, fileData[fileKey]);
+                });
+                
+                addYamlEditorsToFormData(formData);
+    
+                let button = document.querySelector('button[type="submit"]');
+                let formActionUrl = button.getAttribute('formaction');   
+                
+                $.ajax({
+                    url: formActionUrl,
+                    type: "POST",
+                    dataType: "JSON",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response, status)
+                    {
+                        $("#actionResultDiv").show();
+                        $("#actionResultMessage").css('color', 'green');
+                        $("#actionResultMessage").text('Successfully Completed');
+
+                        var operation = ($('#formUpdate').closest('.portal-entity-modal').attr('data-operation')
+                            || 'Update'
+                            || '').toString();
+                        var successMessage = (typeof getPortalCrudSuccessMessage === 'function')
+                            ? getPortalCrudSuccessMessage(operation)
+                            : 'Operation completed successfully.';
+
+                        if (typeof finishPortalCrudSuccess === 'function') {
+                            finishPortalCrudSuccess(successMessage, operation);
+                        } else {
+                            if (typeof showPortalToast === 'function') {
+                                showPortalToast(successMessage, 'success');
+                            }
+                            document.location.reload(true);
+                        }
+                    },
+                    error: function (xhr, desc, error)
+                    {
+                        $("#actionResultMessage").css('color', 'red');
+                        var fallbackMessage = error || desc || 'Request failed';
+                        if (typeof handlePortalAjaxError === 'function') {
+                            handlePortalAjaxError(xhr, {
+                                reload: false,
+                                fallbackMessage: fallbackMessage
+                            });
+                            var payload = (typeof getPortalAjaxErrorPayload === 'function')
+                                ? getPortalAjaxErrorPayload(xhr)
+                                : (xhr.responseJSON || null);
+                            var msg = (payload && payload.message) ? payload.message : fallbackMessage;
+                            $("#actionResultMessage").text(msg);
+                            return;
+                        }
+                        if (xhr.responseJSON && xhr.responseJSON.redirectUrl) {
+                            window.location = xhr.responseJSON.redirectUrl;
+                            return;
+                        }
+                        var msg = (xhr.responseJSON && xhr.responseJSON.message)
+                            ? xhr.responseJSON.message
+                            : fallbackMessage;
+                        $("#actionResultMessage").text(msg);
+                        if (typeof showPortalToast === 'function') {
+                            showPortalToast(msg, 'error');
+                        }
+                    }
+                });  
+            }
+        })
+
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        setTimeout(function () {
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                $("#actionResultDiv").hide();
+                form.classList.add('was-validated');
+            });
+        }, 50);
+        
+        initSearchableSelects(document.getElementById('itemDetailsContainer') || document);
+</script>

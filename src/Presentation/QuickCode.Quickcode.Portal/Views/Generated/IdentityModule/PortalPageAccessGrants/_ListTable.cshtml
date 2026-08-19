@@ -1,0 +1,68 @@
+﻿@using QuickCode.Quickcode.Portal.Models.IdentityModule
+@using QuickCode.Quickcode.Portal.Helpers
+@inject IPortalPagePermissionManager PortalPagePermissions
+@model IdentityModule.PortalPageAccessGrantData
+@{
+    int startIndex = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+    int endIndex = ((Model.CurrentPage) * Model.PageSize);
+    if (endIndex > Model.NumberOfRecord) {
+        endIndex = Model.NumberOfRecord;
+    }
+
+    var pagerData = new PagerData() { CurrentPage = Model.CurrentPage, NumberOfRecord = Model.NumberOfRecord, PageSize = Model.PageSize, TotalPage = Model.TotalPage, StartIndex = startIndex, EndIndex = endIndex };
+    var areaName = ViewContext.RouteData.Values["Area"]?.ToString() ?? string.Empty;
+    var controllerName = ViewContext.RouteData.Values["Controller"]?.ToString() ?? string.Empty;
+    var actionName = ViewContext.RouteData.Values["Action"]?.ToString() ?? string.Empty;
+    var ops = await PortalPagePermissions.GetPagePermission($"{areaName}{controllerName}", actionName);
+}
+@if (Model.List.Count == 0)
+{
+    <div class="alert alert-danger" role="alert">
+        No Data available in IdentityModule.PortalPageAccessGrant table.
+    </div>
+}
+else
+{
+    <vc:pager pager-data=pagerData></vc:pager>
+    <div class="table-responsive portal-table-scroll">
+        <table bc-border="Bordered" bc-striped="true" bc-hover="true" class="table" bc-theme="Light">
+            <thead bc-theme="Dark">
+                <tr>
+                    @PortalOperationButtonsHtml.Cell(ops, "Header", areaName, controllerName)
+                    <th class="portal-col" data-col-type="fk" data-col-key="PermissionGroupName">Permission Group Name</th>
+<th class="portal-col" data-col-type="fk" data-col-key="PortalPageDefinitionKey">Portal Page Definition Key</th>
+<th class="portal-col" data-col-type="text" data-col-key="PageAction">Page Action</th>
+<th class="portal-col" data-col-type="text" data-col-key="ModifiedBy">Modified By</th>
+<th class="portal-col" data-col-type="bool" data-col-key="IsActive">Is Active</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        @PortalOperationButtonsHtml.Cell(ops, item.GetKey(), areaName, controllerName)
+                        <td class="portal-col" data-col-type="fk" data-col-key="PermissionGroupName">			@string.Format("{0}", Model.GetComboBoxValue("PermissionGroups", item.PermissionGroupName))</td>
+<td class="portal-col" data-col-type="fk" data-col-key="PortalPageDefinitionKey">			@string.Format("{0}", Model.GetComboBoxValue("PortalPageDefinitions", item.PortalPageDefinitionKey))</td>
+<td class="portal-col" data-col-type="text" data-col-key="PageAction">@item.PageAction</td>
+<td class="portal-col" data-col-type="text" data-col-key="ModifiedBy">@item.ModifiedBy</td>
+<td class="portal-col" data-col-type="bool" data-col-key="IsActive">@if (item.IsActive == true)
+{
+    <div class="ios-switch-wrapper checked">
+        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_item_IsActive" checked disabled />
+    </div>
+}
+else
+{
+    <div class="ios-switch-wrapper">
+        <input class="ios-switch" type="checkbox" onchange="checkBoxChanged(this);" id="cbox_item_IsActive" disabled />
+    </div>
+}
+</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

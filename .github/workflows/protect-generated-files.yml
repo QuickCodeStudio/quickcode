@@ -1,0 +1,26 @@
+name: Protect QuickCode generated files
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-protected-files:
+    if: github.actor != 'quickcode-bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Block manual edits to regenerated files
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          changed=$(git diff --name-only "$base" "$head" || true)
+          violations=$(echo "$changed" | grep -E '\.(g|qc)\.cs$|\.g\.sql$|/Views/Generated/' || true)
+          if [ -n "$violations" ]; then
+            echo "Protected QuickCode files were modified:"
+            echo "$violations"
+            exit 1
+          fi

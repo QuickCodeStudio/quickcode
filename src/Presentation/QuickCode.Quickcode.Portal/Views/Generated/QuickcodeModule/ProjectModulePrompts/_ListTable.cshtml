@@ -1,0 +1,64 @@
+﻿@using QuickCode.Quickcode.Portal.Models.QuickcodeModule
+@using QuickCode.Quickcode.Portal.Helpers
+@inject IPortalPagePermissionManager PortalPagePermissions
+@model QuickcodeModule.ProjectModulePromptData
+@{
+    int startIndex = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+    int endIndex = ((Model.CurrentPage) * Model.PageSize);
+    if (endIndex > Model.NumberOfRecord) {
+        endIndex = Model.NumberOfRecord;
+    }
+
+    var pagerData = new PagerData() { CurrentPage = Model.CurrentPage, NumberOfRecord = Model.NumberOfRecord, PageSize = Model.PageSize, TotalPage = Model.TotalPage, StartIndex = startIndex, EndIndex = endIndex };
+    var areaName = ViewContext.RouteData.Values["Area"]?.ToString() ?? string.Empty;
+    var controllerName = ViewContext.RouteData.Values["Controller"]?.ToString() ?? string.Empty;
+    var actionName = ViewContext.RouteData.Values["Action"]?.ToString() ?? string.Empty;
+    var ops = await PortalPagePermissions.GetPagePermission($"{areaName}{controllerName}", actionName);
+}
+@if (Model.List.Count == 0)
+{
+    <div class="alert alert-danger" role="alert">
+        No Data available in QuickcodeModule.ProjectModulePrompt table.
+    </div>
+}
+else
+{
+    <vc:pager pager-data=pagerData></vc:pager>
+    <div class="table-responsive portal-table-scroll">
+        <table bc-border="Bordered" bc-striped="true" bc-hover="true" class="table" bc-theme="Light">
+            <thead bc-theme="Dark">
+                <tr>
+                    @PortalOperationButtonsHtml.Cell(ops, "Header", areaName, controllerName)
+                    <th class="portal-col" data-col-type="id" data-col-key="Id">ID</th>
+<th class="portal-col" data-col-type="fk" data-col-key="ProjectId">Project ID</th>
+<th class="portal-col" data-col-type="text" data-col-key="ModuleName">Module Name</th>
+<th class="portal-col" data-col-type="text" data-col-key="AiType">AI Type</th>
+<th class="portal-col" data-col-type="large" data-col-key="UserPrompt">User Prompt</th>
+<th class="portal-col" data-col-type="large" data-col-key="SystemPrompt">System Prompt</th>
+<th class="portal-col" data-col-type="large" data-col-key="AiResponse">AI Response</th>
+<th class="portal-col" data-col-type="datetime" data-col-key="CreatedDate">Created Date</th>
+<th class="portal-col" data-col-type="datetime" data-col-key="UpdatedDate">Updated Date</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        @PortalOperationButtonsHtml.Cell(ops, item.GetKey(), areaName, controllerName)
+                        <td class="portal-col" data-col-type="id" data-col-key="Id">@item.Id</td>
+<td class="portal-col" data-col-type="fk" data-col-key="ProjectId">			@string.Format("{0}", Model.GetComboBoxValue("Projects", item.ProjectId))</td>
+<td class="portal-col" data-col-type="text" data-col-key="ModuleName">@item.ModuleName</td>
+<td class="portal-col" data-col-type="text" data-col-key="AiType">@item.AiType</td>
+<td class="portal-col" data-col-type="large" data-col-key="UserPrompt">@item.UserPrompt</td>
+<td class="portal-col" data-col-type="large" data-col-key="SystemPrompt">@item.SystemPrompt</td>
+<td class="portal-col" data-col-type="large" data-col-key="AiResponse">@item.AiResponse</td>
+<td class="portal-col" data-col-type="datetime" data-col-key="CreatedDate">@(((object)item.CreatedDate).ToPortalGridDateTime())</td>
+<td class="portal-col" data-col-type="datetime" data-col-key="UpdatedDate">@(((object)item.UpdatedDate).ToPortalGridDateTime())</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

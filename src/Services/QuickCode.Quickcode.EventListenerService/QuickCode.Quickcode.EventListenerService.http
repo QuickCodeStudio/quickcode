@@ -1,0 +1,6 @@
+@QuickCode.Quickcode.ConsumerService_HostAddress = http://localhost:5202
+
+GET {{QuickCode.Quickcode.ConsumerService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

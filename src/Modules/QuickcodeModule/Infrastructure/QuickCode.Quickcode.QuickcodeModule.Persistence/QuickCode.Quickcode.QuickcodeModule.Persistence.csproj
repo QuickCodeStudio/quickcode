@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <NoWarn>CS8669;AD0001</NoWarn>
+  </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Dapper" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" />
+        <PackageReference Include="Newtonsoft.Json" />
+    </ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="Sql\**\*.sql" />
+</ItemGroup>
+  <ItemGroup>
+  <ProjectReference Include="..\..\Core\QuickCode.Quickcode.QuickcodeModule.Application\QuickCode.Quickcode.QuickcodeModule.Application.csproj" />
+  <ProjectReference Include="..\..\..\..\Shared\QuickCode.Quickcode.Application.Contracts\QuickCode.Quickcode.Application.Contracts.csproj" />
+  <ProjectReference Include="..\..\..\..\Shared\QuickCode.Quickcode.Infrastructure.Data\QuickCode.Quickcode.Infrastructure.Data.csproj" />
+</ItemGroup>
+<ItemGroup>
+  <None Update="Migrations\**\*.sql">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+  <None Update="Migrations\InitialData\*.*">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+</Project>

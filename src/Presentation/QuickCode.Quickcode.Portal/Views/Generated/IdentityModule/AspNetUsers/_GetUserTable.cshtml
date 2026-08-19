@@ -1,0 +1,127 @@
+﻿@model QuickCode.Quickcode.Portal.Models.IdentityModule.AspNetUserGetUserData
+@{
+    int startIndex = ((Model.CurrentPage - 1) * Model.PageSize) + 1;
+    if (startIndex < 1) { startIndex = 1; }
+    int endIndex = ((Model.CurrentPage) * Model.PageSize);
+    if (endIndex > Model.NumberOfRecord) {
+        endIndex = Model.NumberOfRecord;
+    }
+
+    var pagerData = new PagerData()
+    {
+        CurrentPage = Model.CurrentPage,
+        NumberOfRecord = Model.NumberOfRecord,
+        PageSize = Model.PageSize,
+        TotalPage = Model.TotalPage,
+        StartIndex = startIndex,
+        EndIndex = endIndex,
+        HasMoreRecords = Model.HasMoreRecords,
+        RecordNounSingular = "row",
+        RecordNounPlural = "rows"
+    };
+    var resultCount = Model.List?.Count ?? 0;
+    var hasPager = false;
+}
+@* Always present so Endpoint modal can show Response fields before the report is run. *@
+<script type="application/json" id="portalQueryResponseSchema" data-response-type="GetUserResponseDto">[{"name":"id","type":"string","description":"ID \u2014 field on the response DTO."},{"name":"firstName","type":"string","description":"First Name \u2014 field on the response DTO."},{"name":"lastName","type":"string","description":"Last Name \u2014 field on the response DTO."},{"name":"permissionGroupName","type":"string","description":"Permission Group Name \u2014 field on the response DTO."},{"name":"userName","type":"string","description":"User Name \u2014 field on the response DTO."},{"name":"normalizedUserName","type":"string","description":"Normalized User Name \u2014 field on the response DTO."},{"name":"email","type":"string","description":"Email \u2014 field on the response DTO."},{"name":"normalizedEmail","type":"string","description":"Normalized Email \u2014 field on the response DTO."},{"name":"emailConfirmed","type":"bool","description":"Email Confirmed \u2014 field on the response DTO."},{"name":"phoneNumber","type":"string","description":"Phone Number \u2014 field on the response DTO."},{"name":"phoneNumberConfirmed","type":"bool","description":"Phone Number Confirmed \u2014 field on the response DTO."},{"name":"twoFactorEnabled","type":"bool","description":"Two Factor Enabled \u2014 field on the response DTO."},{"name":"lockoutEnd","type":"DateTimeOffset","description":"Lockout End \u2014 field on the response DTO."},{"name":"lockoutEnabled","type":"bool","description":"Lockout Enabled \u2014 field on the response DTO."},{"name":"accessFailedCount","type":"int","description":"Access Failed Count \u2014 field on the response DTO."},{"name":"photoUrl","type":"string","description":"Photo URL \u2014 field on the response DTO."}]</script>
+@if (!Model.HasRun)
+{
+    <div class="portal-query-empty portal-query-empty--idle" role="status">
+        <span class="portal-query-empty__title">Ready to run</span>
+        <span class="portal-query-empty__text">Choose parameters, then hit <strong>Run Report</strong>.</span>
+    </div>
+}
+else if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    var isNotFound = Model.QueryHttpStatus == 404;
+    var emptyClass = isNotFound ? "portal-query-empty--empty" : "portal-query-empty--error";
+    var title = isNotFound ? "No rows matched" : "Request failed";
+    <div class="portal-query-empty @emptyClass" role="@(isNotFound ? "status" : "alert")">
+        <div class="portal-query-empty__header">
+            <span class="portal-query-empty__title">@title</span>
+            @if (Model.QueryHttpStatus.HasValue)
+            {
+                <span class="portal-query-empty__status">HTTP @Model.QueryHttpStatus</span>
+            }
+        </div>
+        <span class="portal-query-empty__text">@Model.ErrorMessage</span>
+    </div>
+}
+else if (Model.List == null || Model.List.Count == 0)
+{
+    <div class="portal-query-empty portal-query-empty--empty" role="status">
+        <span class="portal-query-empty__title">No rows matched</span>
+        <span class="portal-query-empty__text">Nothing came back for the current parameters.</span>
+    </div>
+}
+else
+{
+
+@if (!hasPager)
+{
+    <div class="portal-list-pager">
+        <div class="portal-list-pager__cluster">
+            <div class="portal-list-pager__range" aria-live="polite">
+                <span class="portal-list-pager__range-strong">@resultCount.ToString("N0")</span>
+                <span class="portal-list-pager__range-muted">@(resultCount == 1 ? "row" : "rows")</span>
+            </div>
+        </div>
+    </div>
+}
+    <div class="table-responsive portal-table-scroll">
+        <table bc-border="Bordered" bc-striped="true" bc-hover="true" class="table" bc-theme="Light">
+            <thead bc-theme="Dark">
+                <tr>
+                    <th class="portal-col portal-query-rownum" data-col-type="int" data-col-key="__row">#</th>
+                                        <th class="portal-col" data-col-type="text" data-col-key="Id">ID</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="FirstName">First Name</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="LastName">Last Name</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="PermissionGroupName">Permission Group Name</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="UserName">User Name</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="NormalizedUserName">Normalized User Name</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="Email">Email</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="NormalizedEmail">Normalized Email</th>
+                    <th class="portal-col" data-col-type="bool" data-col-key="EmailConfirmed">Email Confirmed</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="PhoneNumber">Phone Number</th>
+                    <th class="portal-col" data-col-type="bool" data-col-key="PhoneNumberConfirmed">Phone Number Confirmed</th>
+                    <th class="portal-col" data-col-type="bool" data-col-key="TwoFactorEnabled">Two Factor Enabled</th>
+                    <th class="portal-col" data-col-type="text" data-col-key="LockoutEnd">Lockout End</th>
+                    <th class="portal-col" data-col-type="bool" data-col-key="LockoutEnabled">Lockout Enabled</th>
+                    <th class="portal-col" data-col-type="int" data-col-key="AccessFailedCount">Access Failed Count</th>
+                    <th class="portal-col" data-col-type="thumb" data-col-key="PhotoUrl">Photo URL</th>
+                </tr>
+            </thead>
+            <tbody>
+@{
+    var rowNo = startIndex;
+}
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td class="portal-col portal-query-rownum" data-col-type="int" data-col-key="__row">@rowNo</td>
+                                                <td class="portal-col" data-col-type="text" data-col-key="Id">@item.Id</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="FirstName">@item.FirstName</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="LastName">@item.LastName</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="PermissionGroupName">@item.PermissionGroupName</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="UserName">@item.UserName</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="NormalizedUserName">@item.NormalizedUserName</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="Email">@item.Email</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="NormalizedEmail">@item.NormalizedEmail</td>
+                        <td class="portal-col" data-col-type="bool" data-col-key="EmailConfirmed">@item.EmailConfirmed</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="PhoneNumber">@item.PhoneNumber</td>
+                        <td class="portal-col" data-col-type="bool" data-col-key="PhoneNumberConfirmed">@item.PhoneNumberConfirmed</td>
+                        <td class="portal-col" data-col-type="bool" data-col-key="TwoFactorEnabled">@item.TwoFactorEnabled</td>
+                        <td class="portal-col" data-col-type="text" data-col-key="LockoutEnd">@item.LockoutEnd</td>
+                        <td class="portal-col" data-col-type="bool" data-col-key="LockoutEnabled">@item.LockoutEnabled</td>
+                        <td class="portal-col" data-col-type="int" data-col-key="AccessFailedCount">@(((object)item.AccessFailedCount).ToPortalGridInt())</td>
+                        <td class="portal-col" data-col-type="thumb" data-col-key="PhotoUrl"><a href="@(item.PhotoUrl == null || item.PhotoUrl.Length == 0 ? "/images/no_image.png" : item.PhotoUrl)" data-toggle="lightbox" data-type="image" class="portal-list-thumb-link">
+   <img class="lazyload img-fluid" src="/images/loading.svg" data-src="@(item.PhotoUrl == null || item.PhotoUrl.Length == 0 ? "/images/no_image.png" : item.PhotoUrl)" style="height:auto;  width:auto; max-height: 110px; max-width: 110px;display: block;margin-left: auto;margin-right: auto;" bc-thumbnail="true" bc-round="true" />
+</a>
+</td>
+                    </tr>
+                    rowNo++;
+                }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,141 @@
+﻿@model QuickCode.Quickcode.Portal.Models.IdentityModule.ApiKeyGetActiveData
+@{
+    string title = "GetActive".SplitCamelCaseToString();
+    TempData["Title"] = title;
+}
+<div class="container-fluid portal-query-page" IsPageAvailable="true">
+    <form method="post" id="formList" data-portal-query="true" class="portal-entity-form portal-query-form" data-list-partial-url="/IdentityModuleApiKeys/Queries/GetActivePartial">
+        @Html.AntiForgeryToken()
+        <div class="portal-query-shell">
+            <header class="portal-query-header">
+                <div class="portal-query-header__copy">
+                    <p class="portal-query-kicker">Live Report</p>
+                    <h2 class="portal-query-title">@title</h2>
+                    <p class="portal-query-lead">Set parameters, run, then scan the rows below.</p>
+                    <p class="portal-query-print-meta" hidden></p>
+                </div>
+                <button type="button"
+                        class="portal-query-endpoint"
+                        data-response-type="List<GetActiveResponseDto>"
+                        data-response-fields='[{"name":"id","type":"Guid","description":"ID \u2014 field on the response DTO."},{"name":"name","type":"string","description":"Name \u2014 field on the response DTO."},{"name":"description","type":"string","description":"Description \u2014 field on the response DTO."},{"name":"keyPrefix","type":"string","description":"Key Prefix \u2014 field on the response DTO."},{"name":"keyHash","type":"string","description":"Key Hash \u2014 field on the response DTO."},{"name":"permissionGroupName","type":"string","description":"Permission Group Name \u2014 field on the response DTO."},{"name":"createdByUserId","type":"string","description":"Created By User ID \u2014 field on the response DTO."},{"name":"status","type":"ApiKeyStatus","description":"Status \u2014 field on the response DTO."},{"name":"isActive","type":"bool","description":"Is Active \u2014 field on the response DTO."},{"name":"expiresAt","type":"DateTime","description":"Expires At \u2014 field on the response DTO."},{"name":"lastUsedAt","type":"DateTime","description":"Last Used At \u2014 field on the response DTO."},{"name":"createdDate","type":"DateTime","description":"Created Date \u2014 field on the response DTO."},{"name":"revokedDate","type":"DateTime","description":"Revoked Date \u2014 field on the response DTO."}]'
+                        aria-haspopup="dialog"
+                        title="View API endpoint details">
+                    <span class="portal-query-endpoint__method">GET</span>
+                    <span class="portal-query-endpoint__body">
+                        <span class="portal-query-endpoint__label">Endpoint</span>
+                        <code class="portal-query-endpoint__path">/api/identity-module/api-keys/get-active?pageNumber={pageNumber}&pageSize={pageSize}</code>
+                    </span>
+                    <span class="portal-query-endpoint__chevron" aria-hidden="true">
+                        <i class="fas fa-circle-info"></i>
+                    </span>
+                </button>
+                <script type="application/json" id="portalQueryResponseSchema" data-response-type="List<GetActiveResponseDto>">[{"name":"id","type":"Guid","description":"ID \u2014 field on the response DTO."},{"name":"name","type":"string","description":"Name \u2014 field on the response DTO."},{"name":"description","type":"string","description":"Description \u2014 field on the response DTO."},{"name":"keyPrefix","type":"string","description":"Key Prefix \u2014 field on the response DTO."},{"name":"keyHash","type":"string","description":"Key Hash \u2014 field on the response DTO."},{"name":"permissionGroupName","type":"string","description":"Permission Group Name \u2014 field on the response DTO."},{"name":"createdByUserId","type":"string","description":"Created By User ID \u2014 field on the response DTO."},{"name":"status","type":"ApiKeyStatus","description":"Status \u2014 field on the response DTO."},{"name":"isActive","type":"bool","description":"Is Active \u2014 field on the response DTO."},{"name":"expiresAt","type":"DateTime","description":"Expires At \u2014 field on the response DTO."},{"name":"lastUsedAt","type":"DateTime","description":"Last Used At \u2014 field on the response DTO."},{"name":"createdDate","type":"DateTime","description":"Created Date \u2014 field on the response DTO."},{"name":"revokedDate","type":"DateTime","description":"Revoked Date \u2014 field on the response DTO."}]</script>
+            </header>
+
+            <section class="portal-query-workspace" aria-label="Report parameters">
+                <div class="portal-query-toolbar">
+
+                    <div class="portal-query-actions">
+                        <button type="submit" class="portal-query-run">
+                            <i class="fas fa-play" aria-hidden="true"></i>
+                            <span>Run Report</span>
+                        </button>
+                        <button type="button" class="portal-query-print" disabled aria-disabled="true" title="Run the report before printing">
+                            <i class="fas fa-print" aria-hidden="true"></i>
+                            <span>Print</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="list-region" class="portal-list-region portal-query-results" aria-label="Report results">
+                @await Html.PartialAsync("_GetActiveTable", Model)
+            </section>
+        </div>
+        <input type="hidden" asp-for="CurrentPage" />
+        <input type="hidden" asp-for="PageSize" />
+        <input type="hidden" asp-for="HasRun" />
+    </form>
+</div>
+
+<div class="modal fade portal-query-endpoint-modal" id="portalQueryEndpointModal" tabindex="-1" role="dialog" aria-labelledby="portalQueryEndpointModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content portal-query-endpoint-modal__content">
+            <div class="modal-header portal-query-endpoint-modal__header">
+                <div>
+                    <p class="portal-query-endpoint-modal__kicker">API</p>
+                    <h5 class="modal-title" id="portalQueryEndpointModalTitle">Endpoint details</h5>
+                </div>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body portal-query-endpoint-modal__body">
+                <div class="portal-query-endpoint-modal__route">
+                    <span class="portal-query-endpoint-modal__method">GET</span>
+                    <code class="portal-query-endpoint-modal__url">/api/identity-module/api-keys/get-active?pageNumber={pageNumber}&pageSize={pageSize}</code>
+                </div>
+
+                <section class="portal-query-endpoint-modal__section" aria-label="Request parameters">
+                    <div class="portal-query-endpoint-modal__section-head">
+                        <h6 class="portal-query-endpoint-modal__section-title">Parameters</h6>
+                    </div>
+                    <p class="portal-query-endpoint-modal__intro">Values bound by this Live Report when it calls the module API.</p>
+                    <div class="portal-query-endpoint-modal__table-wrap">
+                        <table class="portal-query-endpoint-modal__table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">In</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Required</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr><td><code>pageNumber</code></td><td><span class="portal-query-endpoint-modal__in">Query</span></td><td><span class="portal-query-endpoint-modal__type">int</span></td><td><span class="portal-query-endpoint-modal__req portal-query-endpoint-modal__req--no">No</span></td><td>1-based page index for paged results.</td></tr>
+                            <tr><td><code>pageSize</code></td><td><span class="portal-query-endpoint-modal__in">Query</span></td><td><span class="portal-query-endpoint-modal__type">int</span></td><td><span class="portal-query-endpoint-modal__req portal-query-endpoint-modal__req--no">No</span></td><td>Number of rows returned per page.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="portal-query-endpoint-modal__section portal-query-endpoint-modal__response" aria-label="Response model">
+                    <div class="portal-query-endpoint-modal__section-head">
+                        <h6 class="portal-query-endpoint-modal__section-title">Response</h6>
+                        <code class="portal-query-endpoint-modal__response-type">List&lt;GetActiveResponseDto&gt;</code>
+                    </div>
+                    <p class="portal-query-endpoint-modal__intro">HTTP 200 — body schema returned by the module API.</p>
+                    <div class="portal-query-endpoint-modal__table-wrap">
+                        <table class="portal-query-endpoint-modal__table portal-query-endpoint-modal__table--response">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="portal-query-endpoint-modal__response-body">
+                            <tr><td><code>id</code></td><td><span class="portal-query-endpoint-modal__type">Guid</span></td><td>ID — field on the response DTO.</td></tr>
+                            <tr><td><code>name</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Name — field on the response DTO.</td></tr>
+                            <tr><td><code>description</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Description — field on the response DTO.</td></tr>
+                            <tr><td><code>keyPrefix</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Key Prefix — field on the response DTO.</td></tr>
+                            <tr><td><code>keyHash</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Key Hash — field on the response DTO.</td></tr>
+                            <tr><td><code>permissionGroupName</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Permission Group Name — field on the response DTO.</td></tr>
+                            <tr><td><code>createdByUserId</code></td><td><span class="portal-query-endpoint-modal__type">string</span></td><td>Created By User ID — field on the response DTO.</td></tr>
+                            <tr><td><code>status</code></td><td><span class="portal-query-endpoint-modal__type">ApiKeyStatus</span></td><td>Status — field on the response DTO.</td></tr>
+                            <tr><td><code>isActive</code></td><td><span class="portal-query-endpoint-modal__type">bool</span></td><td>Is Active — field on the response DTO.</td></tr>
+                            <tr><td><code>expiresAt</code></td><td><span class="portal-query-endpoint-modal__type">DateTime</span></td><td>Expires At — field on the response DTO.</td></tr>
+                            <tr><td><code>lastUsedAt</code></td><td><span class="portal-query-endpoint-modal__type">DateTime</span></td><td>Last Used At — field on the response DTO.</td></tr>
+                            <tr><td><code>createdDate</code></td><td><span class="portal-query-endpoint-modal__type">DateTime</span></td><td>Created Date — field on the response DTO.</td></tr>
+                            <tr><td><code>revokedDate</code></td><td><span class="portal-query-endpoint-modal__type">DateTime</span></td><td>Revoked Date — field on the response DTO.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" IsPageAvailable="false">
+ @await Html.PartialAsync("_NotAuthorized")
+</div>

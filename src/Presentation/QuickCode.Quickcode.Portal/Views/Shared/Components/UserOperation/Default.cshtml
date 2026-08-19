@@ -1,0 +1,17 @@
+@model UserDetail
+<div class="portal-user-top">
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <img class="portal-user-avatar" src="@Model.ImageUrl" alt="" />
+    }
+    else
+    {
+        <div class="portal-user-avatar-fallback" aria-hidden="true">
+            <i class="fas fa-user"></i>
+        </div>
+    }
+    <div class="portal-user-meta">
+        <div class="portal-user-name">@(Model.NameSurname ?? "User")</div>
+        <div class="portal-user-role">@(Model.GroupName ?? "User")</div>
+    </div>
+</div>

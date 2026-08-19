@@ -1,0 +1,794 @@
+﻿{
+  "Modules": [
+    {
+      "Name": "QuickcodeModule",
+      "Description": "QuickcodeModule"
+    },
+    {
+      "Name": "IdentityModule",
+      "Description": "IdentityModule"
+    }
+  ],
+  "Models": [
+    {
+      "Name": "ArchitecturalPatterns",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ArchitecturalPattern"
+    },
+    {
+      "Name": "ArchitecturalPatternsGetByKey",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ArchitecturalPatterns.GetByKey"
+    },
+    {
+      "Name": "ArchitecturalPatternsGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ArchitecturalPatterns.GetByName"
+    },
+    {
+      "Name": "AuditLogs",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - AuditLog"
+    },
+    {
+      "Name": "DbTypes",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - DbType"
+    },
+    {
+      "Name": "DbTypesGetByKey",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query DbTypes.GetByKey"
+    },
+    {
+      "Name": "DbTypesGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query DbTypes.GetByName"
+    },
+    {
+      "Name": "GenerationActions",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationAction"
+    },
+    {
+      "Name": "GenerationActionsGetByActionId",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationActions.GetByActionId"
+    },
+    {
+      "Name": "GenerationActionsGetByProjectKey",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationActions.GetByProjectKey"
+    },
+    {
+      "Name": "GenerationActionsGetByRunId",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationActions.GetByRunId"
+    },
+    {
+      "Name": "GenerationActionsGetIdBetween",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationActions.GetIdBetween"
+    },
+    {
+      "Name": "GenerationLogs",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationLog"
+    },
+    {
+      "Name": "GenerationLogsGetLogsByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationLogs.GetLogsByProject"
+    },
+    {
+      "Name": "GenerationLogsGetLogsByProjectAndStatus",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationLogs.GetLogsByProjectAndStatus"
+    },
+    {
+      "Name": "GenerationLogsGetRecentLogsByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationLogs.GetRecentLogsByProject"
+    },
+    {
+      "Name": "GenerationRuns",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationRun"
+    },
+    {
+      "Name": "GenerationRunsGetGenerationRunsByProjectId",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationRuns.GetGenerationRunsByProjectId"
+    },
+    {
+      "Name": "GenerationRunsGetGenerationRunsFirst",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationRuns.GetGenerationRunsFirst"
+    },
+    {
+      "Name": "GenerationRunsGetGenerationRunsWithProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationRuns.GetGenerationRunsWithProjectName"
+    },
+    {
+      "Name": "GenerationRunsGetGenerationRunsWithSessionId",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationRuns.GetGenerationRunsWithSessionId"
+    },
+    {
+      "Name": "GenerationRunTypes",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationRunType"
+    },
+    {
+      "Name": "GenerationRunTypesGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationRunTypes.GetByName"
+    },
+    {
+      "Name": "GenerationStatuses",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationStatus"
+    },
+    {
+      "Name": "GenerationStatusesGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationStatuses.GetByName"
+    },
+    {
+      "Name": "GenerationSteps",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - GenerationStep"
+    },
+    {
+      "Name": "GenerationStepsGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationSteps.GetByName"
+    },
+    {
+      "Name": "GenerationStepsGetByNeeds",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query GenerationSteps.GetByNeeds"
+    },
+    {
+      "Name": "ModuleTemplates",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ModuleTemplate"
+    },
+    {
+      "Name": "ModuleTemplatesGetByIsWebProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ModuleTemplates.GetByIsWebProject"
+    },
+    {
+      "Name": "ModuleTemplatesGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ModuleTemplates.GetByName"
+    },
+    {
+      "Name": "PageConfigs",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - PageConfig"
+    },
+    {
+      "Name": "PageConfigsGetByName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query PageConfigs.GetByName"
+    },
+    {
+      "Name": "PageConfigsGetByNameAlias",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query PageConfigs.GetByNameAlias"
+    },
+    {
+      "Name": "PageConfigsGetByNameContains",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query PageConfigs.GetByNameContains"
+    },
+    {
+      "Name": "Projects",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Project"
+    },
+    {
+      "Name": "ProjectsCheckProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.CheckProjectName"
+    },
+    {
+      "Name": "ProjectsCheckSecretCode",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.CheckSecretCode"
+    },
+    {
+      "Name": "ProjectsCountSecretCode",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.CountSecretCode"
+    },
+    {
+      "Name": "ProjectsGetProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.GetProject"
+    },
+    {
+      "Name": "ProjectsGetProjectByKey",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.GetProjectByKey"
+    },
+    {
+      "Name": "ProjectsGetProjectByRequest",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.GetProjectByRequest"
+    },
+    {
+      "Name": "ProjectsGetProjectIncludeInactive",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query Projects.GetProjectIncludeInactive"
+    },
+    {
+      "Name": "ProjectAnalyses",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectAnalyses"
+    },
+    {
+      "Name": "ProjectAnalysesGetAnalysis",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalyses.GetAnalysis"
+    },
+    {
+      "Name": "ProjectAnalysesGetByAnalysisId",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalyses.GetByAnalysisId"
+    },
+    {
+      "Name": "ProjectAnalysesGetByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalyses.GetByProject"
+    },
+    {
+      "Name": "ProjectAnalysesGetByStatus",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalyses.GetByStatus"
+    },
+    {
+      "Name": "ProjectAnalysesGetCurrent",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalyses.GetCurrent"
+    },
+    {
+      "Name": "ProjectAnalysisDocuments",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectAnalysisDocument"
+    },
+    {
+      "Name": "ProjectAnalysisDocumentsGetByAnalysis",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalysisDocuments.GetByAnalysis"
+    },
+    {
+      "Name": "ProjectAnalysisDocumentsGetByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalysisDocuments.GetByProject"
+    },
+    {
+      "Name": "ProjectAnalysisDocumentsGetDocument",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectAnalysisDocuments.GetDocument"
+    },
+    {
+      "Name": "ProjectModules",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectModule"
+    },
+    {
+      "Name": "ProjectModulesGetProjectModule",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModules.GetProjectModule"
+    },
+    {
+      "Name": "ProjectModulesGetProjectModuleEmails",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModules.GetProjectModuleEmails"
+    },
+    {
+      "Name": "ProjectModulesGetProjectModules",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModules.GetProjectModules"
+    },
+    {
+      "Name": "ProjectModulesGetProjectModuleWithKeys",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModules.GetProjectModuleWithKeys"
+    },
+    {
+      "Name": "ProjectModulePrompts",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectModulePrompt"
+    },
+    {
+      "Name": "ProjectModulePromptsCountDaily",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.CountDaily"
+    },
+    {
+      "Name": "ProjectModulePromptsCountMonthly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.CountMonthly"
+    },
+    {
+      "Name": "ProjectModulePromptsCountWeekly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.CountWeekly"
+    },
+    {
+      "Name": "ProjectModulePromptsCountYearly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.CountYearly"
+    },
+    {
+      "Name": "ProjectModulePromptsGetProjectModulePrompts",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.GetProjectModulePrompts"
+    },
+    {
+      "Name": "ProjectModulePromptsGetProjectModulePromptsByProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModulePrompts.GetProjectModulePromptsByProjectName"
+    },
+    {
+      "Name": "ProjectModuleRevisions",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectModuleRevision"
+    },
+    {
+      "Name": "ProjectModuleRevisionsGetByAnalysis",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModuleRevisions.GetByAnalysis"
+    },
+    {
+      "Name": "ProjectModuleRevisionsGetByModule",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModuleRevisions.GetByModule"
+    },
+    {
+      "Name": "ProjectModuleRevisionsGetByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModuleRevisions.GetByProject"
+    },
+    {
+      "Name": "ProjectModuleRevisionsGetRevision",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModuleRevisions.GetRevision"
+    },
+    {
+      "Name": "ProjectModuleRevisionsGetRevisionDbml",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectModuleRevisions.GetRevisionDbml"
+    },
+    {
+      "Name": "ProjectPrompts",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectPrompt"
+    },
+    {
+      "Name": "ProjectPromptsCountDaily",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.CountDaily"
+    },
+    {
+      "Name": "ProjectPromptsCountMonthly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.CountMonthly"
+    },
+    {
+      "Name": "ProjectPromptsCountWeekly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.CountWeekly"
+    },
+    {
+      "Name": "ProjectPromptsCountYearly",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.CountYearly"
+    },
+    {
+      "Name": "ProjectPromptsGetProjectPrompts",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.GetProjectPrompts"
+    },
+    {
+      "Name": "ProjectPromptsGetProjectPromptsByProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectPrompts.GetProjectPromptsByProjectName"
+    },
+    {
+      "Name": "ProjectRequests",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectRequest"
+    },
+    {
+      "Name": "ProjectRequestsCheckProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.CheckProjectName"
+    },
+    {
+      "Name": "ProjectRequestsGetByTokenHash",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetByTokenHash"
+    },
+    {
+      "Name": "ProjectRequestsGetConfirmedByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetConfirmedByProject"
+    },
+    {
+      "Name": "ProjectRequestsGetPendingByEmail",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetPendingByEmail"
+    },
+    {
+      "Name": "ProjectRequestsGetPendingByProjectName",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetPendingByProjectName"
+    },
+    {
+      "Name": "ProjectRequestsGetPendingByProjectNameAndEmail",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetPendingByProjectNameAndEmail"
+    },
+    {
+      "Name": "ProjectRequestsGetRequestWithProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectRequests.GetRequestWithProject"
+    },
+    {
+      "Name": "ProjectSchemaSnapshots",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - ProjectSchemaSnapshot"
+    },
+    {
+      "Name": "ProjectSchemaSnapshotsGetByProject",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectSchemaSnapshots.GetByProject"
+    },
+    {
+      "Name": "ProjectSchemaSnapshotsGetByTrigger",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectSchemaSnapshots.GetByTrigger"
+    },
+    {
+      "Name": "ProjectSchemaSnapshotsGetSnapshot",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectSchemaSnapshots.GetSnapshot"
+    },
+    {
+      "Name": "ProjectSchemaSnapshotsGetSnapshotModules",
+      "ModuleName": "QuickcodeModule",
+      "Description": "QuickcodeModule - Query ProjectSchemaSnapshots.GetSnapshotModules"
+    },
+    {
+      "Name": "ApiKeys",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - ApiKey"
+    },
+    {
+      "Name": "ApiKeysApiKeyNameIsExists",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.ApiKeyNameIsExists"
+    },
+    {
+      "Name": "ApiKeysGetActive",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetActive"
+    },
+    {
+      "Name": "ApiKeysGetApiKeyByPrefix",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetApiKeyByPrefix"
+    },
+    {
+      "Name": "ApiKeysGetByName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetByName"
+    },
+    {
+      "Name": "ApiKeysGetByPermissionGroup",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetByPermissionGroup"
+    },
+    {
+      "Name": "ApiKeysGetByPrefix",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetByPrefix"
+    },
+    {
+      "Name": "ApiKeysGetByStatus",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeys.GetByStatus"
+    },
+    {
+      "Name": "ApiKeyUsageLogs",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - ApiKeyUsageLog"
+    },
+    {
+      "Name": "ApiKeyUsageLogsGetByApiKey",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeyUsageLogs.GetByApiKey"
+    },
+    {
+      "Name": "ApiKeyUsageLogsGetByStatusCode",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiKeyUsageLogs.GetByStatusCode"
+    },
+    {
+      "Name": "ApiMethodAccessGrants",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - ApiMethodAccessGrant"
+    },
+    {
+      "Name": "ApiMethodAccessGrantsGetActiveApiMethodAccessGrants",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodAccessGrants.GetActiveApiMethodAccessGrants"
+    },
+    {
+      "Name": "ApiMethodAccessGrantsGetApiMethodAccessGrantNames",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodAccessGrants.GetApiMethodAccessGrantNames"
+    },
+    {
+      "Name": "ApiMethodDefinitions",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - ApiMethodDefinition"
+    },
+    {
+      "Name": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModelName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.ExistsApiMethodDefinitionsWithModelName"
+    },
+    {
+      "Name": "ApiMethodDefinitionsExistsApiMethodDefinitionsWithModuleName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.ExistsApiMethodDefinitionsWithModuleName"
+    },
+    {
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsByUrl",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.GetApiMethodDefinitionsByUrl"
+    },
+    {
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModelName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.GetApiMethodDefinitionsWithModelName"
+    },
+    {
+      "Name": "ApiMethodDefinitionsGetApiMethodDefinitionsWithModuleName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.GetApiMethodDefinitionsWithModuleName"
+    },
+    {
+      "Name": "ApiMethodDefinitionsGetKafkaEventsApiMethodDefinitions",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query ApiMethodDefinitions.GetKafkaEventsApiMethodDefinitions"
+    },
+    {
+      "Name": "AspNetRoles",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetRole"
+    },
+    {
+      "Name": "AspNetRoleClaims",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetRoleClaim"
+    },
+    {
+      "Name": "AspNetUsers",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetUser"
+    },
+    {
+      "Name": "AspNetUsersGetPhoto",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query AspNetUsers.GetPhoto"
+    },
+    {
+      "Name": "AspNetUsersGetUser",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query AspNetUsers.GetUser"
+    },
+    {
+      "Name": "AspNetUsersIdentityUserById",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query AspNetUsers.IdentityUserById"
+    },
+    {
+      "Name": "AspNetUsersIdentityUserByNormalizedEmail",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query AspNetUsers.IdentityUserByNormalizedEmail"
+    },
+    {
+      "Name": "AspNetUsersIdentityUserByNormalizedUsername",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query AspNetUsers.IdentityUserByNormalizedUsername"
+    },
+    {
+      "Name": "AspNetUserClaims",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetUserClaim"
+    },
+    {
+      "Name": "AspNetUserLogins",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetUserLogin"
+    },
+    {
+      "Name": "AspNetUserRoles",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetUserRole"
+    },
+    {
+      "Name": "AspNetUserTokens",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AspNetUserToken"
+    },
+    {
+      "Name": "AuditLogs",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - AuditLog"
+    },
+    {
+      "Name": "ColumnTypes",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - ColumnType"
+    },
+    {
+      "Name": "KafkaEvents",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - KafkaEvent"
+    },
+    {
+      "Name": "KafkaEventsGetActiveKafkaEvents",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query KafkaEvents.GetActiveKafkaEvents"
+    },
+    {
+      "Name": "KafkaEventsGetKafkaEvents",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query KafkaEvents.GetKafkaEvents"
+    },
+    {
+      "Name": "KafkaEventsGetTopicWorkflows",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query KafkaEvents.GetTopicWorkflows"
+    },
+    {
+      "Name": "KafkaEventsGetTopicWorkflowsKafkaEvents",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query KafkaEvents.GetTopicWorkflowsKafkaEvents"
+    },
+    {
+      "Name": "Models",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Model"
+    },
+    {
+      "Name": "ModelsModuleNameIsExists",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query Models.ModuleNameIsExists"
+    },
+    {
+      "Name": "Modules",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Module"
+    },
+    {
+      "Name": "ModulesModuleNameIsExists",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query Modules.ModuleNameIsExists"
+    },
+    {
+      "Name": "PermissionGroups",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - PermissionGroup"
+    },
+    {
+      "Name": "PortalMenus",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - PortalMenu"
+    },
+    {
+      "Name": "PortalMenusGetPortalMenus",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalMenus.GetPortalMenus"
+    },
+    {
+      "Name": "PortalPageAccessGrants",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - PortalPageAccessGrant"
+    },
+    {
+      "Name": "PortalPageAccessGrantsGetPortalPageAccessGrant",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageAccessGrants.GetPortalPageAccessGrant"
+    },
+    {
+      "Name": "PortalPageAccessGrantsGetPortalPageAccessGrants",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageAccessGrants.GetPortalPageAccessGrants"
+    },
+    {
+      "Name": "PortalPageDefinitions",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - PortalPageDefinition"
+    },
+    {
+      "Name": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModelName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.ExistsPortalPageDefinitionsWithModelName"
+    },
+    {
+      "Name": "PortalPageDefinitionsExistsPortalPageDefinitionsWithModuleName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.ExistsPortalPageDefinitionsWithModuleName"
+    },
+    {
+      "Name": "PortalPageDefinitionsGetListPortalPageDefinitions",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.GetListPortalPageDefinitions"
+    },
+    {
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsByKey",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.GetPortalPageDefinitionsByKey"
+    },
+    {
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsWithModelName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.GetPortalPageDefinitionsWithModelName"
+    },
+    {
+      "Name": "PortalPageDefinitionsGetPortalPageDefinitionsWithModuleName",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query PortalPageDefinitions.GetPortalPageDefinitionsWithModuleName"
+    },
+    {
+      "Name": "RefreshTokens",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - RefreshToken"
+    },
+    {
+      "Name": "RefreshTokensGetRefreshToken",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query RefreshTokens.GetRefreshToken"
+    },
+    {
+      "Name": "TableComboboxSettings",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - TableComboboxSetting"
+    },
+    {
+      "Name": "TopicWorkflows",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - TopicWorkflow"
+    },
+    {
+      "Name": "TopicWorkflowsGetTopicWorkflows",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query TopicWorkflows.GetTopicWorkflows"
+    },
+    {
+      "Name": "TopicWorkflowsGetWorkflows",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query TopicWorkflows.GetWorkflows"
+    },
+    {
+      "Name": "TopicWorkflowsGetWorkflows2",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule - Query TopicWorkflows.GetWorkflows2"
+    },
+    {
+      "Name": "Authentications",
+      "ModuleName": "IdentityModule",
+      "Description": "IdentityModule- Authentications"
+    }
+  ]
+}

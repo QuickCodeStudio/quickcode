@@ -1,0 +1,41 @@
+﻿@using QuickCode.Quickcode.Portal.Models.QuickcodeModule
+@model QuickcodeModule.ArchitecturalPatternData
+@{
+    string title =  "QuickcodeModule.ArchitecturalPattern List".SplitCamelCaseToString();
+    TempData["Title"] = title;
+}
+<div class="container-fluid" IsPageAvailable="true">
+    <form method="post" id="formList" data-list-partial-url="/QuickcodeModuleArchitecturalPatterns/ListPartial">
+        @Html.AntiForgeryToken()
+        <div class="card text shadow mb-4">
+            
+            <div class="card-body">
+                <h2 class="card-title">@title</h2>
+                <p class="card-text">You can manage your QuickcodeModule.ArchitecturalPattern table.</p>
+                <vc:insert-button controller-name="" action-name=""></vc:insert-button>
+                <div id="list-region" class="portal-list-region">
+                    @await Html.PartialAsync("_ListTable", Model)
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="CurrentPage" />
+        <input type="hidden" asp-for="PageSize" />
+        <input type="hidden" asp-for="SelectedKey" />
+    </form>
+
+    <div class="modal fade bd-example-modal-lg" id="itemDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" id="itemDetailsContainer">
+        </div>
+    </div>
+    
+</div>
+<div class="container-fluid" IsPageAvailable="false">
+ @await Html.PartialAsync("_NotAuthorized")
+</div>
+
+<script type="text/javascript">
+    window.addEventListener('load', (event) => {
+     $("img.lazyload").lazyload();
+    });
+</script>
+

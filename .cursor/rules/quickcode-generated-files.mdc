@@ -1,0 +1,41 @@
+---
+description: QuickCode generated project — file ownership and where to put new code
+alwaysApply: true
+---
+
+# QuickCode — mandatory agent rules
+
+Read `AGENTS.md` at repo root for full detail. Summary:
+
+## NEVER edit or create
+
+- `*.g.cs` — DBML generated
+- `*.qc.cs` — QuickCode scaffold
+- `*.g.sql`
+- `Views/Generated/**`
+
+If the task requires changing generated behavior → edit `src/dbml_files/*.dbml` and regenerate, or add user `.cs` files. Do not patch `.g.cs` / `.qc.cs`.
+
+## WHERE to put NEW user code
+
+Use plain `.cs` / `.cshtml` (never `.g.cs` / `.qc.cs` for your code).
+
+| Goal | Path |
+|------|------|
+| New API/entity/query from schema | `src/dbml_files/{Module}.dbml` → `quickcode generate` |
+| Extend generated class | Same layer as `.g.cs` → new `{Name}Extensions.cs` with `partial class` |
+| Register DI (services) | `SiteServiceRegistration.cs` in Api / Portal / Gateway / EventListener → `AddSiteCustomizations()` |
+| Custom middleware | `SitePipelineConfiguration.cs` in same host → `ConfigureSitePipeline*` hooks |
+| Business logic / handlers | `src/Modules/{Module}/Core/QuickCode.{Project}.{Module}.Application/` |
+| Domain (non-DBML) | `src/Modules/{Module}/Core/QuickCode.{Project}.{Module}.Domain/` |
+| Custom repository / store | `src/Modules/{Module}/Infrastructure/QuickCode.{Project}.{Module}.Persistence/` |
+| Custom API controller | `src/Modules/{Module}/Presentation/QuickCode.{Project}.{Module}.Api/Controllers/` |
+| Custom portal Razor | `src/Presentation/QuickCode.{Project}.Portal/Views/` — **not** `Views/Generated/` |
+| Portal controllers/helpers | `src/Presentation/QuickCode.{Project}.Portal/Controllers/` or `Helpers/` |
+| Gateway | `src/Presentation/QuickCode.{Project}.Gateway/` |
+| Cross-module shared | `src/Common/QuickCode.{Project}.Common/` |
+| Event listener | `src/Services/QuickCode.{Project}.EventListenerService/` |
+
+`{Project}` = PascalCase site name. `{Module}` = module folder under `src/Modules/`.
+
+Regen never deletes or overwrites existing user `.cs` files.

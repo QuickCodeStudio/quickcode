@@ -1,0 +1,27 @@
+@model ViewPermissionItemData
+@{
+    var opCount = (Model.Item.Detail ? 1 : 0) + (Model.Item.Update ? 1 : 0) + (Model.Item.Delete ? 1 : 0);
+}
+@if (opCount > 0 && Model.ItemId == "Header")
+{
+    <th class="portal-ops-cell" data-ops-count="@opCount" data-col-key="ops" data-col-type="ops" aria-label="Actions" title="Actions"></th>
+}
+else if (opCount > 0)
+{
+    <td scope="row" class="portal-ops-cell" data-ops-count="@opCount" data-col-key="ops" data-col-type="ops">
+        <button-group class="portal-ops-group">
+            @if (Model.Item.Detail)
+            {
+                <button type="button" id="DetailItem_@Model.ItemId" data-module-name="@Model.AreaName@Model.ControllerName" class="opButtonDetail" bc-color="Primary" bc-tooltip="Detail" bc-size="Small"><i class="fas fa-eye"></i></button>
+            }
+            @if (Model.Item.Update)
+            {
+                <button type="button" id="UpdateItem_@Model.ItemId" data-module-name="@Model.AreaName@Model.ControllerName" class="opButtonUpdate" bc-color="Warning" bc-tooltip="Update" bc-size="Small"><i class="fas fa-edit"></i></button>
+            }
+            @if (Model.Item.Delete)
+            {
+                <button type="button" id="DeleteItem_@Model.ItemId" data-module-name="@Model.AreaName@Model.ControllerName" class="opButtonDelete" bc-color="Danger" bc-tooltip="Delete" bc-size="Small"><i class="fas fa-trash-alt"></i></button>
+            }
+        </button-group>
+    </td>
+}
